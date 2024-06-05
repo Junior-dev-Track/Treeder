@@ -28,7 +28,7 @@ Whenever he wants, a player can *lock* a tree by paying the following formula: `
 At anytime, a player can check the *leaderboard*, to see each player score, amount of trees, etc.  
 At anytime, a player can consult the *gamelog*, which record all actions in the game.
 
-When clicking on a tree, a player can see its value, name, owner, history of buys, and a link to the relative wikipedia article for this tree's species (if applicable). Any player can also leave a comment on a tree.
+When clicking on a tree, a player can see its value, name, owner, history of buys.
 
 ### Data
 
