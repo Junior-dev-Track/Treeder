@@ -81,7 +81,9 @@ Like the back-end part, we prepared a little snippet of code displaying a React 
 ## Team
 
 🐀 Gilles -> Back-end
+
 🐱 Manon -> Back-end and Front-end
+
 🐶 Mathilde -> Front-end, Designer (and a little bit Back-end)
 
 * * *
