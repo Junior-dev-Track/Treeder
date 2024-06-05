@@ -78,5 +78,14 @@ For the front-end part our code will be compiled/packaged with [Vite](https://vi
 Like the back-end part, we prepared a little snippet of code displaying a React component with the text "*Hello, World*".
 
 
+## Team
+
+🐀 Gilles -> Back-end
+🐱 Manon -> Back-end and Front-end
+🐶 Mathilde -> Front-end, Designer (and a little bit Back-end)
+
 * * *
+
+
+
 
