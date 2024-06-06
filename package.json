@@ -1,0 +1,18 @@
+{
+  "name": "treeder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "InsertTree.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node InsertTree.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Junior-dev-Track/Treeder.git"
+  },
+  "private": true,
+  "dependencies": {
+    "mysql2": "^3.10.0"
+  }
+}
