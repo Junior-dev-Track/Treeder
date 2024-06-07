@@ -1,18 +1,35 @@
 {
   "name": "treeder",
   "version": "1.0.0",
-  "description": "",
-  "main": "InsertTree.js",
+  "description": "> A web-based game of conquests… and trees",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node InsertTree.js"
+    "start": "node server/server.js",
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Junior-dev-Track/Treeder.git"
+    "url": "git+https://github.com/Junior-dev-Track/Treeder.git"
   },
   "private": true,
   "dependencies": {
-    "mysql2": "^3.10.0"
-  }
+    "express": "^4.19.2",
+    "mysql2": "^3.10.0",
+    "sass": "^1.77.4"
+  },
+  "bugs": {
+    "url": "https://github.com/Junior-dev-Track/Treeder/issues"
+  },
+  "homepage": "https://github.com/Junior-dev-Track/Treeder#readme",
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
