@@ -1,11 +1,12 @@
 const express = require('express');
+const Database = require("../model/Database");
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
 
-    let data = {
-        "data": "data"
-    }
+    const db = new Database()
+
+    const data = await db.query('SELECT idUsers, nbTrees, Leafs FROM `Users`')
     res.send(data);
 });
 

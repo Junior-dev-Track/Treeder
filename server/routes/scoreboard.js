@@ -6,9 +6,7 @@ router.get('/', async (req, res) => {
 
     const db = new Database()
 
-
-    const data = await db.query('SELECT idUsers, nbTrees, Leafs FROM `Users`')
-
+    const data = await db.query('SELECT IdTrees, TotHight, Species FROM `Trees`')
 
     res.send(data);
 });
