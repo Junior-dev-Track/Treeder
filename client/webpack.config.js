@@ -1,31 +1,60 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js', // the entry point of your application
+  entry: './src/index.js',
   output: {
-    filename: 'bundle.js', // the name of the bundled file
-    path: path.resolve(__dirname, 'dist'), // the directory where the bundled file will be saved
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 8000,
+    historyApiFallback: true,
+    proxy: [
+      {
+        context: ['/exemple'],
+        target: 'http://localhost:3000',
+      },
+    ],
   },
   module: {
     rules: [
       {
-        test: /\.jsx?$/, // regex to select only .js and .jsx files
-        exclude: /node_modules/, // exclude the node_modules directory
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
         use: {
-          loader: 'babel-loader', // use babel-loader to transpile the selected files
+          loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'], // use these presets
+            presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
       },
       {
-        test: /\.scss$/, // regex to select only .scss files
+        test: /\.scss$/,
         use: [
-          'style-loader', // creates style nodes from JS strings
-          'css-loader', // translates CSS into CommonJS
-          'sass-loader' // compiles Sass to CSS, using Node Sass by default
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
         ]
       }
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+    }),
+  ],
 };
