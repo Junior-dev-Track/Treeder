@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Database = require ('../model/Database')
+const Database = require ('../model/DataBase')
 
 router.get('/', async (req, res) => {
 
