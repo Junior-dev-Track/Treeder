@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Database = require ('../model/Database')
+const DataBase = require ('../model/DataBase')
 
 router.get('/', async (req, res) => {
 
-    const db = new Database()
+    const db = new DataBase()
 
     const data = await db.query('SELECT IdTrees, TotHight, Species FROM `Trees`')
 
