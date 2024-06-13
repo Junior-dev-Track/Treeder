@@ -11,4 +11,12 @@ class LogsDB {
     async getLog(dataLogs) {
         return await this.dataBase.query(`SELECT * FROM Logs WHERE IdLogs = ${dataLogs.IdLogs}`)
     }
+
+    async deleteLog(dataLogs) {
+        return await this.dataBase.query(`DELETE * FROM Logs WHERE IdLogs = ${dataLogs.IdLogs}`)
+    }
+
+    async updateLog(dataLogs) {
+        return await this.dataBase.query(`UPDATE Logs SET Logs = '${dataLogs.Log}', User = '${dataLogs.User}', Date = '${dataLogs.Date}', Categorie = '${dataLogs.Categorie}')`)
+    }
 }
