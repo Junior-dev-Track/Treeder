@@ -9,11 +9,12 @@ const StadiaMap = () => {
       zoom={13} 
       style={{ height: "80vh", width: "100%" }}
       minZoom={13}
+      zoomControl={false}
       >
 
       <TileLayer
         url="https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg"
-        attribution='&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        //attribution='&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
       />
     </MapContainer>
   );
