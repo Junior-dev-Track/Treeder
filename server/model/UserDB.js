@@ -35,6 +35,12 @@ class UserDB{
         return await this.dataBase.query(`SELECT IdUsers, Pseudo, Leafs, NbTrees FROM Users`)
     }
 
+    async getUserWithLog(dataUser) {
+
+        return await this.dataBase.query(`SELECT * FROM Users JOIN Logs ON Users.IdUsers=Logs.User WHERE IdUsers = '${dataUser.IdUsers}'`)
+
+    }
+
 }
 
 module.exports = UserDB;
