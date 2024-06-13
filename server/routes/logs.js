@@ -5,12 +5,12 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
 
-    let dataLogs = req.body;
-    let LogsDB = new LogsDB(new DataBase())
 
-    let logs = await LogsDB.getLog(dataLogs);
+    let logsDB = new LogsDB(new DataBase())
 
-    res.send(logs);
+    let logs = await logsDB.getAllLog();
+
+    res.status(200).send('Logs');
 });
 
 module.exports = router;

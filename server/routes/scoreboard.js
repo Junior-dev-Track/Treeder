@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const UserDB = require('../model/UserDB');
 const DataBase = require ('../model/DataBase')
 
 router.get('/', async (req, res) => {
 
-    const db = new DataBase()
+    let usersDB = new UserDB(new DataBase())
 
-    const data = await db.query('SELECT IdTrees, TotHight, Species FROM `Trees`')
+    let users = await usersDB.getScore();
 
-    res.send(data);
+    res.status(200).send(users);
 });
 
 module.exports = router;

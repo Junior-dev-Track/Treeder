@@ -19,12 +19,20 @@ class UserDB{
         return await this.dataBase.query(`SELECT * FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
     }
 
+    async getAllUser(){
+        return await this.dataBase.query(`SELECT * FROM Users`);
+    }
+
     async deleteUser(dataUser){
         return !!(await this.dataBase.query(`DELETE FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`));
     }
 
     async updateUser(dataUser){
         return !!(await this.dataBase.query(`UPDATE Users SET Pseudo = '${dataUser.Pseudo}', Password = '${dataUser.Password}', Mail = '${dataUser.Mail}' WHERE IdUsers = '${dataUser.IdUsers}'`));
+    }
+
+    async getScore() {
+        return await this.dataBase.query(`SELECT IdUsers, Pseudo, Leafs, NbTrees FROM Users`)
     }
 
 }
