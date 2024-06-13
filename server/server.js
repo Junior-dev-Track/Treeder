@@ -10,8 +10,8 @@ const exempleRoutes = require('./routes/exemple');
 const scoreRoutes = require('./routes/scoreboard');
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
-const userRoutes = require('./routes/user');
-const userAdminRoutes = require('./routes/admin');
+// const userRoutes = require('./routes/user');
+// const userAdminRoutes = require('./routes/admin');
 const logsRoutes = require('./routes/logs');
 const treesRoutes = require('./routes/trees');
 
@@ -22,8 +22,8 @@ app.use('/exemple', exempleRoutes);
 app.use('/score', scoreRoutes)
 app.use('/login', loginRoutes)
 app.use('/register', registerRoutes)
-app.use('/user', userRoutes)
-app.use('/user/admin', userAdminRoutes)
+// app.use('/user', userRoutes)
+// app.use('/user/admin', userAdminRoutes)
 app.use('/logs', logsRoutes)
 app.use('/trees', treesRoutes)
 

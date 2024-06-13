@@ -9,13 +9,16 @@ class TreeDB{
     }
 
     async getTree(dataTree){
-
         return await this.dataBase.query(`SELECT * FROM Trees WHERE IdTrees = '${dataTree.IdTrees}'`);
-
     }
 
     async getTreesByPosition(minLat, maxLat,minLon, maxLon){
         return await this.dataBase.query(`SELECT * FROM Trees WHERE Lat BETWEEN '${minLat}' AND '${maxLat}' AND Lon BETWEEN '${minLon}' AND '${maxLon}'`);
     }
 
+    async getTrees(){
+        return await this.dataBase.query('SELECT * FROM Trees');
+    }
 }
+
+module.exports = TreeDB;
