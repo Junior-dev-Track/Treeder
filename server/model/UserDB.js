@@ -8,6 +8,10 @@ class UserDB{
         return !!(await this.dataBase.query(`INSERT INTO Users (Pseudo, Password, Mail) VALUES ('${dataUser.Pseudo}', '${dataUser.Password}', '${dataUser.Mail}')`));
     }
 
+    async insertToken(token, idUser){
+        return !!(await this.dataBase.query(`UPDATE Users SET Token = '${token}' WHERE IdUsers = '${idUser}'`));
+    }
+
     async getUser(dataUser){
         if (dataUser.Pseudo){
             return await this.dataBase.query(`SELECT * FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
