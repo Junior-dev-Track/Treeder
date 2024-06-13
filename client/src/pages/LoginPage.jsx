@@ -1,45 +1,35 @@
-import React, { useState } from 'react';
-import { Link, Route } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
-
-const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-
-    if (name === 'username') {
-      setUsername(value);
-    } else if (name === 'password') {
-      setPassword(value);
-    }
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission here
-  };
+const LoginPage = ({ openModal, closeModal }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   return (
     <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      <h1>Login Page</h1>
+      <form>
         <label>
-          User Name
-          <input type="text" name="username" onChange={handleInputChange} />
+          Username:
+          <input type="text" name="username" />
         </label>
         <label>
-          Password
-          <input type="password" name="password" onChange={handleInputChange} />
+          Password:
+          <input type="password" name="password" />
         </label>
-        <a href="/forgot-password">Forgot your password?</a>
-        <button type="submit">Login</button>
-        
-        <Link to="/register">
-          <button type="button">Register</button>
-        </Link>
+        <input type="submit" value="Login" />
       </form>
+      {isMobile ? (
+        <Link to="/forgot-password">Forgot Password?</Link>
+      ) : (
+        <button onClick={() => openModal('forgot-password')}>Forgot Password?</button>
+      )}
+      {isMobile ? (
+        <Link to="/register">Register</Link>
+      ) : (
+        <button onClick={() => { closeModal(); openModal('register'); }}>Register</button>
+      )}
+      <button onClick={closeModal}>Close</button>
     </div>
   );
 };

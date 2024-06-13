@@ -1,73 +1,87 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import Modal from 'react-modal';
 
-const RegisterPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [avatar, setAvatar] = useState(null);
+const RegisterPage = ({ openModal, closeModal }) => {
   const [step, setStep] = useState(1);
-
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-
-    switch (name) {
-      case 'username':
-        setUsername(value);
-        break;
-      case 'password':
-        setPassword(value);
-        break;
-      case 'confirmPassword':
-        setConfirmPassword(value);
-        break;
-      case 'email':
-        setEmail(value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleFileChange = (event) => {
-    setAvatar(event.target.files[0]);
-  };
-
   const nextStep = () => {
-    setStep(prevStep => prevStep + 1);
+    setStep(step + 1);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle registration logic here
+  const prevStep = () => {
+    setStep(step - 1);
   };
 
   return (
     <div>
-      <h2>Register</h2>
+      <h1>Register Page</h1>
       {isMobile ? (
         step === 1 ? (
-          <form onSubmit={nextStep}>
-            {/* Avatar and User Name fields */}
-            <button type="submit">Next</button>
-          </form>
+          <div>
+            <form>
+              <label>
+                Avatar:
+                <input type="file" name="avatar" />
+              </label>
+              <label>
+                Username:
+                <input type="text" name="username" />
+              </label>
+              <button onClick={nextStep}>Next</button>
+            </form>
+          </div>
         ) : (
-          <form onSubmit={handleSubmit}>
-            {/* Email, Password, and Confirm Password fields */}
-            <input type="submit" value="Register" />
-          </form>
+          <div>
+            <form>
+              <label>
+                Email:
+                <input type="email" name="email" />
+              </label>
+              <label>
+                Password:
+                <input type="password" name="password" />
+              </label>
+              <label>
+                Confirm Password:
+                <input type="password" name="confirmPassword" />
+              </label>
+              <button onClick={prevStep}>Back</button>
+              <input type="submit" value="Register" />
+            </form>
+            <Link to="/login">Login</Link>
+            <button onClick={closeModal}>Close</button>
+          </div>
         )
       ) : (
-        <Modal isOpen={true}>
-          <form onSubmit={handleSubmit}>
-            {/* All fields */}
+        <div>
+          <form>
+            <label>
+              Avatar:
+              <input type="file" name="avatar" />
+            </label>
+            <label>
+              Username:
+              <input type="text" name="username" />
+            </label>
+            <label>
+              Email:
+              <input type="email" name="email" />
+            </label>
+            <label>
+              Password:
+              <input type="password" name="password" />
+            </label>
+            <label>
+              Confirm Password:
+              <input type="password" name="confirmPassword" />
+            </label>
             <input type="submit" value="Register" />
           </form>
-        </Modal>
+          <button onClick={() => { closeModal(); openModal('login'); }}>Login</button>
+          <button onClick={closeModal}>Close</button>
+        </div>
       )}
     </div>
   );
