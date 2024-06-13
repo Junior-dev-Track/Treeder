@@ -24,6 +24,9 @@ app.use('/user', userRoutes)
 app.use('/user/admin', userAdminRoutes)
 app.use('/logs', logsRoutes)
 app.use('/trees', treesRoutes)
+app.use('/*', (req, res) => {
+  res.status(404).send('404 Not found');
+});
 
 
 
