@@ -9,6 +9,7 @@ const StadiaMap = () => {
       zoom={13} 
       style={{ height: "80vh", width: "100%" }}
       minZoom={13}
+      //maxZoom={17}
       zoomControl={false}
       >
 
