@@ -12,12 +12,15 @@ module.exports = {
     static: {
       directory: path.join(__dirname, 'dist'),
     },
+    devMiddleware: {
+      publicPath: '/dist/',
+    },
     compress: true,
     port: 8000,
     historyApiFallback: true,
     proxy: [
       {
-        context: ['/exemple'],
+        context: ['/trees', '/users', '/auth', '/forgot-password', '/reset-password', '/update-password', '/delete-account', '/update-account'],
         target: 'http://localhost:3000',
       },
     ],

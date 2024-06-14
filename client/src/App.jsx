@@ -21,9 +21,19 @@ const App = () => {
 
 
   useEffect(() => {
-    fetch('/exemple')
-      .then(response => response.json())
-      .then(data => setData(data));
+    fetch('/trees')
+      .then(response => {
+        if (!response.ok) {
+          console.log("test de merde");
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        //console.log(data);
+        setData(data);
+      })
+      .catch(error => console.log('There was a problem with the fetch operation: ' + error.message));
   }, []);
 
 
