@@ -13,7 +13,7 @@ const userRoutes = require('./routes/user');
 const userAdminRoutes = require('./routes/admin');
 const logsRoutes = require('./routes/logs');
 const treesRoutes = require('./routes/trees');
-
+const logoutRoutes = require('./routes/logout');
 
 // Use the routes
 app.use('/', indexRoutes);
@@ -24,6 +24,7 @@ app.use('/user', userRoutes)
 app.use('/user/admin', userAdminRoutes)
 app.use('/logs', logsRoutes)
 app.use('/trees', treesRoutes)
+app.use('/logout', logoutRoutes)
 app.use('/*', (req, res) => {
   res.status(404).send('404 Not found');
 });

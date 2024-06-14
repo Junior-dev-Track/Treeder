@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 
     let logs = await logsDB.getAllLog();
 
-    res.status(200).send('Logs');
+    res.status(200).send(logs);
 });
 
 module.exports = router;
