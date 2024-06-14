@@ -73,6 +73,5 @@ const App = () => {
 };
 
 
-//Mettre les trucs dans home et laisser routes racines
 
 export default App;

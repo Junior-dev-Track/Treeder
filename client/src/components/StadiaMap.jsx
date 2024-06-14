@@ -2,7 +2,7 @@ import React from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import treeImage from '../assets/img/tree.png'; // Importez l'image ici
+import treeImage from '../assets/img/tree.png'; 
 
 
 
