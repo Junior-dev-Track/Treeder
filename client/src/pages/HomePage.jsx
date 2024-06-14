@@ -5,12 +5,12 @@ import { useMediaQuery } from 'react-responsive';
 import StadiaMap from '../components/StadiaMap.jsx';
 
 
-const HomePage = ({ openModal }) => {
+const HomePage = ({ openModal, treeData }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   return (
     <div>
-       <StadiaMap />
+       <StadiaMap treeData={treeData} />
       <h1>Home Page</h1>
       {isMobile ? (
         <Link to="/login">Login</Link>

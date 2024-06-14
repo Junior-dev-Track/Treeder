@@ -24,7 +24,6 @@ const App = () => {
     fetch('/trees')
       .then(response => {
         if (!response.ok) {
-          console.log("test de merde");
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
@@ -51,7 +50,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage openModal={openModal} />} />
+        <Route path="/" element={<HomePage openModal={openModal} treeData={data} />} />
         {isMobile && (
           <>
             <Route path="/login" element={<LoginPage openModal={openModal} />} />

@@ -52,7 +52,15 @@ module.exports = {
           'css-loader',
           'sass-loader'
         ]
-      }
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
     ],
   },
   plugins: [
