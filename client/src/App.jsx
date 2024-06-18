@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './style/App.scss';
 import Modal from 'react-modal';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -10,6 +10,7 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ForgotPassword from './pages/ForgotPass.jsx';
 
+import MapContext from './components/MapContext.jsx';
 
 
 
@@ -19,9 +20,22 @@ const App = () => {
   const [modalContent, setModalContent] = useState(null);
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
+  const map = useContext(MapContext);
+
 
   useEffect(() => {
-    fetch('/trees')
+    console.log(map);
+    if (!map) {
+      return;
+    }
+ 
+    setTimeout(() => {
+      bounds = map.getBounds();
+      ne = bounds.getNorthEast();
+      sw = bounds.getSouthWest();
+      console.log(ne, sw);
+    
+    fetch(`/trees?minLat=${sw.lat}&maxLat=${ne.lat}&minLon=${sw.lng}&maxLon=${ne.lng}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -29,11 +43,19 @@ const App = () => {
         return response.json();
       })
       .then(data => {
-        //console.log(data);
+        console.log(data);
         setData(data);
       })
       .catch(error => console.log('There was a problem with the fetch operation: ' + error.message));
-  }, []);
+
+      map.on('moveend', () => {
+        // Your code here...
+      });
+    }, 1000); 
+  }, [map]);
+
+
+
 
 
   const openModal = (content) => {
