@@ -17,7 +17,7 @@ class TreeDB{
     }
 
     async getTrees(){
-        return await this.dataBase.query('SELECT * FROM Trees LIMIT 20');
+        return await this.dataBase.query('SELECT * FROM Trees');
     }
 }
 
