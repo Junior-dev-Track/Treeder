@@ -15,7 +15,14 @@ export default defineConfig({
     port: 8000,
     proxy: {
       // Si vous avez besoin de configurer un proxy pour les requêtes API, vous pouvez le faire ici
-      '/api': 'http://localhost:3000',
+      '/trees': 'http://localhost:3000',
+      '/login': 'http://localhost:3000',
+      '/register': 'http://localhost:3000',
+      '/logs': 'http://localhost:3000',
+      '/score': 'http://localhost:3000',
+      '/user': 'http://localhost:3000',
+      '/user/admin': 'http://localhost:3000',
+
     },
   },
   build: {
