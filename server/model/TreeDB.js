@@ -12,13 +12,14 @@ class TreeDB{
         return await this.dataBase.query(`SELECT * FROM Trees WHERE IdTrees = '${dataTree.IdTrees}'`);
     }
 
-    async getTreesByPosition(minLat, maxLat,minLon, maxLon){
-        return await this.dataBase.query(`SELECT * FROM Trees WHERE Lat BETWEEN '${minLat}' AND '${maxLat}' AND Lon BETWEEN '${minLon}' AND '${maxLon}'`);
-    }
-
     async getTrees(){
         return await this.dataBase.query('SELECT * FROM Trees LIMIT 20');
     }
+
+    async getTreesByPosition(minLat, maxLat, minLon, maxLon) {
+        return await this.dataBase.query(`SELECT * FROM Trees WHERE Lat BETWEEN '${minLat}' AND '${maxLat}' AND Lon BETWEEN '${minLon}' AND '${maxLon}'`);
+    }
+
 }
 
 module.exports = TreeDB;
