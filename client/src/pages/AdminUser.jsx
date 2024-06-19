@@ -38,9 +38,8 @@ const AdminUsers = () => {
   };
 
   const handleViewUser = (userId) => {
-    navigate(`/user/${userId}`);
+    navigate(`/userdetails/${userId}`);
   };
-
   const handleBack = () => {
     navigate('/', { state: { openAdminProfile: true } });
   };
