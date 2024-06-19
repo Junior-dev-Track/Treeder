@@ -9,8 +9,8 @@ import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ForgotPassword from './pages/ForgotPass.jsx';
-
-
+import AdminUsers from './pages/AdminUser.jsx';
+import UserDetails from './pages/UserDetails.jsx';
 
 
 const App = () => {
@@ -21,9 +21,19 @@ const App = () => {
 
 
   useEffect(() => {
-    fetch('/exemple')
-      .then(response => response.json())
-      .then(data => setData(data));
+    fetch(`/trees`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        setData(data);
+      })
+      .catch(error => console.log('There was a problem with the fetch operation: ' + error.message));
+
   }, []);
 
 
@@ -41,12 +51,18 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage openModal={openModal} />} />
+        <Route path="/" element={<HomePage openModal={openModal} treeData={data} />} />
         {isMobile && (
           <>
             <Route path="/login" element={<LoginPage openModal={openModal} />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+          </>
+        )}
+        {!isMobile && (
+          <>
+            <Route path="/adminusers" element={<AdminUsers />} /> 
+            <Route path="/user/:userId" element={<UserDetails />} />
           </>
         )}
       </Routes>
@@ -64,6 +80,5 @@ const App = () => {
 };
 
 
-//Mettre les trucs dans home et laisser routes racines
 
 export default App;
