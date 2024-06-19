@@ -8,15 +8,21 @@ class LogsDB {
         return await this.dataBase.query(`INSERT INTO Logs (Log, User, Date, Categorie) VALUES ('${dataLogs.Log}','${dataLogs.User}', '${dataLogs.Date}', '${dataLogs.Categorie}')`)
     }
 
-    async getLog(dataLogs) {
-        return await this.dataBase.query(`SELECT * FROM Logs WHERE IdLogs = ${dataLogs.IdLogs}`)
+    async getLogPlayer() {
+        return await this.dataBase.query(`SELECT l.Log, u.Pseudo, l.Date, l.Categorie FROM Logs as l JOIN Users as u ON l.User = u.IdUsers`)
+    }
+
+    async getLogAdmin() {
+        return await this.dataBase.query(`SELECT * FROM Logs JOIN Users ON Logs.User = Users.IdUsers`)
     }
 
     async deleteLog(dataLogs) {
-        return await this.dataBase.query(`DELETE * FROM Logs WHERE IdLogs = ${dataLogs.IdLogs}`)
+        return await this.dataBase.query(`DELETE FROM Logs WHERE IdLogs = ${dataLogs.IdLogs}`)
     }
 
     async updateLog(dataLogs) {
-        return await this.dataBase.query(`UPDATE Logs SET Logs = '${dataLogs.Log}', User = '${dataLogs.User}', Date = '${dataLogs.Date}', Categorie = '${dataLogs.Categorie}')`)
+        return await this.dataBase.query(`UPDATE Logs SET Log = '${dataLogs.Log}', User = '${dataLogs.User}', Date = '${dataLogs.Date}', Categorie = '${dataLogs.Categorie}')`)
     }
 }
+
+module.exports = LogsDB;

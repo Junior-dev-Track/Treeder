@@ -12,7 +12,8 @@ const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 // const userRoutes = require('./routes/user');
 // const userAdminRoutes = require('./routes/admin');
-const logsRoutes = require('./routes/logs');
+const logsRoutesAdmin = require('./routes/logsAdmin');
+const logsRoutesPlayer = require('./routes/logsPlayer');
 const treesRoutes = require('./routes/trees');
 
 
@@ -24,7 +25,8 @@ app.use('/login', loginRoutes)
 app.use('/register', registerRoutes)
 // app.use('/user', userRoutes)
 // app.use('/user/admin', userAdminRoutes)
-app.use('/logs', logsRoutes)
+app.use('/logsAdmin', logsRoutesAdmin)
+app.use('/logsPlayer', logsRoutesPlayer)
 app.use('/trees', treesRoutes)
 
 
