@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style/App.scss';
 import Modal from 'react-modal';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -9,9 +9,8 @@ import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ForgotPassword from './pages/ForgotPass.jsx';
-
-import MapContext from './components/MapContext.jsx';
-
+import AdminUsers from './pages/AdminUser.jsx';
+import UserDetails from './pages/UserDetails.jsx';
 
 
 const App = () => {
@@ -20,22 +19,9 @@ const App = () => {
   const [modalContent, setModalContent] = useState(null);
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
-  const map = useContext(MapContext);
-
 
   useEffect(() => {
-    console.log(map);
-    if (!map) {
-      return;
-    }
- 
-    setTimeout(() => {
-      bounds = map.getBounds();
-      ne = bounds.getNorthEast();
-      sw = bounds.getSouthWest();
-      console.log(ne, sw);
-    
-    fetch(`/trees?minLat=${sw.lat}&maxLat=${ne.lat}&minLon=${sw.lng}&maxLon=${ne.lng}`)
+    fetch(`/trees`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -48,14 +34,7 @@ const App = () => {
       })
       .catch(error => console.log('There was a problem with the fetch operation: ' + error.message));
 
-      map.on('moveend', () => {
-        // Your code here...
-      });
-    }, 1000); 
-  }, [map]);
-
-
-
+  }, []);
 
 
   const openModal = (content) => {
@@ -78,6 +57,12 @@ const App = () => {
             <Route path="/login" element={<LoginPage openModal={openModal} />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+          </>
+        )}
+        {!isMobile && (
+          <>
+            <Route path="/adminusers" element={<AdminUsers />} /> 
+            <Route path="/user/:userId" element={<UserDetails />} />
           </>
         )}
       </Routes>
