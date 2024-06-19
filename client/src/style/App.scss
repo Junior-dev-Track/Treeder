@@ -1,5 +1,12 @@
 $primary-color: #384fb8;
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
 body {
   background-color: $primary-color;
   font-family: Arial, sans-serif;
@@ -7,4 +14,11 @@ body {
   h1 {
     color: #000000;
   }
+}
+
+.map-container {
+  position: absolute;
+  height: 80vh;
+  width: 100%;
+  z-index: -1;
 }

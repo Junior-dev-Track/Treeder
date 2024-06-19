@@ -13,7 +13,8 @@
     "react-modal": "^3.16.1",
     "react-responsive": "^10.0.0",
     "react-router": "^6.23.1",
-    "react-router-dom": "^6.23.1"
+    "react-router-dom": "^6.23.1",
+    "react-table": "^7.8.0"
   },
   "scripts": {
     "start": "vite",
