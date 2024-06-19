@@ -37,4 +37,3 @@ app.use('/*', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZFVzZXJzIjoxLCJpYXQiOjE3MTg3OTkxNzMsImV4cCI6MTcxODgwMjc3M30.q5XUCHebMHMBSuh-WtAAbKXsNmBF7QOSe9aJMrFspOo
