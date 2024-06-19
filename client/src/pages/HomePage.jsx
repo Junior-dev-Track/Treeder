@@ -11,7 +11,7 @@ import ProfilGamer from './ProfilGamer.jsx';
 import ProfilAdmin from './ProfilAdmin.jsx';
 
 
-const HomePage = ({ openModal, treeData }) => {
+const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   return (
@@ -25,8 +25,8 @@ const HomePage = ({ openModal, treeData }) => {
       ) : (
         <button onClick={() => openModal('login')}>Login</button>
       )}
-      <Scores />
-      <Logs />
+      <Scores score={scoreData} />
+      <Logs logs={playerLogs} />
       <ProfilGamer />
       <ProfilAdmin />
     </div>

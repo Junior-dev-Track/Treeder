@@ -2,25 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { useTable } from 'react-table';
 
-const Logs = () => {
+const Logs = ({ logs }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const data = React.useMemo(
-    () => [
-      // Remplacez ceci par vos données réelles
-      { date: '2022-01-01', time: '12:00', pseudo: 'Player1', log: 'Log text 1' },
-      { date: '2022-01-02', time: '13:00', pseudo: 'Player2', log: 'Log text 2' },
-      // ...
-    ],
-    []
-  );
+  const data = React.useMemo(() => logs, [logs]);
 
   const columns = React.useMemo(
     () => [
-      { Header: 'Pseudo', accessor: 'pseudo' },
-      { Header: 'Date', accessor: 'date' },
-      { Header: 'Time', accessor: 'time' },
-      { Header: 'Log', accessor: 'log' },
+      { Header: 'Pseudo', accessor: 'Pseudo' },
+      { Header: 'Date', accessor: 'Date' },
+      { Header: 'Log', accessor: 'Log' },
     ],
     []
   );
@@ -40,22 +31,28 @@ const Logs = () => {
         <h2>Player Logs</h2>
         <table {...getTableProps()}>
           <thead>
-            {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                  <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                ))}
-              </tr>
-            ))}
+            {headerGroups.map(headerGroup => {
+              const { key: keyHeaderGroup, ...propsHeaderGroup } = headerGroup.getHeaderGroupProps();
+              return (
+                <tr key={keyHeaderGroup} {...propsHeaderGroup}>
+                  {headerGroup.headers.map(column => {
+                    const { key: keyColumn, ...propsColumn } = column.getHeaderProps();
+                    return <th key={keyColumn} {...propsColumn}>{column.render('Header')}</th>;
+                  })}
+                </tr>
+              );
+            })}
           </thead>
           <tbody {...getTableBodyProps()}>
             {rows.map(row => {
               prepareRow(row);
+              const { key: keyRow, ...propsRow } = row.getRowProps();
               return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map(cell => (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  ))}
+                <tr key={keyRow} {...propsRow}>
+                  {row.cells.map(cell => {
+                    const { key: keyCell, ...propsCell } = cell.getCellProps();
+                    return <td key={keyCell} {...propsCell}>{cell.render('Cell')}</td>;
+                  })}
                 </tr>
               );
             })}
