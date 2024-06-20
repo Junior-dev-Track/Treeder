@@ -28,15 +28,21 @@ router.post('/', async (req, res) => {
         return res.status(400).send('Invalid password');
     }
     else {
-        // créer un token
-        const token = jwt.sign({IdUsers: user.IdUsers}, process.env.TOKEN_SECRET, {expiresIn: '1h'});
-        await userDb.insertToken(token, user.IdUsers);
+        // créer deux token (un pour l'authentification et un pour le refresh)
+        const accessToken = jwt.sign({IdUsers: user.IdUsers}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+        const refreshToken = jwt.sign({IdUsers: user.IdUsers}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'});
+
+        res.cookie('jwt', refreshToken, {
+            httpOnly: true,
+            sameSite: 'None', secure: false,
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        });
 
         let data = {
             IdUsers: user.IdUsers,
             Pseudo: user.Pseudo,
             Mail: user.Mail,
-            Token: token
+            Token: accessToken
         };
 
         res.status(200).send(data);

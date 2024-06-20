@@ -7,8 +7,8 @@ function authenticateToken(req, res, next) {
 
   
 
-  jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-    if (err) return res.status(403).send(err); // Si le token est invalide, renvoyez une erreur 403 (Interdit)
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.status(403); // Si le token est invalide, renvoyez une erreur 403 (Interdit)
     req.user = user; // Stockez les informations de l'utilisateur dans la requête
     next(); // Passez au prochain middleware ou à la fonction de route
   });

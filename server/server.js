@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
+const cookieParser = require('cookie-parser');
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Import the different routes
 const indexRoutes = require('./routes/index');
@@ -15,6 +17,7 @@ const logsRoutesAdmin = require('./routes/logsAdmin');
 const logsRoutesPlayer = require('./routes/logsPlayer');
 const treesRoutes = require('./routes/trees');
 const logoutRoutes = require('./routes/logout');
+const refreshTokenRoutes = require('./routes/refreshToken');
 
 
 // Use the routes
@@ -28,6 +31,7 @@ app.use('/logsAdmin', logsRoutesAdmin)
 app.use('/logsPlayer', logsRoutesPlayer)
 app.use('/trees', treesRoutes)
 app.use('/logout', logoutRoutes)
+app.use('/refresh', refreshTokenRoutes)
 app.use('/*', (req, res) => {
   res.status(404).send('404 Not found');
 });
