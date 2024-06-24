@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const cookieParser = require('cookie-parser');
+const webSocket = require('ws');
 
 app.use(express.json());
 app.use(cookieParser());
@@ -40,4 +41,18 @@ app.use('/*', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+});
+
+const wss = new webSocket.Server({ port: 8000 });
+wss.on('connection', (ws) => {
+  console.log('New client connected');
+
+  // Send data every 5 seconds
+  setInterval(() => {
+    ws.send(JSON.stringify({ data: 'Your data here' }));
+  }, 5000);
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
 });
