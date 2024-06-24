@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node server/tst.js",
     "start": "nodemon server/server.js",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "delete": "node server/deletetree.js"
   },
   "repository": {
     "type": "git",
