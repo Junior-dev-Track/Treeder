@@ -33,6 +33,7 @@ app.use('/logsPlayer', logsRoutesPlayer)
 app.use('/trees', treesRoutes)
 app.use('/logout', logoutRoutes)
 app.use('/refresh', refreshTokenRoutes)
+app.use('/music', express.static('public/music'));
 app.use('/*', (req, res) => {
   res.status(404).send('404 Not found');
 });
