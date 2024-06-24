@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 const UserDetails = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const user = users.find(user => user.id === parseInt(userId));
 
   useEffect(() => {
     // Remplacez cette fonction par la fonction que vous utilisez pour récupérer les informations de l'utilisateur
@@ -36,7 +36,7 @@ const UserDetails = () => {
     // Cancel changes here
   };
 
-  if (!user) {
+    if (!user) {
     return <div>Loading...</div>;
   }
 

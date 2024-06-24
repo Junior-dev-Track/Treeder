@@ -3,24 +3,17 @@ import Modal from 'react-modal';
 import { useTable } from 'react-table';
 
 
-const Scores = () => {
+const Scores = ({ score }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const data = React.useMemo(
-    () => [
-      { place: 1, pseudo: 'Player1', trees: 10, leaves: 50 },
-      { place: 2, pseudo: 'Player2', trees: 8, leaves: 40 },
-      // ...
-    ],
-    []
-  );
+  const data = React.useMemo(() => score, [score]);
 
   const columns = React.useMemo(
     () => [
-      { Header: 'Place', accessor: 'place' },
-      { Header: 'Pseudo', accessor: 'pseudo' },
-      { Header: 'Trees', accessor: 'trees' },
-      { Header: 'Leaves', accessor: 'leaves' },
+      { Header: 'Place', accessor: 'IdUsers' },
+      { Header: 'Pseudo', accessor: 'Pseudo' },
+      { Header: 'Trees', accessor: 'NbTrees' },
+      { Header: 'Leaves', accessor: 'Leafs' },
     ],
     []
   );
@@ -40,22 +33,28 @@ const Scores = () => {
         <h2>Scores</h2>
         <table {...getTableProps()}>
           <thead>
-            {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                  <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                ))}
-              </tr>
-            ))}
+            {headerGroups.map(headerGroup => {
+              const { key, ...props } = headerGroup.getHeaderGroupProps();
+              return (
+                <tr key={key} {...props}>
+                  {headerGroup.headers.map(column => {
+                    const { key: columnKey, ...columnProps } = column.getHeaderProps();
+                    return <th key={columnKey} {...columnProps}>{column.render('Header')}</th>;
+                  })}
+                </tr>
+              );
+            })}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
+            {rows.map((row, i) => {
               prepareRow(row);
+              const { key, ...props } = row.getRowProps();
               return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map(cell => (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  ))}
+                <tr key={key} {...props}>
+                  {row.cells.map(cell => {
+                    const { key, ...props } = cell.getCellProps();
+                    return <td key={key} {...props}>{cell.render('Cell')}</td>;
+                  })}
                 </tr>
               );
             })}

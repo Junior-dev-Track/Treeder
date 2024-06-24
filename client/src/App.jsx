@@ -14,14 +14,55 @@ import UserDetails from './pages/UserDetails.jsx';
 
 
 const App = () => {
-  const [data, setData] = useState(null);
+  const [trees, setTrees] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
+  const [logs, setLogs] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [score, setScore] = useState([]);
+
 
   useEffect(() => {
-    fetch(`/trees`)
+    const fetchTrees = fetch(`/trees`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        //console.log(data);
+        setTrees(data);
+      });
+
+    const fetchUsers = fetch('/user')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        //console.log(data);
+        // Mettez à jour votre état avec les données des utilisateurs ici
+      });
+
+
+    const fetchLogs = fetch('/logsPlayer')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        //console.log(data);
+        setLogs(data);
+      });
+
+      const fetchScore = fetch('/score')
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -30,11 +71,12 @@ const App = () => {
       })
       .then(data => {
         console.log(data);
-        setData(data);
-      })
-      .catch(error => console.log('There was a problem with the fetch operation: ' + error.message));
+        setScore(data);
+      });
 
-  }, []);
+  Promise.all([fetchTrees, fetchUsers, fetchLogs, fetchScore ])
+    .catch(error => console.log('There was a problem with the fetch operation: ' + error.message));
+}, []);
 
 
   const openModal = (content) => {
@@ -51,7 +93,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage openModal={openModal} treeData={data} />} />
+      <Route path="/" element={Array.isArray(logs) ? <HomePage openModal={openModal} treeData={trees} playerLogs={logs} scoreData={score} /> : null} />
         {isMobile && (
           <>
             <Route path="/login" element={<LoginPage openModal={openModal} />} />
@@ -62,7 +104,7 @@ const App = () => {
         {!isMobile && (
           <>
             <Route path="/adminusers" element={<AdminUsers />} /> 
-            <Route path="/user/:userId" element={<UserDetails />} />
+            <Route path="/userdetails/:userId" element={<UserDetails />} />
           </>
         )}
       </Routes>

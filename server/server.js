@@ -1,18 +1,15 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-const cookieParser = require('cookie-parser');
-const webSocket = require('ws');
 
 app.use(express.json());
-app.use(cookieParser());
 
 // Import the different routes
 const indexRoutes = require('./routes/index');
 const scoreRoutes = require('./routes/scoreboard');
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
-// const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/user');
 // const userAdminRoutes = require('./routes/admin');
 const logsRoutesAdmin = require('./routes/logsAdmin');
 const logsRoutesPlayer = require('./routes/logsPlayer');
@@ -26,7 +23,7 @@ app.use('/', indexRoutes);
 app.use('/score', scoreRoutes)
 app.use('/login', loginRoutes)
 app.use('/register', registerRoutes)
-// app.use('/user', userRoutes)
+app.use('/user', userRoutes)
 // app.use('/user/admin', userAdminRoutes)
 app.use('/logsAdmin', logsRoutesAdmin)
 app.use('/logsPlayer', logsRoutesPlayer)

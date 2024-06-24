@@ -18,10 +18,12 @@ export default defineConfig({
       '/trees': 'http://localhost:3000',
       '/login': 'http://localhost:3000',
       '/register': 'http://localhost:3000',
-      '/logs': 'http://localhost:3000',
+      '/logsPlayer': 'http://localhost:3000',
+      '/logsAdmin': 'http://localhost:3000',
       '/score': 'http://localhost:3000',
       '/user': 'http://localhost:3000',
       '/user/admin': 'http://localhost:3000',
+      '/score' : 'http://localhost:3000',
 
     },
   },
