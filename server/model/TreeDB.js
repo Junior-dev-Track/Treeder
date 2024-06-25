@@ -27,11 +27,19 @@ class TreeDB{
 
     async getRandomTrees() {
         const query = "SELECT * FROM Trees ORDER BY RAND() LIMIT 3";
-        const trees = await this.db.query(query);
+        const trees = await this.dataBase.query(query);
         return trees;
     }
 
-    async assignUserToTree(dataUser, tree) {
+    async assignUserToTree(userLogin, tree) {
+        const query = "UPDATE Trees SET Owner = ? WHERE IdTrees = ?";
+        await this.dataBase.query(query, [userLogin.IdUsers, tree.IdTrees]);
+
+    }
+
+    async assignUserAndNameToTree(userLogin, name, tree) {
+        const query = "UPDATE Trees SET Owner = ?, Name = ? WHERE IdTrees = ?";
+        await this.dataBase.query(query, [userLogin.IdUsers, name, tree.IdTrees]);
 
     }
 }

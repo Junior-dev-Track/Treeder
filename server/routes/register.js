@@ -6,6 +6,7 @@ const TreeDB = require('../model/TreeDB')
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
+const nameGenerator = require ("fantasy-name-generator")
 
 router.post('/', async (req, res) => {
 
@@ -59,6 +60,19 @@ router.post('/', async (req, res) => {
             Admin: userLogin.Admin,
             Token: accessToken
         };
+
+        // Fetch three random trees
+        let trees = await treeDB.getRandomTrees();
+        // Assign the trees to the user
+        for(let tree of trees) {
+            console.log(tree, userLogin)
+            const name = nameGenerator.nameByRace("fairy", { gender: "female" });
+            await treeDB.assignUserAndNameToTree(userLogin, name, tree);
+        }
+
+
+        // [total leaves of players] / [amount of players]
+
         res.status(200).send(data);
 
     }
