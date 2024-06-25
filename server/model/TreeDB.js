@@ -26,7 +26,7 @@ class TreeDB{
     }
 
     async getRandomTrees() {
-        const query = "SELECT * FROM Trees ORDER BY RAND() LIMIT 3";
+        const query = "SELECT * FROM Trees WHERE Owner is null ORDER BY RAND() LIMIT 3";
         const trees = await this.dataBase.query(query);
         return trees;
     }

@@ -5,7 +5,7 @@ class UserDB{
     }
 
     async insertUser(dataUser){
-        return !!(await this.dataBase.query(`INSERT INTO Users (Pseudo, Password, Mail) VALUES ('${dataUser.Pseudo}', '${dataUser.Password}', '${dataUser.Mail}')`));
+        return !!(await this.dataBase.query(`INSERT INTO Users (Pseudo, Password, Mail, Leafs, SkinPlayer) VALUES ('${dataUser.Pseudo}', '${dataUser.Password}', '${dataUser.Mail}', '${dataUser.Leafs}', '${dataUser.SkinPlayer}')`));
     }
 
     async getUser(dataUser){
@@ -39,6 +39,12 @@ class UserDB{
 
     async verifyUser(dataUser) {
         return await this.dataBase.query(`SELECT * FROM Users WHERE Pseudo = '${dataUser.Pseudo}' OR Mail = '${dataUser.Mail}'`);
+    }
+
+    async getAverageLeaves() {
+        const query = "SELECT ROUND(AVG(Leafs)) as averageLeaves FROM Users";
+        const result = await this.dataBase.query(query);
+        return result[0].averageLeaves;
     }
 }
 
