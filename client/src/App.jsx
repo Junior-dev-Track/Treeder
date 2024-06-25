@@ -20,6 +20,8 @@ const App = () => {
   const [modalContent, setModalContent] = useState(null);
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   const [logs, setLogs] = useState([]);
   const [users, setUsers] = useState([]);
   const [score, setScore] = useState([]);
@@ -91,7 +93,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-      <Route path="/" element={Array.isArray(logs) ? <HomePage openModal={openModal} treeData={trees} playerLogs={logs} scoreData={score} /> : null} />
+      <Route path="/" element={Array.isArray(logs) ? <HomePage openModal={openModal} treeData={trees} playerLogs={logs} scoreData={score} /> : null} isAuthenticated={isAuthenticated} />
         {isMobile && (
           <>
             <Route path="/login" element={<LoginPage openModal={openModal} />} />

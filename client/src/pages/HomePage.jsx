@@ -16,9 +16,11 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   const pseudo = Cookies.get('pseudo');
   const avatarUrl = Cookies.get('avatarUrl');
+
 
   return (
     <div>
@@ -38,7 +40,7 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
             <img src={avatarUrl} alt="Avatar" />
             {pseudo}
           </button>
-          <Logout />
+          <Logout setIsAuthenticated={setIsAuthenticated} />
         </>
       )}
       <Scores score={scoreData} />

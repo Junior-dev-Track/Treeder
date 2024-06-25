@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import Cookies from 'js-cookie';
 import SettingsGamer from './SettingsGamer';
 
 const ProfilGamer = ({ isOpen, setIsOpen }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedSkin, setSelectedSkin] = useState(1);
-  const [playerData, setPlayerData] = useState({});
+  
 
   const handleSkinSelect = (skinNumber) => {
     setSelectedSkin(skinNumber);
@@ -14,30 +13,18 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
 
   useEffect(() => {
     setModalIsOpen(isOpen);
-
-    const token = Cookies.get('token');
-    console.log(token);
-    
-    fetch('/profile', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setPlayerData(data))
-      .catch((error) => console.error(error));
   }, [isOpen]);
 
   return (
     <div>
       <Modal isOpen={modalIsOpen} onRequestClose={() => {setModalIsOpen(false); setIsOpen(false);}}>
-        <img src={playerData.Avatar} alt="Avatar" />
-        <h2>Pseudo: {playerData.Pseudo}</h2>
-        <p>Classement: {playerData.Classement}</p>
-        <p>Nombre d'arbres: {playerData.NbTrees}</p>
-        <p>Nombre de feuilles: {playerData.Leafs}</p>
-        <p>Nombre de locks: {playerData.Locks}</p>
-      <div>
+        <img src="/path/to/avatar.png" alt="Avatar" />
+        <h2>Pseudo: Player1</h2>
+        <p>Classement: 1</p>
+        <p>Nombre d'arbres: 10</p>
+        <p>Nombre de feuilles: 100</p>
+        <p>Nombre de locks: 5</p>
+        <div>
           <h3>Skins:</h3>
           {[1, 2, 3, 4, 5].map((skinNumber) => (
             <button

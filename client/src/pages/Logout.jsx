@@ -2,13 +2,26 @@ import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import Modal from 'react-modal';
 
-const Logout = () => {
+const Logout = ({ setIsAuthenticated }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const handleLogout = () => {
-    Cookies.remove('pseudo');
-    Cookies.remove('avatarUrl');
-    setModalIsOpen(true);
+  const handleLogout = async () => {
+    const response = await fetch('/logout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: localStorage.getItem('token') }),
+    });
+
+    if (response.ok) {
+      localStorage.removeItem('token');
+      Cookies.remove('pseudo');
+      Cookies.remove('avatarUrl');
+      setIsAuthenticated(false);
+      setModalIsOpen(true);
+
+    } else {
+      console.error('Logout failed');
+    }
   };
 
   return (
