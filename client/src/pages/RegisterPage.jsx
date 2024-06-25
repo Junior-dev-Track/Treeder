@@ -6,6 +6,13 @@ const RegisterPage = ({ openModal, closeModal }) => {
   const [step, setStep] = useState(1);
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
+  const [username, setUsername] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+
   const nextStep = () => {
     setStep(step + 1);
   };
@@ -14,38 +21,80 @@ const RegisterPage = ({ openModal, closeModal }) => {
     setStep(step - 1);
   };
 
+  const registerData = {
+      Pseudo: username,
+      Password: password,
+      Mail: email,
+      //Avatar: avatar,
+  };
+
+
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+  
+      const response = await fetch('/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify( registerData ),
+      });
+  
+      const data = await response.json();
+  
+      if (data.Token) {
+        //récupérer data.Token et le mettre dans le local storage
+        localStorage.setItem('token', data.Token);
+  
+        //récupérer data.User et le mettre dans cookies (idUser, pseudo, leafs, nbtrees, skintrees, skinplayer, admin)
+        document.cookie = `idUser=${data.IdUsers}`;
+        document.cookie = `pseudo=${data.Pseudo}`;
+        document.cookie = `leafs=${data.Leafs}`;
+        document.cookie = `nbtrees=${data.NbTrees}`;
+        document.cookie = `skintrees=${data.SkinTrees}`;
+        document.cookie = `skinplayer=${data.SkinPlayer}`;
+        document.cookie = `admin=${data.Admin}`;
+  
+        //rediriger vers la page d'accueil
+        window.location.href = '/';
+  
+      } else {
+        console.log(data);
+        //Erreur
+        alert('Error');
+      }
+    };
+
   return (
     <div>
       <h1>Register Page</h1>
       {isMobile ? (
         step === 1 ? (
           <div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <label>
                 Avatar:
-                <input type="file" name="avatar" />
+                <input type="file" name="avatar" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
               </label>
               <label>
                 Username:
-                <input type="text" name="username" />
+                <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
               </label>
               <button onClick={nextStep}>Next</button>
             </form>
           </div>
         ) : (
           <div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <label>
                 Email:
-                <input type="email" name="email" />
+                <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
               </label>
               <label>
                 Password:
-                <input type="password" name="password" />
+                <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </label>
               <label>
                 Confirm Password:
-                <input type="password" name="confirmPassword" />
+                <input type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
               </label>
               <button onClick={prevStep}>Back</button>
               <input type="submit" value="Register" />
@@ -56,26 +105,26 @@ const RegisterPage = ({ openModal, closeModal }) => {
         )
       ) : (
         <div>
-          <form>
+          <form onSubmit={handleSubmit}>
             <label>
               Avatar:
-              <input type="file" name="avatar" />
+              <input type="file" name="avatar" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
             </label>
             <label>
               Username:
-              <input type="text" name="username" />
+              <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
             </label>
             <label>
               Email:
-              <input type="email" name="email" />
+              <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </label>
             <label>
               Password:
-              <input type="password" name="password" />
+              <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
             <label>
               Confirm Password:
-              <input type="password" name="confirmPassword" />
+              <input type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             </label>
             <input type="submit" value="Register" />
           </form>
