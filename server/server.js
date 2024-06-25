@@ -11,6 +11,7 @@ const scoreRoutes = require('./routes/scoreboard');
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const userRoutes = require('./routes/user');
+const profileRoutes = require('./routes/profileUser');
 // const userAdminRoutes = require('./routes/admin');
 const logsRoutesAdmin = require('./routes/logsAdmin');
 const logsRoutesPlayer = require('./routes/logsPlayer');
@@ -25,6 +26,7 @@ app.use('/score', scoreRoutes)
 app.use('/login', loginRoutes)
 app.use('/register', registerRoutes)
 app.use('/user', userRoutes)
+app.use('/profile', profileRoutes)
 // app.use('/user/admin', userAdminRoutes)
 app.use('/logsAdmin', logsRoutesAdmin)
 app.use('/logsPlayer', logsRoutesPlayer)
