@@ -33,7 +33,6 @@ const App = () => {
         return response.json();
       })
       .then(data => {
-        //console.log(data);
         setTrees(data);
       });
 
@@ -58,7 +57,6 @@ const App = () => {
         return response.json();
       })
       .then(data => {
-        //console.log(data);
         setLogs(data);
       });
 
@@ -70,7 +68,6 @@ const App = () => {
         return response.json();
       })
       .then(data => {
-        console.log(data);
         setScore(data);
       });
 
