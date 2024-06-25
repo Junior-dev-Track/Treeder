@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import SettingsGamer from './SettingsGamer';
 
-const ProfilGamer = () => {
+const ProfilGamer = ({ isOpen, setIsOpen }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedSkin, setSelectedSkin] = useState(1);
 
@@ -10,10 +10,13 @@ const ProfilGamer = () => {
     setSelectedSkin(skinNumber);
   };
 
+  useEffect(() => {
+    setModalIsOpen(isOpen);
+  }, [isOpen]);
+
   return (
     <div>
-      <button onClick={() => setModalIsOpen(true)}>Profil Gamer</button>
-      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+      <Modal isOpen={modalIsOpen} onRequestClose={() => {setModalIsOpen(false); setIsOpen(false);}}>
         <img src="/path/to/avatar.png" alt="Avatar" />
         <h2>Pseudo: Player1</h2>
         <p>Classement: 1</p>
@@ -33,7 +36,7 @@ const ProfilGamer = () => {
           ))}
         </div>
         <SettingsGamer />
-        <button onClick={() => setModalIsOpen(false)}>Close</button>
+        <button onClick={() => {setModalIsOpen(false); setIsOpen(false);}}>Close</button>
       </Modal>
     </div>
   );

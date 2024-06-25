@@ -11,6 +11,7 @@ import HomePage from './pages/HomePage.jsx';
 import ForgotPassword from './pages/ForgotPass.jsx';
 import AdminUsers from './pages/AdminUser.jsx';
 import UserDetails from './pages/UserDetails.jsx';
+import ProfilGamer from './pages/ProfilGamer.jsx';
 
 
 const App = () => {
@@ -102,6 +103,7 @@ const App = () => {
           <>
             <Route path="/adminusers" element={<AdminUsers />} /> 
             <Route path="/userdetails/:userId" element={<UserDetails />} />
+            <Route path="/profilgamer" element={<ProfilGamer />} />
           </>
         )}
       </Routes>
