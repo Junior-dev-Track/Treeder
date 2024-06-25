@@ -36,6 +36,7 @@ const LoginPage = ({ openModal, closeModal }) => {
       document.cookie = `skintrees=${data.SkinTrees}`;
       document.cookie = `skinplayer=${data.SkinPlayer}`;
       document.cookie = `admin=${data.Admin}`;
+      document.cookie = `token=${data.Token}`;
 
       //rediriger vers la page d'accueil
       window.location.href = '/';
