@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const DataBase = require ('../model/DataBase')
 const UserDB = require('../model/UserDB');
+const TreeDB = require('../model/TreeDB')
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
@@ -10,6 +11,7 @@ router.post('/', async (req, res) => {
 
     let dataUser = req.body;
     let userDB = new UserDB(new DataBase());
+    let treeDB = new TreeDB(new DataBase());
 
     // vérifier les données
     if (!dataUser.Pseudo || !dataUser.Password || !dataUser.Mail) {

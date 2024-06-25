@@ -25,6 +25,15 @@ class TreeDB{
         return await this.dataBase.query(`SELECT t.IdTrees, t.TotHight, t.DiaLeafs, t.Owner FROM Trees AS t WHERE ( 6371 * acos( cos( radians(${lat}) ) * cos( radians( Lat ) ) * cos( radians( Lon ) - radians(${lon}) ) + sin( radians(${lat}) ) * sin( radians( Lat ) ) ) ) < ${radiusInKm}`);
     }
 
+    async getRandomTrees() {
+        const query = "SELECT * FROM Trees ORDER BY RAND() LIMIT 3";
+        const trees = await this.db.query(query);
+        return trees;
+    }
+
+    async assignUserToTree(dataUser, tree) {
+
+    }
 }
 
 module.exports = TreeDB;
