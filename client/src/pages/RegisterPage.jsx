@@ -7,7 +7,7 @@ const RegisterPage = ({ openModal, closeModal }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   const [username, setUsername] = useState('');
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
