@@ -3,6 +3,7 @@ const router = express.Router();
 const DataBase = require ('../model/DataBase')
 const UserDB = require('../model/UserDB');
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 
 router.post('/', async (req, res) => {
@@ -26,7 +27,7 @@ router.post('/', async (req, res) => {
     }
 
     // vérifier que l'user n'existe pas déjà
-    let user = await userDB.getUser(dataUser);
+    let user = await userDB.verifyUser(dataUser);
     if (user.length > 0) {
         return res.status(400).send('User already exists');
     }
@@ -34,7 +35,30 @@ router.post('/', async (req, res) => {
     // créer l'user
     console.log(dataUser)
     if(await userDB.insertUser(dataUser)){
-        res.status(200).send('User created');
+        let userLogin = await userDB.getUser(dataUser);
+        userLogin = userLogin[0];
+
+        const accessToken = jwt.sign({IdUsers: user.IdUsers}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+        const refreshToken = jwt.sign({IdUsers: user.IdUsers}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'});
+
+        res.cookie('jwt', refreshToken, {
+            httpOnly: true,
+            sameSite: 'None', secure: false,
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        });
+
+        let data = {
+            IdUsers: userLogin.IdUsers,
+            Pseudo: userLogin.Pseudo,
+            Leafs: userLogin.Leafs,
+            NbTrees: userLogin.NbTrees,
+            SkinTrees: userLogin.SkinTrees,
+            SkinPlayer: userLogin.SkinPlayer,
+            Admin: userLogin.Admin,
+            Token: accessToken
+        };
+        res.status(200).send(data);
+
     }
     else{
         res.status(400).send('User not created');
