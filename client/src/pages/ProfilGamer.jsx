@@ -24,10 +24,10 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
         'Authorization': `Bearer ${token}`,
       },
     })
-    .then((response) => response.text())  // Get the response text
+    .then((response) => response.text())
     .then((text) => {
-      console.log(text);  // Log the response text
-      return JSON.parse(text);  // Try to parse the text as JSON
+      console.log(text); 
+      return JSON.parse(text);
     })
     .then((data) => setPlayerData(data[0]))
     .catch((error) => console.error(error));
