@@ -15,6 +15,14 @@ class UserDB{
         return await this.dataBase.query(`SELECT Pseudo, NbTrees,Leafs,SkinPlayer,SkinTrees FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
     }
 
+    async autentification(dataUser){
+        if (dataUser.Pseudo){
+            return await this.dataBase.query(`SELECT Pseudo, Password FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
+            
+        }
+        return await this.dataBase.query(`SELECT Pseudo, Password FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
+    }
+
     async getAllUser(){
         return await this.dataBase.query(`SELECT * FROM Users`);
     }

@@ -16,7 +16,13 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
     setModalIsOpen(isOpen);
 
     const token = Cookies.get('token');
-    console.log(token);
+
+    if (!token) {
+      console.log('Token not found');
+      return;
+    }
+
+    //console.log(token);
     
     fetch('/profile', {
       method: 'GET',
@@ -26,17 +32,18 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
     })
     .then((response) => response.text())
     .then((text) => {
-      console.log(text); 
+      //console.log(text); 
       return JSON.parse(text);
     })
     .then((data) => setPlayerData(data[0]))
+    .then(() => console.log(playerData))
     .catch((error) => console.error(error));
     }, [isOpen]);
 
   return (
     <div>
       <Modal isOpen={modalIsOpen} onRequestClose={() => {setModalIsOpen(false); setIsOpen(false);}}>
-        <img src={playerData.Avatar} alt="Avatar" />
+        {/*<img src={playerData.Avatar} alt="Avatar" />*/}
         <h2>Pseudo: {playerData.Pseudo}</h2>
         <p>Classement: {playerData.Classement}</p>
         <p>Nombre d'arbres: {playerData.NbTrees}</p>

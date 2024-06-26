@@ -8,8 +8,10 @@ router.get('/',authenticateToken , async (req, res) => {
 
     let userDB = new UserDB(new DataBase())
     const userData = req.user;
+    console.log(userData);
 
     let user = await userDB.getUser(userData);
+    console.log(user);
 
     res.status(200).send(user);
 });

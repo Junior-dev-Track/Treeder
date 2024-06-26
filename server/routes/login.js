@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     }
 
     // vérifier si l'user existe
-    let user = await userDb.getUser(dataUser);
+    let user = await userDb.autentification(dataUser);
     if(user.length === 0){
         return res.status(400).send('User doesn\'t exists');
     }
@@ -24,6 +24,7 @@ router.post('/', async (req, res) => {
     console.log(user)
 
     // vérifier le mdp
+    console.log(dataUser.Password, user.Password);
     if(!bcrypt.compareSync(dataUser.Password, user.Password)){
         return res.status(400).send('Invalid password');
     }
