@@ -15,7 +15,7 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
   useEffect(() => {
     setModalIsOpen(isOpen);
 
-    const token = Cookies.get('token');
+    const token = localStorage.getItem('token');
 
     if (!token) {
       console.log('Token not found');
@@ -38,6 +38,7 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
       //console.log(text); 
       return JSON.parse(text);
     })
+    //.then((data) => console.log(data[0]))
     .then((data) => setPlayerData(data[0]))
     .then(() => console.log(playerData))
     .catch((error) => console.error(error));

@@ -16,19 +16,22 @@ router.post('/', async (req, res) => {
     }
 
     // vérifier si l'user existe
-    let user = await userDb.autentification(dataUser);
-    if(user.length === 0){
+    let userExist = await userDb.authentication(dataUser);
+    if(userExist.length === 0){
         return res.status(400).send('User doesn\'t exists');
     }
-    user = user[0];
-    console.log(user)
+    userExist = userExist[0];
+
+    console.log(userExist);
 
     // vérifier le mdp
-    console.log(dataUser.Password, user.Password);
-    if(!bcrypt.compareSync(dataUser.Password, user.Password)){
+    console.log(dataUser.Password, userExist.Password);
+    if(!bcrypt.compareSync(dataUser.Password, userExist.Password)){
         return res.status(400).send('Invalid password');
     }
     else {
+        let user = await userDb.getUser(dataUser);
+        user = user[0];
         // créer deux token (un pour l'authentification et un pour le refresh)
         const accessToken = jwt.sign({IdUsers: user.IdUsers, Pseudo: user.Pseudo}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
         const refreshToken = jwt.sign({IdUsers: user.IdUsers, Pseudo: user.Pseudo}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'});

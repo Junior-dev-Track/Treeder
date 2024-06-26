@@ -6,6 +6,7 @@ import { useTable } from 'react-table';
 const Scores = ({ score }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  console.log(score);
   const data = React.useMemo(() => {
     const sortedScore = [...score].sort((a, b) => b.NbTrees - a.NbTrees);
     return sortedScore.map((item, index) => ({ ...item, IdUsers: index + 1 }));

@@ -6,16 +6,26 @@ const Logout = ({ setIsAuthenticated }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleLogout = async () => {
+    const token = localStorage.getItem('token');
     const response = await fetch('/logout', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: localStorage.getItem('token') }),
-    });
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      user: {
+        Pseudo: Cookies.get('pseudo'),
+      }
+    })
 
     if (response.ok) {
       localStorage.removeItem('token');
       Cookies.remove('pseudo');
+      Cookies.remove('idUser');
+      Cookies.remove('leafs');
+      Cookies.remove('skintrees');
+      Cookies.remove('skinplayer');
       Cookies.remove('avatarUrl');
+      Cookies.remove('admin');
       setIsAuthenticated(false);
       setModalIsOpen(true);
 

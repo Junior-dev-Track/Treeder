@@ -29,14 +29,13 @@ const LoginPage = ({ openModal, closeModal }) => {
       localStorage.setItem('token', data.Token);
 
       //récupérer data.User et le mettre dans cookies (idUser, pseudo, leafs, nbtrees, skintrees, skinplayer, admin)
+      console.log("ntm les " + data)
       document.cookie = `idUser=${data.IdUsers}`;
       document.cookie = `pseudo=${data.Pseudo}`;
       document.cookie = `leafs=${data.Leafs}`;
-      document.cookie = `nbtrees=${data.NbTrees}`;
       document.cookie = `skintrees=${data.SkinTrees}`;
       document.cookie = `skinplayer=${data.SkinPlayer}`;
       document.cookie = `admin=${data.Admin}`;
-      document.cookie = `token=${data.Token}`;
 
       //rediriger vers la page d'accueil
       window.location.href = '/';

@@ -9,18 +9,18 @@ class UserDB{
     }
 
     async getUser(dataUser){
-        if (dataUser.Pseudo){
-            return await this.dataBase.query(`SELECT Pseudo, NbTrees,Leafs,SkinPlayer,SkinTrees FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
+        if (dataUser.IdUsers){
+            return await this.dataBase.query(`SELECT IdUsers,Pseudo,NbTrees,Leafs,SkinPlayer,SkinTrees, Admin FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
         }
-        return await this.dataBase.query(`SELECT Pseudo, NbTrees,Leafs,SkinPlayer,SkinTrees FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
+        return await this.dataBase.query(`SELECT IdUsers,Pseudo, NbTrees,Leafs,SkinPlayer,SkinTrees, Admin FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
     }
 
-    async autentification(dataUser){
+    async authentication(dataUser){
         if (dataUser.Pseudo){
-            return await this.dataBase.query(`SELECT Pseudo, Password FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
+            return await this.dataBase.query(`SELECT IdUsers, Pseudo, Password FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
             
         }
-        return await this.dataBase.query(`SELECT Pseudo, Password FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
+        return await this.dataBase.query(`SELECT IdUsers, Pseudo, Password FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);s
     }
 
     async getAllUser(){
@@ -36,7 +36,7 @@ class UserDB{
     }
 
     async getScore() {
-        return await this.dataBase.query(`SELECT IdUsers, Pseudo, Leafs, NbTrees FROM Users`)
+        return await this.dataBase.query(`SELECT U.IdUsers, U.Pseudo, U.Leafs, COUNT(T.Owner) AS NbTrees FROM Users AS U JOIN Trees T ON U.IdUsers = T.Owner GROUP BY U.IdUsers ORDER BY U.Leafs`);
     }
 
     async getUserWithLog(dataUser) {
