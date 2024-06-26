@@ -2,14 +2,17 @@ const express = require('express');
 const router = express.Router();
 const DataBase = require ('../model/DataBase')
 const UserDB = require('../model/UserDB');
+const TreeDB = require('../model/TreeDB')
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
+const nameGenerator = require ("fantasy-name-generator")
 
 router.post('/', async (req, res) => {
 
     let dataUser = req.body;
     let userDB = new UserDB(new DataBase());
+    let treeDB = new TreeDB(new DataBase());
 
     // vérifier les données
     if (!dataUser.Pseudo || !dataUser.Password || !dataUser.Mail) {
@@ -33,6 +36,7 @@ router.post('/', async (req, res) => {
     }
 
     // créer l'user
+    dataUser.Leafs  = await userDB.getAverageLeaves();
     console.log(dataUser)
     if(await userDB.insertUser(dataUser)){
         let userLogin = await userDB.getUser(dataUser);
@@ -57,6 +61,15 @@ router.post('/', async (req, res) => {
             Admin: userLogin.Admin,
             Token: accessToken
         };
+
+        let trees = await treeDB.getRandomTrees();
+
+        for(let tree of trees) {
+            console.log(tree, userLogin)
+            const name = nameGenerator.nameByRace("fairy", { gender: "female" });
+            await treeDB.assignUserAndNameToTree(userLogin, name, tree);
+        }
+
         res.status(200).send(data);
 
     }
