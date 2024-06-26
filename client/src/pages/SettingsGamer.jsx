@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import Cookies from 'js-cookie';
 
 const SettingsGamer = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -8,14 +9,69 @@ const SettingsGamer = () => {
   const [email, setEmail] = useState('player1@example.com');
   const [password, setPassword] = useState('');
 
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('Token not found');
+      return;
+    }
+
+    fetch('/settings', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      user: {
+        Pseudo: Cookies.get('pseudo'),
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      setSelectedAvatar(data.avatar);
+      setPseudo(data.pseudo);
+      setEmail(data.email);
+    })
+    .catch((error) => console.error(error));
+  }, []);
+
+
   const handleAvatarSelect = (avatarNumber) => {
     setSelectedAvatar(avatarNumber);
   };
 
+
   const handleSave = () => {
-    // Sauvegardez les paramètres ici
-    setModalIsOpen(false);
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('Token not found');
+      return;
+    }
+
+    fetch('/settings', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      user: {
+        Pseudo: Cookies.get('pseudo'),
+      },
+      body: JSON.stringify({
+        avatar: selectedAvatar,
+        pseudo: pseudo,
+        email: email,
+        password: password,
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      setModalIsOpen(false);
+    })
+    .catch((error) => console.error(error));
   };
+
 
   return (
     <div>

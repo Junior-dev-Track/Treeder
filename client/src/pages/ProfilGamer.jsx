@@ -40,16 +40,14 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
     })
     //.then((data) => console.log(data[0]))
     .then((data) => setPlayerData(data[0]))
-    .then(() => console.log(playerData))
     .catch((error) => console.error(error));
     }, [isOpen]);
 
   return (
     <div>
       <Modal isOpen={modalIsOpen} onRequestClose={() => {setModalIsOpen(false); setIsOpen(false);}}>
-        {/*<img src={playerData.Avatar} alt="Avatar" />*/}
+        <img src={playerData.Avatar} alt="Avatar" />
         <h2>Pseudo: {playerData.Pseudo}</h2>
-        <p>Classement: {playerData.Classement}</p>
         <p>Nombre d'arbres: {playerData.NbTrees}</p>
         <p>Nombre de feuilles: {playerData.Leafs}</p>
         <p>Nombre de locks: {playerData.Locks}</p>
