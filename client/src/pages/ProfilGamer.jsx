@@ -25,10 +25,13 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
     //console.log(token);
     
     fetch('/profile', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
       },
+      user: {
+        Pseudo: Cookies.get('pseudo'),
+      }
     })
     .then((response) => response.text())
     .then((text) => {

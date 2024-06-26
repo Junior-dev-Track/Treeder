@@ -4,14 +4,14 @@ const DataBase = require ('../model/DataBase')
 const router = express.Router();
 const { authenticateToken } = require('../middleware/authenticateToken');
 
-router.get('/',authenticateToken , async (req, res) => {
+router.post('/',authenticateToken , async (req, res) => {
 
     let userDB = new UserDB(new DataBase())
     const userData = req.user;
-    console.log(userData);
+    //console.log(req.user);
 
     let user = await userDB.getUser(userData);
-    console.log(user);
+    //console.log(user);
 
     res.status(200).send(user);
 });

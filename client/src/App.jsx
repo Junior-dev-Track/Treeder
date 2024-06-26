@@ -41,6 +41,7 @@ const App = () => {
 
     const fetchUsers = fetch('/user')
       .then(response => {
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

@@ -30,8 +30,8 @@ router.post('/', async (req, res) => {
     }
     else {
         // créer deux token (un pour l'authentification et un pour le refresh)
-        const accessToken = jwt.sign({IdUsers: user.IdUsers}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
-        const refreshToken = jwt.sign({IdUsers: user.IdUsers}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'});
+        const accessToken = jwt.sign({IdUsers: user.IdUsers, Pseudo: user.Pseudo}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+        const refreshToken = jwt.sign({IdUsers: user.IdUsers, Pseudo: user.Pseudo}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'});
 
         res.cookie('jwt', refreshToken, {
             httpOnly: true,
