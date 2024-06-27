@@ -38,8 +38,11 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
       //console.log(text); 
       return JSON.parse(text);
     })
+
     //.then((data) => console.log(data[0]))
-    .then((data) => setPlayerData(data[0]))
+    .then((data) => {
+      setPlayerData(data[0]);
+    })
     .catch((error) => console.error(error));
     }, [isOpen]);
 
@@ -47,6 +50,7 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
     <div>
       <Modal isOpen={modalIsOpen} onRequestClose={() => {setModalIsOpen(false); setIsOpen(false);}}>
         <img src={playerData.Avatar} alt="Avatar" />
+        {playerData.Admin === 1 && <h1>Admin</h1>}
         <h2>Pseudo: {playerData.Pseudo}</h2>
         <p>Nombre d'arbres: {playerData.NbTrees}</p>
         <p>Nombre de feuilles: {playerData.Leafs}</p>
@@ -63,6 +67,7 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
             </button>
           ))}
         </div>
+        {playerData.Admin === 1 && <button onClick={() => window.location.href='/adminusers'}>Admin Users</button>}
         <SettingsGamer />
         <button onClick={() => {setModalIsOpen(false); setIsOpen(false);}}>Close</button>
       </Modal>
