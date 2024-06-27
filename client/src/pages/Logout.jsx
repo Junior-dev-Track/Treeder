@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import Modal from 'react-modal';
 
-const Logout = ({ setIsAuthenticated }) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const handleLogout = async () => {
+export const handleLogout = async (setIsAuthenticated, setModalIsOpen) => {
     const token = localStorage.getItem('token');
     const response = await fetch('/logout', {
       method: 'POST',
@@ -33,6 +31,10 @@ const Logout = ({ setIsAuthenticated }) => {
       console.error('Logout failed');
     }
   };
+
+  const Logout = ({ setIsAuthenticated }) => {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+  
 
   return (
     <div>

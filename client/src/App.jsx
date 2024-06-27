@@ -23,7 +23,6 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [logs, setLogs] = useState([]);
-  const [users, setUsers] = useState([]);
   const [score, setScore] = useState([]);
 
 
@@ -37,19 +36,6 @@ const App = () => {
       })
       .then(data => {
         setTrees(data);
-      });
-
-    const fetchUsers = fetch('/user')
-      .then(response => {
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        //console.log(data);
-        // Mettez à jour votre état avec les données des utilisateurs ici
       });
 
 
@@ -75,7 +61,7 @@ const App = () => {
         setScore(data);
       });
 
-  Promise.all([fetchTrees, fetchUsers, fetchLogs, fetchScore ])
+  Promise.all([fetchTrees, fetchLogs, fetchScore ])
     .catch(error => console.log('There was a problem with the fetch operation: ' + error.message));
 }, []);
 

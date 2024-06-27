@@ -1,14 +1,16 @@
 // HomePage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import Cookies from 'js-cookie';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 
 import StadiaMap from '../components/StadiaMap.jsx';
 import Scores from './Scores.jsx'; 
 import Logs from './Logs.jsx';
 import ProfilGamer from './ProfilGamer.jsx';
-import ProfilAdmin from './ProfilAdmin.jsx';
+//import ProfilAdmin from './ProfilAdmin.jsx';
 import Logout from './Logout.jsx';
 
 
@@ -20,6 +22,24 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
 
   const pseudo = Cookies.get('pseudo');
   const avatarUrl = Cookies.get('avatarUrl');
+
+  const location = useLocation();
+  const openProfilePopup = location.state?.openProfilePopup;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (openProfilePopup) {
+      setIsProfileModalOpen(true);
+    }
+
+    // Cleanup function
+    return () => {
+      if (openProfilePopup) {
+        // Reset the state
+        navigate('.', { state: { openProfilePopup: false } });
+      }
+    };
+  }, [openProfilePopup, navigate]);
 
 
   return (
@@ -47,7 +67,6 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
       <Logs logs={playerLogs} />
     
       <ProfilGamer isOpen={isProfileModalOpen} setIsOpen={setIsProfileModalOpen} />
-      <ProfilAdmin />
     </div>
   );
 };
