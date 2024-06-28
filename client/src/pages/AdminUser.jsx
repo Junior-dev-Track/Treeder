@@ -176,7 +176,8 @@ const AdminUsers = () => {
                 <button onClick={() => handleSaveEdit(user.IdUsers)}>Save</button>
               ) : (
                 <>
-                  <Link to={`/user/${userId}`}>Voir</Link>
+                  <button onClick={() => handleViewUser(user.IdUsers)}>Voir</button>
+                  {/*<Link to={`/user/${userId}`}>Voir</Link>*/}
                   <button onClick={() => {
                     handleEditUser(user.IdUsers);
                     setEditingUser(user.IdUsers);

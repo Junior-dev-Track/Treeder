@@ -12,6 +12,11 @@ import Logs from './Logs.jsx';
 import ProfilGamer from './ProfilGamer.jsx';
 //import ProfilAdmin from './ProfilAdmin.jsx';
 import Logout from './Logout.jsx';
+import SpotifyButton from '../components/SpotifyButton.jsx';
+import NbTrees from '../components/NbTrees.jsx';
+import NbLeafs from '../components/NbLeafs.jsx';
+import NbLocks from '../components/NbLocks.jsx';
+
 
 
 const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
@@ -47,6 +52,9 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
       <div className='map-container'>
        <StadiaMap treeData={treeData} />
       </div>
+      <NbTrees isAuthenticated={isAuthenticated} />
+      <NbLeafs isAuthenticated={isAuthenticated} />
+      <NbLocks isAuthenticated={isAuthenticated} />
       <h1>Home Page</h1>
       {!pseudo ? (
         isMobile ? (
@@ -65,6 +73,7 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
       )}
       <Scores score={scoreData} />
       <Logs logs={playerLogs} />
+      <SpotifyButton />
     
       <ProfilGamer isOpen={isProfileModalOpen} setIsOpen={setIsProfileModalOpen} />
     </div>
