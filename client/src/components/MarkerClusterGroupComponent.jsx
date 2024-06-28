@@ -9,7 +9,7 @@ import 'leaflet.markercluster';
 import MapContext from './MapContext.jsx';
 
 
-const MarkerClusterGroupComponent = ({ treeData, treeIcon }) => {
+const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => {
     const map = useContext(MapContext);
   
     useEffect(() => {
@@ -23,7 +23,8 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon }) => {
       });
   
       treeData.forEach(tree => {
-        const marker = L.marker([tree.Lat, tree.Lon], { icon: treeIcon });
+        const icon = tree.Owner ? boughtTreeIcon : treeIcon; 
+        const marker = L.marker([tree.Lat, tree.Lon], { icon: icon });
         marker.bindPopup(`<b>${tree.name}</b><br>${tree.description}`);
         markerClusterGroup.addLayer(marker);
       });
@@ -34,7 +35,7 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon }) => {
       return () => {
         map.removeLayer(markerClusterGroup);
       };
-    }, [map, treeData, treeIcon]);
+    }, [map, treeData, treeIcon, boughtTreeIcon]);
   
     return null;
   };

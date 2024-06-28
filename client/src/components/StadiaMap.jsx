@@ -11,7 +11,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'leaflet.markercluster';
 
 
-const MarkerClusterGroupComponent = ({ treeData, treeIcon }) => {
+const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => {
   const map = useMap();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon }) => {
     });
 
     treeData.forEach(tree => {
-      const icon = tree.Owner ? boughtTreeIcon : treeIcon;
+      const icon = tree.Owner ? boughtTreeIcon : treeIcon; 
       const marker = L.marker([tree.Lat, tree.Lon], { icon: icon });
       let popupContent = `<h2>${tree.Name}</h2>`;
 
@@ -60,7 +60,7 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon }) => {
     return () => {
       map.removeLayer(markerClusterGroup);
     };
-  }, [map, treeData, treeIcon]);
+  }, [map, treeData, treeIcon, boughtTreeIcon]);
 
   return null;
 };
@@ -70,7 +70,7 @@ const StadiaMap = ({ treeData }) => {
 
   const treeIcon = L.icon({
     iconUrl: treeImage,
-    iconSize: [25, 41], 
+    iconSize: [25, 53], 
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
     shadowSize: [41, 41]
@@ -78,7 +78,7 @@ const StadiaMap = ({ treeData }) => {
 
   const boughtTreeIcon = L.icon({
     iconUrl: treeOwnImage,
-    iconSize: [25, 41], 
+    iconSize: [25, 53], 
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
     shadowSize: [41, 41]
@@ -104,7 +104,7 @@ const StadiaMap = ({ treeData }) => {
         //attribution='&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
       />
 
-      <MarkerClusterGroupComponent treeData={treeData} treeIcon={treeIcon} />
+      <MarkerClusterGroupComponent treeData={treeData} treeIcon={treeIcon} boughtTreeIcon={boughtTreeIcon} />
 
     </MapContainer>
   );
