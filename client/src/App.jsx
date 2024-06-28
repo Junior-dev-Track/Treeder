@@ -91,7 +91,7 @@ const App = () => {
         {!isMobile && (
           <>
             <Route path="/adminusers" element={<AdminUsers />} /> 
-            <Route path="/userdetails/:userId" element={<UserDetails />} />
+            <Route path="/user/:id" component={UserDetails} />
             <Route path="/profilgamer" element={<ProfilGamer />} />
           </>
         )}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { handleLogout as logout } from './Logout.jsx';
+import { Link } from 'react-router-dom';
 
 const AdminUsers = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const AdminUsers = () => {
     }
 
     fetch('/user', {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -27,9 +28,10 @@ const AdminUsers = () => {
         Pseudo: Cookies.get('pseudo'),
       }
     })
-    .then((response) => response.json())
+    .then((response) => {
+      return response.json();
+    })
     .then((data) => {
-      //console.log(data);
       setUsers(data);
     })
     .catch((error) => console.error(error));
@@ -37,12 +39,13 @@ const AdminUsers = () => {
 
 
   const [editingUser, setEditingUser] = useState(null);
-  const [editedValues, setEditedValues] = useState({ pseudo: '', email: '' });
+  const [editedValues, setEditedValues] = useState({});
+  const [editingField, setEditingField] = useState(null);
 
   const handleEditUser = (userId) => {
-    const user = users.find((user) => user.id === userId);
+    const user = users.find((user) => user.IdUsers === userId);
     setEditingUser(userId);
-    setEditedValues({ pseudo: user.pseudo, email: user.email });
+    setEditedValues({ Pseudo: user.Pseudo, Mail: user.Mail });
   };
 
   const handleInputChange = (event) => {
@@ -51,9 +54,27 @@ const AdminUsers = () => {
 
   const handleSaveEdit = (userId) => {
     // Save the edited values here
-    // ...
-
-    setEditingUser(null);
+    fetch(`/user/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(editedValues),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Update the local state with the new data
+        setUsers(users.map((user) => (user.IdUsers === userId ? data : user)));
+        setEditingUser(null);
+      })
+      .catch((error) => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
   };
 
 
@@ -102,43 +123,66 @@ const AdminUsers = () => {
         </thead>
         <tbody>
         {users.map((user) => (
-          <tr key={user.id}>
-            <td>{user.id}</td>
-            <td><img src={user.avatar} alt="Avatar" /></td>
-            <td>
-              {editingUser === user.id ? (
-                <input
-                  type="text"
-                  name="pseudo"
-                  value={editedValues.pseudo}
-                  onChange={handleInputChange}
-                />
+          <tr key={user.IdUsers}>
+            <td>{user.IdUsers}</td>
+            <td><img src={user.Avatar} alt="Avatar" /></td>
+            <td onClick={() => {
+              setEditingUser(user.IdUsers);
+              setEditingField('Pseudo');
+              setEditedValues({Pseudo: user.Pseudo, Mail: user.Mail});
+            }}>
+              {editingUser === user.IdUsers && (editingField === 'Pseudo' || editingField === null) ? (
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSaveEdit(user.IdUsers);
+                }}>
+                  <input
+                    type="text"
+                    name="Pseudo"
+                    value={editedValues.Pseudo}
+                    onChange={handleInputChange}
+                  />
+                </form>
               ) : (
-                user.pseudo
+                user.Pseudo
+              )}
+            </td>
+            <td onClick={() => {
+              setEditingUser(user.IdUsers);
+              setEditingField('Mail');
+              setEditedValues({Pseudo: user.Pseudo, Mail: user.Mail});
+            }}>
+              {editingUser === user.IdUsers && (editingField === 'Mail' || editingField === null) ? (
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSaveEdit(user.IdUsers);
+                }}>
+                  <input
+                    type="email"
+                    name="Mail"
+                    value={editedValues.Mail}
+                    onChange={handleInputChange}
+                  />
+                </form>
+              ) : (
+                user.Mail
               )}
             </td>
             <td>
-              {editingUser === user.id ? (
-                <input
-                  type="email"
-                  name="email"
-                  value={editedValues.email}
-                  onChange={handleInputChange}
-                />
-              ) : (
-                user.email
-              )}
+              <button onClick={() => handleResetPassword(user.IdUsers)}>Reset Password</button>
             </td>
             <td>
-              <button onClick={() => handleResetPassword(user.id)}>Reset Password</button>
-            </td>
-            <td>
-              {editingUser === user.id ? (
-                <button onClick={() => handleSaveEdit(user.id)}>Save</button>
+              {editingUser === user.IdUsers ? (
+                <button onClick={() => handleSaveEdit(user.IdUsers)}>Save</button>
               ) : (
                 <>
-                  <button onClick={() => handleViewUser(user.id)}>Voir</button>
-                  <button onClick={() => handleEditUser(user.id)}>Éditer</button>
+                  <Link to={`/user/${userId}`}>Voir</Link>
+                  <button onClick={() => {
+                    handleEditUser(user.IdUsers);
+                    setEditingUser(user.IdUsers);
+                    setEditingField(null);
+                    setEditedValues({Pseudo: user.Pseudo, Mail: user.Mail});
+                  }}>Éditer</button>
                 </>
               )}
             </td>

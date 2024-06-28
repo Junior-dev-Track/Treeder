@@ -1,84 +1,56 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-
-const UserDetails = () => {
-  const { userId } = useParams();
+const UserDetails = ({ match }) => {
+  const userId = match.params.id; // Get the user ID from the URL
   const navigate = useNavigate();
-  const user = users.find(user => user.id === parseInt(userId));
 
+  // Create states for user information
+  const [pseudo, setPseudo] = useState('');
+  // Add more states as needed...
+
+  // Fetch user information when component mounts
   useEffect(() => {
-    // Remplacez cette fonction par la fonction que vous utilisez pour récupérer les informations de l'utilisateur
-    const fetchUser = async () => {
-      const response = await fetch(`/api/users/${userId}`);
-      const userData = await response.json();
-      setUser(userData);
-    };
-
-    fetchUser();
+    fetch(`/user/${userId}`)
+      .then(response => response.json())
+      .then(data => {
+        setPseudo(data.Pseudo);
+        // Set more states as needed...
+      });
   }, [userId]);
 
+  // Handle save button click
+  const handleSave = () => {
+    fetch(`/user/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        pseudo: pseudo,
+        // Add more fields as needed...
+      }),
+    });
+  };
+
+  // Handle cancel button click
+  const handleCancel = () => {
+    // Reset states to initial user values
+  };
 
   const handleBack = () => {
-    navigate('/admin');
+    navigate(-1);
   };
-
-  const handleBan = () => {
-    // Ban user here
-  };
-
-  const handleSave = (event) => {
-    event.preventDefault();
-    // Logic to save changes goes here
-  };
-
-  const handleCancel = () => {
-    // Cancel changes here
-  };
-
-    if (!user) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>
-      <header>
-        <button onClick={handleBack}>Back</button>
-        <h1>Profil: {user.pseudo}</h1>
-        <button onClick={handleBan}>Ban</button>
-      </header>
-
-      <div>
-        <img src={user.avatar} alt="Avatar" />
-        {/* Avatar selection here */}
-      </div>
-
-      <form onSubmit={handleSave}>
-        <label>
-          Pseudo:
-          <input type="text" value={user.pseudo} onChange={HandlePseudoChange} />
-        </label>
-
-        <label>
-          Email:
-          <input type="email" value={user.email} onChange={handleEmailChange} />
-        </label>
-
-        <button type="button" onClick={handlePasswordReset}>Reset Password</button>
-
-        {/* Other fields here */}
-
-        <button type="submit">Save</button>
-        <button type="button" onClick={handleCancel}>Cancel</button>
-      </form>
-
-      <div>
-        <h2>Logs</h2>
-        {/* Log filters here */}
-        {/* Display logs here */}
-      </div>
+      <button onClick={handleBack}>Back</button>
+      <h1>{pseudo}</h1>
+      <button onClick={handleSave}>Save</button>
+      <button onClick={handleCancel}>Cancel</button>
+      {/* Add more fields and logs... */}
     </div>
   );
-};
+}
 
 export default UserDetails;
