@@ -3,6 +3,8 @@ import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import treeImage from '../assets/img/tree.png'; 
+import treeOwnImage from '../assets/img/tree-own.png';
+
 
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
@@ -23,8 +25,32 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon }) => {
     });
 
     treeData.forEach(tree => {
-      const marker = L.marker([tree.Lat, tree.Lon], { icon: treeIcon });
-      marker.bindPopup(`<b>${tree.name}</b><br>${tree.description}`);
+      const icon = tree.Owner ? boughtTreeIcon : treeIcon;
+      const marker = L.marker([tree.Lat, tree.Lon], { icon: icon });
+      let popupContent = `<h2>${tree.Name}</h2>`;
+
+      const leafCount = Math.round(tree.TotHight * tree.DiaLeafs);
+      const treeHight = Math.round(tree.TotHight);
+
+      popupContent += `<br>${tree.Species}<br>${treeHight}<br>${tree.DiaLeafs}<br>${leafCount} Leafs<br>${tree.Owner ? tree.Owner : ''}`;
+
+      if (tree.owner) {
+        if (tree.owner === currentUser) {
+          // Si l'utilisateur actuel est le propriétaire de l'arbre
+          popupContent += `<button onclick="lockTree(${tree.id})">Lock</button>`;
+          if (tree.isLocked) {
+            popupContent += `<img src="lock-icon.png" alt="Locked" />`;
+          }
+        } else {
+          // Si l'arbre a un autre propriétaire
+          popupContent += `<button onclick="buyTree(${tree.id})">${leafCount} Leafs</button>`;
+        }
+      } else {
+        // Si l'arbre n'a pas de propriétaire
+        popupContent += `<button onclick="buyTree(${tree.id})">${leafCount} Leafs</button>`;
+      }
+
+      marker.bindPopup(popupContent);
       markerClusterGroup.addLayer(marker);
     });
 
@@ -49,6 +75,15 @@ const StadiaMap = ({ treeData }) => {
     popupAnchor: [1, -34],
     shadowSize: [41, 41]
   });
+
+  const boughtTreeIcon = L.icon({
+    iconUrl: treeOwnImage,
+    iconSize: [25, 41], 
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+  
 
   return (
     <MapContainer 
