@@ -15,7 +15,7 @@ const NbLocks = () => {
 
   return (
     <button>
-      <img src={nbLocksIcon} alt="Lock Icon" style={{width: '32px', height: '32px', marginRight: '5px'}} />
+      <img src={nbLocksIcon} alt="Lock Icon" style={{width: '20px', height: '32px', marginRight: '5px'}} />
       {nbLocks}
     </button>
   );

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import Cookies from 'js-cookie';
+import settingsIcon from '../assets/img/settings.png';
+import arrowIcon from '../assets/img/arrow-back.svg';
+
 
 const SettingsGamer = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -75,9 +78,12 @@ const SettingsGamer = () => {
 
   return (
     <div>
-      <button onClick={() => setModalIsOpen(true)}>Settings</button>
+      <button onClick={() => setModalIsOpen(true)}>
+        <img src={settingsIcon} alt="Settings" style={{width: '32px', height: '31px'}} /></button>
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-        <button onClick={() => setModalIsOpen(false)}>Back</button>
+        <button onClick={() => setModalIsOpen(false)}>
+          <img src={arrowIcon} alt="arrow back" style={{width: '24px', height: '24px'}} />Back
+        </button>
         <h2>Settings</h2>
         <div>
           <h3>Choix de l'avatar:</h3>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import Cookies from 'js-cookie';
 import SettingsGamer from './SettingsGamer';
+import closeIcon from '../assets/img/close.svg';
 
 const ProfilGamer = ({ isOpen, setIsOpen }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -69,7 +70,9 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
         </div>
         {playerData.Admin === 1 && <button onClick={() => window.location.href='/adminusers'}>Admin Users</button>}
         <SettingsGamer />
-        <button onClick={() => {setModalIsOpen(false); setIsOpen(false);}}>Close</button>
+        <button onClick={() => {setModalIsOpen(false); setIsOpen(false);}}>
+        <img src={closeIcon} alt="Close" style={{width: '34px', height: '34px'}} />
+        </button>
       </Modal>
     </div>
   );

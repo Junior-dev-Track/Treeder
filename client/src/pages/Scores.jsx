@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useTable } from 'react-table';
+import scoreIcon from '../assets/img/score.png';
+import closeIcon from '../assets/img/close.svg';
 
 
 const Scores = ({ score }) => {
@@ -32,7 +34,7 @@ const Scores = ({ score }) => {
 
   return (
     <div>
-      <button onClick={() => setModalIsOpen(true)}>Score</button>
+      <button onClick={() => setModalIsOpen(true)}><img src={scoreIcon} alt="Score" style={{width: '31px', height: '22px', marginRight: '5px'}} />Score</button>
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
         <h2>Scores</h2>
         <table {...getTableProps()}>
@@ -64,7 +66,9 @@ const Scores = ({ score }) => {
             })}
           </tbody>
         </table>
-        <button onClick={() => setModalIsOpen(false)}>Close</button>
+        <button onClick={() => setModalIsOpen(false)}>
+          <img src={closeIcon} alt="Close" style={{width: '34px', height: '34px'}} />
+        </button>
       </Modal>
     </div>
   );

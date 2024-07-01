@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import closeIcon from '../assets/img/close.svg';
 
 const LoginPage = ({ openModal, closeModal }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
@@ -71,7 +72,9 @@ const LoginPage = ({ openModal, closeModal }) => {
       ) : (
         <button onClick={() => { closeModal(); openModal('register'); }}>Register</button>
       )}
-      <button onClick={closeModal}>Close</button>
+      <button onClick={closeModal}>
+        <img src={closeIcon} alt="Close" style={{width: '34px', height: '34px'}} />
+      </button>
     </div>
   );
 };

@@ -3,6 +3,10 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { handleLogout as logout } from './Logout.jsx';
 import { Link } from 'react-router-dom';
+import logoutIcon from '../assets/img/logout.png';
+import arrowIcon from '../assets/img/arrow-back.svg';
+import viewIcon from '../assets/img/view.svg';
+import editIcon from '../assets/img/edit.svg';
 
 const AdminUsers = () => {
   const navigate = useNavigate();
@@ -104,11 +108,20 @@ const AdminUsers = () => {
   return (
     <div>
       <header>
-        <img src="/path/to/logo.png" alt="Logo" />
+        <button onClick={handleBack}>
+          <img src="../assets/img/logo.png" alt="Logo" style={{width: '75px', height: '36px', marginRight: '5px'}} />
+        </button>
+
         <button onClick={handleProfile}>Profil</button>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={() => handleLogout(setIsAuthenticated, setModalIsOpen)}>
+          <img src={logoutIcon} alt="Logout" style={{width: '18px', height: '32px', marginRight: '5px'}} />Logout
+        </button>
       </header>
-      <button onClick={handleBack}>Back</button>
+
+      <button onClick={handleBack}>
+        <img src={arrowIcon} alt="arrow back" style={{width: '24px', height: '24px'}} />Back
+      </button>
+
       <h2>Utilisateurs</h2>
       <table>
         <thead>
@@ -176,14 +189,18 @@ const AdminUsers = () => {
                 <button onClick={() => handleSaveEdit(user.IdUsers)}>Save</button>
               ) : (
                 <>
-                  <button onClick={() => handleViewUser(user.IdUsers)}>Voir</button>
+                  <button onClick={() => handleViewUser(user.IdUsers)}>
+                    <img src={viewIcon} alt="View" style={{width: '24px', height: '24px'}} />
+                  </button>
                   {/*<Link to={`/user/${userId}`}>Voir</Link>*/}
                   <button onClick={() => {
                     handleEditUser(user.IdUsers);
                     setEditingUser(user.IdUsers);
                     setEditingField(null);
                     setEditedValues({Pseudo: user.Pseudo, Mail: user.Mail});
-                  }}>Éditer</button>
+                  }}>
+                    <img src={editIcon} alt="Edit" style={{width: '24px', height: '24px'}} />
+                  </button>
                 </>
               )}
             </td>

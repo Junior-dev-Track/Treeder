@@ -31,7 +31,7 @@ const NbTrees = () => {
 
   return (
     <button>
-      <img src={nbTreesIcon} alt="Tree Icon" style={{width: '26px', height: '31px', marginRight: '5px'}} />
+      <img src={nbTreesIcon} alt="Tree Icon" style={{width: '26px', height: '32px', marginRight: '5px'}} />
       {nbTrees}
     </button>
   );

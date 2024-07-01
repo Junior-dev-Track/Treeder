@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import Modal from 'react-modal';
+import logoutIcon from '../assets/img/logout.png';
+import closeIcon from '../assets/img/close.svg';
 
 
 export const handleLogout = async (setIsAuthenticated, setModalIsOpen) => {
@@ -38,10 +40,14 @@ export const handleLogout = async (setIsAuthenticated, setModalIsOpen) => {
 
   return (
     <div>
-      <button onClick={handleLogout}>Logout</button>
+      <button onClick={() => handleLogout(setIsAuthenticated, setModalIsOpen)}>
+        <img src={logoutIcon} alt="Logout" style={{width: '18px', height: '32px', marginRight: '5px'}} />Logout
+      </button>
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
         <h2>You're logged out</h2>
-        <button onClick={() => setModalIsOpen(false)}>Close</button>
+        <button onClick={() => setModalIsOpen(false)}>
+        <img src={closeIcon} alt="Close" style={{width: '34px', height: '34px'}} />
+        </button>
       </Modal>
     </div>
   );

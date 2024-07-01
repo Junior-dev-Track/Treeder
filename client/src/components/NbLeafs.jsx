@@ -15,7 +15,7 @@ const NbLeafs = () => {
 
   return (
     <button>
-      <img src={nbLeafsIcon} alt="Leaf Icon" style={{width: '24px', height: '37px', marginRight: '5px'}} />
+      <img src={nbLeafsIcon} alt="Leaf Icon" style={{width: '25px', height: '32px', marginRight: '5px'}} />
       {nbLeafs}
     </button>
   );
