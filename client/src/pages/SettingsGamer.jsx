@@ -8,43 +8,38 @@ import arrowIcon from '../assets/img/arrow-back.svg';
 const SettingsGamer = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState(1);
-  const [pseudo, setPseudo] = useState('Player1');
-  const [email, setEmail] = useState('player1@example.com');
+  const [pseudo, setPseudo] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.log('Token not found');
-      return;
+    const pseudo = Cookies.get('pseudo');
+    const email = Cookies.get('email');
+    const avatar = Cookies.get('avatar');
+
+
+    if (pseudo) {
+      setPseudo(pseudo);
     }
 
-    fetch('/settings', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-      user: {
-        Pseudo: Cookies.get('pseudo'),
-      },
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      setSelectedAvatar(data.avatar);
-      setPseudo(data.pseudo);
-      setEmail(data.email);
-    })
-    .catch((error) => console.error(error));
+    if (email) {
+      setEmail(email);
+    }
+
+    if (avatar) {
+      setSelectedAvatar(avatar);
+    }
   }, []);
 
 
-  const handleAvatarSelect = (avatarNumber) => {
-    setSelectedAvatar(avatarNumber);
-  };
-
-
   const handleSave = () => {
+    if (password !== confirmPassword) {
+      alert('Password and confirm password do not match!');
+      return;
+    }
+
     const token = localStorage.getItem('token');
     if (!token) {
       console.log('Token not found');
@@ -57,10 +52,10 @@ const SettingsGamer = () => {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      user: {
-        Pseudo: Cookies.get('pseudo'),
-      },
       body: JSON.stringify({
+        user: {
+          Pseudo: Cookies.get('pseudo'),
+        },
         avatar: selectedAvatar,
         pseudo: pseudo,
         email: email,
@@ -113,6 +108,12 @@ const SettingsGamer = () => {
           <label>
             Password:
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </label>
+        </div>
+        <div>
+          <label>
+            Confirm Password:
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
           </label>
         </div>
         <button onClick={handleSave}>Save</button>
