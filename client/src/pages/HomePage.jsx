@@ -52,10 +52,11 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
       <div className='map-container'>
        <StadiaMap treeData={treeData} />
       </div>
+      <img src="../assets/img/logo.png" alt="Logo" style={{width: '75px', height: '36px', marginRight: '5px'}} />
       <NbTrees isAuthenticated={isAuthenticated} />
       <NbLeafs isAuthenticated={isAuthenticated} />
       <NbLocks isAuthenticated={isAuthenticated} />
-      <h1>Home Page</h1>
+
       {!pseudo ? (
         isMobile ? (
           <Link to="/login">Login</Link>

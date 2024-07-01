@@ -16,7 +16,14 @@ const Scores = ({ score }) => {
 
   const columns = React.useMemo(
     () => [
-      { Header: 'Place', accessor: 'IdUsers' },
+      { 
+        Header: () => (
+          <div>
+            <img src={scoreIcon} alt="Score" style={{width: '31px', height: '22px'}} />
+          </div>
+        ), 
+        accessor: 'IdUsers' 
+      },
       { Header: 'Pseudo', accessor: 'Pseudo' },
       { Header: 'Trees', accessor: 'NbTrees' },
       { Header: 'Leaves', accessor: 'Leafs' },
