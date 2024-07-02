@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import closeIcon from '../assets/img/close.svg';
 
 const RegisterPage = ({ openModal, closeModal }) => {
   const [step, setStep] = useState(1);
@@ -129,7 +130,9 @@ const RegisterPage = ({ openModal, closeModal }) => {
             <input type="submit" value="Register" />
           </form>
           <button onClick={() => { closeModal(); openModal('login'); }}>Login</button>
-          <button onClick={closeModal}>Close</button>
+          <button onClick={closeModal}>
+            <img src={closeIcon} alt="Close" style={{width: '34px', height: '34px'}} />
+          </button>
         </div>
       )}
     </div>

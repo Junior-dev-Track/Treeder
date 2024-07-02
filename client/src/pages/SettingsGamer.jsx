@@ -1,27 +1,84 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import Cookies from 'js-cookie';
+import settingsIcon from '../assets/img/settings.png';
+import arrowIcon from '../assets/img/arrow-back.svg';
+
 
 const SettingsGamer = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState(1);
-  const [pseudo, setPseudo] = useState('Player1');
-  const [email, setEmail] = useState('player1@example.com');
+  const [pseudo, setPseudo] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleAvatarSelect = (avatarNumber) => {
-    setSelectedAvatar(avatarNumber);
-  };
+
+  useEffect(() => {
+    const pseudo = Cookies.get('pseudo');
+    const email = Cookies.get('email');
+    const avatar = Cookies.get('avatar');
+
+
+    if (pseudo) {
+      setPseudo(pseudo);
+    }
+
+    if (email) {
+      setEmail(email);
+    }
+
+    if (avatar) {
+      setSelectedAvatar(avatar);
+    }
+  }, []);
+
 
   const handleSave = () => {
-    // Sauvegardez les paramètres ici
-    setModalIsOpen(false);
+    if (password !== confirmPassword) {
+      alert('Password and confirm password do not match!');
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('Token not found');
+      return;
+    }
+
+    fetch('/settings', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: {
+          Pseudo: Cookies.get('pseudo'),
+        },
+        avatar: selectedAvatar,
+        pseudo: pseudo,
+        email: email,
+        password: password,
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      setModalIsOpen(false);
+    })
+    .catch((error) => console.error(error));
   };
+
 
   return (
     <div>
-      <button onClick={() => setModalIsOpen(true)}>Settings</button>
+      <button onClick={() => setModalIsOpen(true)}>
+        <img src={settingsIcon} alt="Settings" style={{width: '32px', height: '31px'}} /></button>
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-        <button onClick={() => setModalIsOpen(false)}>Back</button>
+        <button onClick={() => setModalIsOpen(false)}>
+          <img src={arrowIcon} alt="arrow back" style={{width: '24px', height: '24px'}} />Back
+        </button>
         <h2>Settings</h2>
         <div>
           <h3>Choix de l'avatar:</h3>
@@ -51,6 +108,12 @@ const SettingsGamer = () => {
           <label>
             Password:
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </label>
+        </div>
+        <div>
+          <label>
+            Confirm Password:
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
           </label>
         </div>
         <button onClick={handleSave}>Save</button>

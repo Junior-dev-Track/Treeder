@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useTable } from 'react-table';
+import scoreIcon from '../assets/img/score.png';
+import closeIcon from '../assets/img/close.svg';
 
 
 const Scores = ({ score }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  console.log(score);
+  //console.log(score);
   const data = React.useMemo(() => {
     const sortedScore = [...score].sort((a, b) => b.NbTrees - a.NbTrees);
     return sortedScore.map((item, index) => ({ ...item, IdUsers: index + 1 }));
@@ -14,7 +16,14 @@ const Scores = ({ score }) => {
 
   const columns = React.useMemo(
     () => [
-      { Header: 'Place', accessor: 'IdUsers' },
+      { 
+        Header: () => (
+          <div>
+            <img src={scoreIcon} alt="Score" style={{width: '31px', height: '22px'}} />
+          </div>
+        ), 
+        accessor: 'IdUsers' 
+      },
       { Header: 'Pseudo', accessor: 'Pseudo' },
       { Header: 'Trees', accessor: 'NbTrees' },
       { Header: 'Leaves', accessor: 'Leafs' },
@@ -32,39 +41,64 @@ const Scores = ({ score }) => {
 
   return (
     <div>
-      <button onClick={() => setModalIsOpen(true)}>Score</button>
-      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-        <h2>Scores</h2>
-        <table {...getTableProps()}>
-          <thead>
-            {headerGroups.map(headerGroup => {
-              const { key, ...props } = headerGroup.getHeaderGroupProps();
-              return (
-                <tr key={key} {...props}>
-                  {headerGroup.headers.map(column => {
-                    const { key: columnKey, ...columnProps } = column.getHeaderProps();
-                    return <th key={columnKey} {...columnProps}>{column.render('Header')}</th>;
-                  })}
-                </tr>
-              );
-            })}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row, i) => {
-              prepareRow(row);
-              const { key, ...props } = row.getRowProps();
-              return (
-                <tr key={key} {...props}>
-                  {row.cells.map(cell => {
-                    const { key, ...props } = cell.getCellProps();
-                    return <td key={key} {...props}>{cell.render('Cell')}</td>;
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <button onClick={() => setModalIsOpen(false)}>Close</button>
+      <button className='round--btn__big' onClick={() => setModalIsOpen(true)}>
+        <div className='infos'>
+          <img src={scoreIcon} alt="Score" className='scoreIcon' />
+          Score</div>
+      </button>
+
+      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} 
+          style={{
+            content: {
+              width: '50%',
+              margin: 'auto',
+              height: '50%',
+              backgroundColor: '#F8F3EE',
+              borderRadius: '30px',
+              border: 'none',
+              boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)',
+            },
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            }
+          }}
+      >
+        <div className='score-container'>
+          <button className='close-btn' onClick={() => setModalIsOpen(false)}>
+            <img className='closeIcon' src={closeIcon} alt="Close" />
+          </button>
+
+          <h2>Scores</h2>
+          <table {...getTableProps()} className='table'>
+            <thead>
+              {headerGroups.map(headerGroup => {
+                const { key, ...props } = headerGroup.getHeaderGroupProps();
+                return (
+                  <tr key={key} {...props}>
+                    {headerGroup.headers.map(column => {
+                      const { key: columnKey, ...columnProps } = column.getHeaderProps();
+                      return <th key={columnKey} {...columnProps} className="th" >{column.render('Header')}</th>;
+                    })}
+                  </tr>
+                );
+              })}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row, i) => {
+                prepareRow(row);
+                const { key, ...props } = row.getRowProps();
+                return (
+                  <tr key={key} {...props}>
+                    {row.cells.map(cell => {
+                      const { key, ...props } = cell.getCellProps();
+                      return <td key={key} {...props} className="td" >{cell.render('Cell')}</td>;
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </Modal>
     </div>
   );

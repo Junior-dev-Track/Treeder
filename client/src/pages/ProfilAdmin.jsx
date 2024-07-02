@@ -1,3 +1,5 @@
+//On n'utilise plus cette page, elle est directement inclue dans profil gamer
+
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import SettingsGamer from './SettingsGamer';

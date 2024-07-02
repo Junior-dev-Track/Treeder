@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import Modal from 'react-modal';
+import logoutIcon from '../assets/img/logout.png';
+import closeIcon from '../assets/img/close.svg';
 
-const Logout = ({ setIsAuthenticated }) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const handleLogout = async () => {
+export const handleLogout = async (setIsAuthenticated, setModalIsOpen) => {
     const token = localStorage.getItem('token');
     const response = await fetch('/logout', {
       method: 'POST',
@@ -34,12 +34,20 @@ const Logout = ({ setIsAuthenticated }) => {
     }
   };
 
+  const Logout = ({ setIsAuthenticated }) => {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+  
+
   return (
     <div>
-      <button onClick={handleLogout}>Logout</button>
+      <button className='logout-btn' onClick={() => handleLogout(setIsAuthenticated, setModalIsOpen)}>
+        <img className='logoutIcon' src={logoutIcon} alt="Logout" />Logout
+      </button>
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
         <h2>You're logged out</h2>
-        <button onClick={() => setModalIsOpen(false)}>Close</button>
+        <button onClick={() => setModalIsOpen(false)}>
+        <img src={closeIcon} alt="Close" style={{width: '34px', height: '34px'}} />
+        </button>
       </Modal>
     </div>
   );
