@@ -50,6 +50,10 @@ const LoginPage = ({ openModal, closeModal }) => {
 
   return (
     <div>
+      <button onClick={closeModal}>
+        <img className='close-icon' src={closeIcon} alt="Close" />
+      </button>
+      
       <h1>Login Page</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -72,9 +76,6 @@ const LoginPage = ({ openModal, closeModal }) => {
       ) : (
         <button onClick={() => { closeModal(); openModal('register'); }}>Register</button>
       )}
-      <button onClick={closeModal}>
-        <img src={closeIcon} alt="Close" style={{width: '34px', height: '34px'}} />
-      </button>
     </div>
   );
 };

@@ -30,8 +30,8 @@ const NbTrees = () => {
   }
 
   return (
-    <button className='tree-btn'>
-      <img className='treeIcon' src={nbTreesIcon} alt="Tree Icon" />
+    <button className='tree--btn'>
+      <img className='tree-icon' src={nbTreesIcon} alt="Tree Icon" />
       {nbTrees}
     </button>
   );

@@ -1,4 +1,7 @@
+//Buttons
+
 @import './_variables.scss';
+
 
 .round--btn {
     width: 50px;
@@ -11,62 +14,28 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.round--btn__big {
-    width: 64px;
-    height: 64px;
+.btn {
     background-color: $primary-color;
-    border-radius: 100%;
+    border-radius: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.infos {
+.btn__el {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.login-btn {
-    padding: 9px 30px;
-    background-color: $primary-color;
-    border-radius: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+.btn--text {
+    display: none;
 }
 
-.logout-btn {
-    padding: 3px 20px;
-    background-color: $primary-color;
-    border-radius: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
 
-.nb-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-}
-
-.tree-btn, .leaf-btn, .lock-btn {
-    padding: 3px 20px;
-    background-color: $primary-color;
-    border-radius: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+//Close
 
 .close-btn {
     right: 0;
@@ -74,45 +43,183 @@
     position: absolute;
 }
 
-//Icons
-
-.spotifyLogo {
-    width: 32px;
-    height: 32px;
-    // 42 / 42 en desktop
+.close-icon {
+    width: 34px;
+    height: 34px;
 }
 
-.logsIcon {
-    width: 21px;
-    height: 32px;
+
+//Login
+
+.login--btn {
+    padding: 8px 20px;
 }
 
-.scoreIcon {
-    width: 31px;
-    height: 22px;
+.login--btn a {
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
 }
 
-.logoutIcon {
+
+//Logout
+
+.logout-icon {
     width: 18px;
     height: 32px;
 }
 
-.treeIcon {
+.logout--btn {
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+}
+
+
+//Profile
+
+.profil--btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.profil-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    border: 3px solid $yellow-color;
+    background-color: $primary-color;
+}
+
+
+//Infos joueurs
+
+.infos--btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.tree--btn, .leaf--btn, .lock--btn {
+    padding: 3px 15px;
+    background-color: $primary-color;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.tree-icon {
     width: 26px;
     height: 32px;
 }
 
-.leafIcon {
+.leaf-icon {
     width: 25px;
     height: 32px;
 }
 
-.lockIcon {
+.lock-icon {
     width: 20px;
     height: 32px;
 }
 
-.closeIcon {
-    width: 34px;
-    height: 34px;
+
+//Score
+
+.score-icon {
+    width: 31px;
+    height: 22px;
+}
+
+
+//Logs
+
+.logs-icon {
+    width: 21px;
+    height: 32px;
+}
+
+
+//Spotify
+
+.spotify-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.round--btn a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+//responsive
+
+@media (min-width: 769px) {
+    .round--btn__big {
+        width: 64px;
+        height: 64px;
+        background-color: $primary-color;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn--text {
+        display: block;
+    }
+
+    .spotify-icon {
+    width: 42px;
+    height: 42px;
+    }
+
+    .login--btn {
+    padding: 9px 30px;
+    }
+
+    .logout--btn {
+        padding: 3px 20px;
+        gap: 10px;
+        border-radius: 30px;
+        width: auto;
+        height: auto;
+    }
+
+    .infos--btn {
+        gap: 30px;
+    }
+    
+    .tree--btn, .leaf--btn, .lock--btn {
+        padding: 3px 20px;
+    }
+
+    .profil--btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        padding: 9px 20px;
+        width: auto;
+        height: auto;
+        border-radius: 30px;
+    }
+
+    .profil-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        border: 3px solid $yellow-color;
+    }
+
 }

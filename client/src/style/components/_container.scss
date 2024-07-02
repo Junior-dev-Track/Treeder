@@ -2,7 +2,7 @@
 .container {
     //max-width: 1440px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 30px;
   }
   
   .map-container {
@@ -15,4 +15,13 @@
   .score-container {
     position: relative;
     padding: 20px 20px;
+  }
+
+
+  //responsive
+
+  @media (min-width: 769px) {
+    .container {
+      padding: 0 40px;
+    }
   }

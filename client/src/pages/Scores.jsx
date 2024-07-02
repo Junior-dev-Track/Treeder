@@ -41,10 +41,10 @@ const Scores = ({ score }) => {
 
   return (
     <div>
-      <button className='round--btn__big' onClick={() => setModalIsOpen(true)}>
-        <div className='infos'>
-          <img src={scoreIcon} alt="Score" className='scoreIcon' />
-          Score</div>
+      <button className='round--btn round--btn__big' onClick={() => setModalIsOpen(true)}>
+        <div className='btn__el'>
+          <img src={scoreIcon} alt="Score" className='score-icon' />
+          <span className='btn--text'>Score</span></div>
       </button>
 
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} 

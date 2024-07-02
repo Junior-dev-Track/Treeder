@@ -50,6 +50,10 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
   return (
     <div>
       <Modal isOpen={modalIsOpen} onRequestClose={() => {setModalIsOpen(false); setIsOpen(false);}}>
+        <button onClick={() => {setModalIsOpen(false); setIsOpen(false);}}>
+          <img className='close-icon' src={closeIcon} alt="Close" />
+        </button>
+
         <img src={playerData.Avatar} alt="Avatar" />
         {playerData.Admin === 1 && <h1>Admin</h1>}
         <h2>Pseudo: {playerData.Pseudo}</h2>
@@ -70,9 +74,6 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
         </div>
         {playerData.Admin === 1 && <button onClick={() => window.location.href='/adminusers'}>Admin Users</button>}
         <SettingsGamer />
-        <button onClick={() => {setModalIsOpen(false); setIsOpen(false);}}>
-        <img src={closeIcon} alt="Close" style={{width: '34px', height: '34px'}} />
-        </button>
       </Modal>
     </div>
   );

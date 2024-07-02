@@ -14,8 +14,8 @@ const NbLeafs = () => {
   }
 
   return (
-    <button className='leaf-btn'>
-      <img className='leafIcon' src={nbLeafsIcon} alt="Leaf Icon" />
+    <button className='leaf--btn'>
+      <img className='leaf-icon' src={nbLeafsIcon} alt="Leaf Icon" />
       {nbLeafs}
     </button>
   );

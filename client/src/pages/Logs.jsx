@@ -28,10 +28,10 @@ const Logs = ({ logs }) => {
 
   return (
     <div>
-      <button className='round--btn__big' onClick={() => setModalIsOpen(true)}>
-        <div className='infos'>
-          <img src={logsIcon} alt="Logs" className='logsIcon' />
-          Logs</div>
+      <button className='round--btn round--btn__big' onClick={() => setModalIsOpen(true)}>
+        <div className='btn__el'>
+          <img src={logsIcon} alt="Logs" className='logs-icon' />
+          <span className='btn--text'>Logs</span></div>
         </button>
 
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>

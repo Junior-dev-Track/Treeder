@@ -40,14 +40,15 @@ export const handleLogout = async (setIsAuthenticated, setModalIsOpen) => {
 
   return (
     <div>
-      <button className='logout-btn' onClick={() => handleLogout(setIsAuthenticated, setModalIsOpen)}>
-        <img className='logoutIcon' src={logoutIcon} alt="Logout" />Logout
+      <button className='btn logout--btn' onClick={() => handleLogout(setIsAuthenticated, setModalIsOpen)}>
+        <img className='logout-icon' src={logoutIcon} alt="Logout" />
+        <span className='btn--text'>Logout</span>
       </button>
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-        <h2>You're logged out</h2>
         <button onClick={() => setModalIsOpen(false)}>
-        <img src={closeIcon} alt="Close" style={{width: '34px', height: '34px'}} />
+          <img className='close-icon' src={closeIcon} alt="Close" />
         </button>
+        <h2>You're logged out</h2>
       </Modal>
     </div>
   );

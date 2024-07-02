@@ -59,7 +59,7 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
             <img className='logo__img' src="../assets/img/logo.png" alt="Logo" />
           </div>
 
-          <div className='nb-btn'>
+          <div className='infos--btn'>
             <NbTrees isAuthenticated={isAuthenticated} />
             <NbLeafs isAuthenticated={isAuthenticated} />
             <NbLocks isAuthenticated={isAuthenticated} />
@@ -67,15 +67,19 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
 
           {!pseudo ? (
             isMobile ? (
-              <Link to="/login">Login</Link>
+              <div className='btn login--btn'>
+                <Link to="/login">Login</Link>
+              </div>
             ) : (
-              <button className='login-btn' onClick={() => openModal('login')}>Login</button>
+              <button className='btn login--btn' onClick={() => openModal('login')}>Login</button>
             )
           ) : (
             <>
-              <button onClick={() => setIsProfileModalOpen(true)}>
-                <img src={avatarUrl} alt="Avatar" />
-                {pseudo}
+              <button className='btn profil--btn' onClick={() => setIsProfileModalOpen(true)}>
+                <div className='profil-avatar'>
+                  <img src={avatarUrl} alt="Avatar" />
+                </div>
+                <span className='btn--text'>{pseudo}</span>
               </button>
               <Logout setIsAuthenticated={setIsAuthenticated} />
             </>
@@ -83,7 +87,7 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
         </div>
 
       
-        <div className='right'>
+        <div className='nav--right'>
           <Scores score={scoreData} />
         </div>
 
