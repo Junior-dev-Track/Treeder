@@ -31,7 +31,7 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
     treeData.forEach(tree => {
       const icon = tree.Owner ? boughtTreeIcon : treeIcon; 
       const marker = L.marker([tree.Lat, tree.Lon], { icon: icon });
-      let popupContent = `<h2>${tree.Name}</h2>`;
+      let popupContent = `<h2>${tree.Name ? tree.Name : 'Groot'}</h2>`;
 
       const leafCount = Math.round(tree.TotHight * tree.DiaLeafs);
       const treeHight = Math.round(tree.TotHight);
