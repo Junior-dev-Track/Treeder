@@ -1,0 +1,21 @@
+
+.profil {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;  
+}
+
+.profil--avatar__big {
+    width: 74px;
+    height: 74px;
+    border-radius: 100%;
+    border: 3px solid $yellow-color;
+    background-color: $primary-color;
+}
+
+.profil--infos {
+    display: flex;
+    justify-content: start;
+    margin-top: 15px;
+}
