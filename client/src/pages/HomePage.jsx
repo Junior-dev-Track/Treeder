@@ -75,11 +75,11 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
             )
           ) : (
             <>
-              <button className='btn profil--btn' onClick={() => setIsProfileModalOpen(true)}>
+              <button className='btn' onClick={() => setIsProfileModalOpen(true)}>
                 <div className='profil-avatar'>
                   <img src={avatarUrl} alt="Avatar" />
                 </div>
-                <span className='btn--text'>{pseudo}</span>
+                <span className='profil--btn btn--text'>{pseudo}</span>
               </button>
               <Logout setIsAuthenticated={setIsAuthenticated} />
             </>

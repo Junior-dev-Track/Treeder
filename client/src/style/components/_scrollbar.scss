@@ -1,0 +1,30 @@
+//Scrollbar
+
+.customScrollContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.customScrollContainer.showScrollbar::-webkit-scrollbar {
+    display: block;
+    width: 4px;
+}
+
+.customScrollContainer.showScrollbar {
+    &::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 4px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+      &:hover {
+        background: #555;
+      }
+    }
+  }
+
+.customScrollContainer {
+    overflow: auto;
+    max-height: 100%;
+}

@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import { useTable } from 'react-table';
 import scoreIcon from '../assets/img/score.png';
 import closeIcon from '../assets/img/close.svg';
+import CustomModal from '../components/CustomModal.jsx';
 
 
 const Scores = ({ score }) => {
@@ -47,22 +48,7 @@ const Scores = ({ score }) => {
           <span className='btn--text'>Score</span></div>
       </button>
 
-      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} 
-          style={{
-            content: {
-              width: '50%',
-              margin: 'auto',
-              height: '50%',
-              backgroundColor: '#F8F3EE',
-              borderRadius: '30px',
-              border: 'none',
-              boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)',
-            },
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.4)',
-            }
-          }}
-      >
+      <CustomModal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
         <div className='score-container'>
           <button className='close-btn' onClick={() => setModalIsOpen(false)}>
             <img className='closeIcon' src={closeIcon} alt="Close" />
@@ -99,7 +85,7 @@ const Scores = ({ score }) => {
             </tbody>
           </table>
         </div>
-      </Modal>
+      </CustomModal>
     </div>
   );
 }
