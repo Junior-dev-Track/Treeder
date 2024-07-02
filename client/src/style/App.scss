@@ -1,24 +1,59 @@
-$primary-color: #384fb8;
+@import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap');
+
+@import './components/_variables.scss';
+
+//components
+@import './components/_button.scss';
+@import './components/_header.scss';
+@import './components/_footer.scss';
+@import './components/_container.scss';
+@import './components/_table.scss';
+
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
 }
 
 body {
   background-color: $primary-color;
-  font-family: Arial, sans-serif;
+  font-family: $font-family;
+  font-size: 16px;
 
   h1 {
     color: #000000;
   }
 }
 
-.map-container {
-  position: absolute;
-  height: 80vh;
-  width: 100%;
-  z-index: -1;
+button {
+  font-family: $font-family;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  background: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+
+.logo {
+  background-color: $primary-color;
+  border-radius: 30px;
+  width: 120px;
+  height: 51px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo__img {
+  width: 76px;
+  height: 39px;
 }

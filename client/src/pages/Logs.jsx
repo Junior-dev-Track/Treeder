@@ -28,7 +28,12 @@ const Logs = ({ logs }) => {
 
   return (
     <div>
-      <button onClick={() => setModalIsOpen(true)}><img src={logsIcon} alt="Logs" style={{width: '21px', height: '32px', marginRight: '5px'}} />Logs</button>
+      <button className='round--btn__big' onClick={() => setModalIsOpen(true)}>
+        <div className='infos'>
+          <img src={logsIcon} alt="Logs" className='logsIcon' />
+          Logs</div>
+        </button>
+
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
         <h2>Player Logs</h2>
         <table {...getTableProps()}>

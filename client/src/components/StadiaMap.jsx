@@ -97,7 +97,7 @@ const StadiaMap = ({ treeData }) => {
     <MapContainer 
       center={[50.63373, 5.56749]} 
       zoom={13} 
-      style={{ height: "80vh", width: "100%" }}
+      style={{ height: "100vh", width: "100%" }}
       minZoom={13}
       maxZoom={16}
       zoomControl={false}

@@ -52,31 +52,49 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
       <div className='map-container'>
        <StadiaMap treeData={treeData} />
       </div>
-      <img src="../assets/img/logo.png" alt="Logo" style={{width: '75px', height: '36px', marginRight: '5px'}} />
-      <NbTrees isAuthenticated={isAuthenticated} />
-      <NbLeafs isAuthenticated={isAuthenticated} />
-      <NbLocks isAuthenticated={isAuthenticated} />
 
-      {!pseudo ? (
-        isMobile ? (
-          <Link to="/login">Login</Link>
-        ) : (
-          <button onClick={() => openModal('login')}>Login</button>
-        )
-      ) : (
-        <>
-          <button onClick={() => setIsProfileModalOpen(true)}>
-            <img src={avatarUrl} alt="Avatar" />
-            {pseudo}
-          </button>
-          <Logout setIsAuthenticated={setIsAuthenticated} />
-        </>
-      )}
-      <Scores score={scoreData} />
-      <Logs logs={playerLogs} />
-      <SpotifyButton />
+      <div className='container'>
+        <div className='header'>
+          <div className='logo'>
+            <img className='logo__img' src="../assets/img/logo.png" alt="Logo" />
+          </div>
+
+          <div className='nb-btn'>
+            <NbTrees isAuthenticated={isAuthenticated} />
+            <NbLeafs isAuthenticated={isAuthenticated} />
+            <NbLocks isAuthenticated={isAuthenticated} />
+          </div>
+
+          {!pseudo ? (
+            isMobile ? (
+              <Link to="/login">Login</Link>
+            ) : (
+              <button className='login-btn' onClick={() => openModal('login')}>Login</button>
+            )
+          ) : (
+            <>
+              <button onClick={() => setIsProfileModalOpen(true)}>
+                <img src={avatarUrl} alt="Avatar" />
+                {pseudo}
+              </button>
+              <Logout setIsAuthenticated={setIsAuthenticated} />
+            </>
+          )}
+        </div>
+
+      
+        <div className='right'>
+          <Scores score={scoreData} />
+        </div>
+
+      <div className='footer'>
+        <Logs logs={playerLogs} />
+        <SpotifyButton />
+      </div>
     
       <ProfilGamer isOpen={isProfileModalOpen} setIsOpen={setIsProfileModalOpen} />
+    </div>
+
     </div>
   );
 };
