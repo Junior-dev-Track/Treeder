@@ -54,6 +54,19 @@ class UserDB{
         const result = await this.dataBase.query(query);
         return result[0].averageLeaves;
     }
+
+
+    async getUserDatas() {
+        return await this.dataBase.query(`
+        SELECT Users.*, COUNT(Trees.Owner) AS NbTrees, Logs.*
+        FROM Users 
+        LEFT JOIN Logs ON Users.IdUsers = Logs.User 
+        LEFT JOIN Trees ON Users.IdUsers = Trees.Owner
+        WHERE Users.IdUsers = '${dataUser.IdUsers}'
+        GROUP BY Users.IdUsers
+    `);
+
+    }
 }
 
 module.exports = UserDB;
