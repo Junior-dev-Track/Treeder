@@ -40,7 +40,7 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
         <br><img src="${heightIcon}" alt="Height" style="width: 11px; height: 14px;" />${treeHight}
         <br><img src="${diaIcon}" alt="Diameter" style="width: 14px; height: 16px;" />${tree.DiaLeafs}
         <br><img src="${leafIcon}" alt="Leafs" style="width: 14px; height: 18px;" />${leafCount} Leafs
-        <br>${tree.Owner ? tree.Owner : ''}`;
+        <br>${tree.Pseudo ? tree.Pseudo : ''}`;
 
       if (tree.owner) {
         if (tree.owner === currentUser) {

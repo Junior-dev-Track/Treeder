@@ -16,7 +16,7 @@ const SettingsGamer = () => {
 
   useEffect(() => {
     const pseudo = Cookies.get('pseudo');
-    const email = Cookies.get('email');
+    const email = Cookies.get('mail');
     const avatar = Cookies.get('avatar');
 
 

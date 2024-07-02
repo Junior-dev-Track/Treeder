@@ -33,6 +33,7 @@ const LoginPage = ({ openModal, closeModal }) => {
       console.log("ntm les " + data)
       document.cookie = `idUser=${data.IdUsers}`;
       document.cookie = `pseudo=${data.Pseudo}`;
+        document.cookie = `mail=${data.Mail}`;
       document.cookie = `leafs=${data.Leafs}`;
       document.cookie = `skintrees=${data.SkinTrees}`;
       document.cookie = `skinplayer=${data.SkinPlayer}`;

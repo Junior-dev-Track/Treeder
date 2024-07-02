@@ -13,7 +13,7 @@ class TreeDB{
     }
 
     async getTrees(){
-        return await this.dataBase.query('SELECT Trees.*, Users.Pseudo FROM Trees LEFT JOIN Users ON Trees.Owner = Users.IdUsers');
+        return await this.dataBase.query('SELECT T.*, U.Pseudo FROM Trees AS T LEFT JOIN Users AS U ON T.Owner = U.IdUsers');
     }
 
 
@@ -23,7 +23,7 @@ class TreeDB{
 
     async getTreesRadius(lat, lon, radius) {
         const radiusInKm = radius / 1000;
-        return await this.dataBase.query(`SELECT t.IdTrees, t.TotHight, t.DiaLeafs, t.Owner FROM Trees AS t WHERE ( 6371 * acos( cos( radians(${lat}) ) * cos( radians( Lat ) ) * cos( radians( Lon ) - radians(${lon}) ) + sin( radians(${lat}) ) * sin( radians( Lat ) ) ) ) < ${radiusInKm}`);
+        return await this.dataBase.query(`SELECT T.IdTrees, T.TotHight, T.DiaLeafs, T.Owner FROM Trees AS T WHERE ( 6371 * acos( cos( radians(${lat}) ) * cos( radians( Lat ) ) * cos( radians( Lon ) - radians(${lon}) ) + sin( radians(${lat}) ) * sin( radians( Lat ) ) ) ) < ${radiusInKm}`);
     }
 
     async getRandomTrees() {
