@@ -13,8 +13,9 @@ class TreeDB{
     }
 
     async getTrees(){
-        return await this.dataBase.query('SELECT * FROM Trees');
+        return await this.dataBase.query('SELECT Trees.*, Users.Pseudo FROM Trees LEFT JOIN Users ON Trees.Owner = Users.IdUsers');
     }
+
 
     async getTreesByPosition(minLat, maxLat, minLon, maxLon) {
         return await this.dataBase.query(`SELECT * FROM Trees WHERE Lat BETWEEN '${minLat}' AND '${maxLat}' AND Lon BETWEEN '${minLon}' AND '${maxLon}'`);
