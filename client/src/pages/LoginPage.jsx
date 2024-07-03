@@ -33,7 +33,7 @@ const LoginPage = ({ openModal, closeModal }) => {
       console.log("ntm les " + data)
       document.cookie = `idUser=${data.IdUsers}`;
       document.cookie = `pseudo=${data.Pseudo}`;
-        document.cookie = `mail=${data.Mail}`;
+      document.cookie = `mail=${data.Mail}`;
       document.cookie = `leafs=${data.Leafs}`;
       document.cookie = `skintrees=${data.SkinTrees}`;
       document.cookie = `skinplayer=${data.SkinPlayer}`;
@@ -50,41 +50,53 @@ const LoginPage = ({ openModal, closeModal }) => {
   };
 
   return (
-    <div className="loginPage">
-      <button onClick={closeModal}>
-        <img className='close-icon' src={closeIcon} alt="Close" />
-      </button>
-      
-      <h1 className="login--h1">Login</h1>
-      <form onSubmit={handleSubmit}>
-        <label className="label">
-          Username
-          <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        </label>
-        <label className="label">
-          Password
-          <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        <input className="loginbtn" type="submit" value="Login" />
-      </form>
-      {isMobile ? (
-        <Link className="forget" to="/forgot-password">Forgot Password?</Link>
-      ) : (
-        <button className="forget" onClick={() => openModal('forgot-password')}>Forgot Password?</button>
-      )}
-      {isMobile ? (
-        <Link className="registerbtn" to="/register">Register</Link>
-      ) : (
-          <div className="registerSection">
-            <p>You don’t have an account yet? </p>
-            <button className="registerbtn" onClick={() => {
-              closeModal();
-              openModal('register');
-            }}>Register
-            </button>
-          </div>
+    <div className="login-page">
+      <div className='login-container'>
+      <button className='close-btn' onClick={() => {
+        if (isMobile) {
+          window.location.href = '/';
+        } else {
+          closeModal();
+        }
+      }}>
+          <img className='close-icon' src={closeIcon} alt="Close" />
+        </button>
+        
+        <h1 className="login--title">Login</h1>
+        <form onSubmit={handleSubmit}>
+          <label className="login--label">
+            Username
+            <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+          </label>
+          <label className="login--label">
+            Password
+            <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </label>
+          {isMobile ? (
+            <>
+            <Link className="forget--btn" to="/forgot-password">Forgot Password?</Link>
+            <div className="btn-container-mobile">
+              <input className="primary--btn" type="submit" value="Login" />
+              <Link className="secondary--btn" to="/register">Register</Link>
+            </div>
+          </>
+          ) : (
+            <>
+              <button className="forget--btn" onClick={() => openModal('forgot-password')}>Forgot Password?</button>
+              <input className="primary--btn" type="submit" value="Login" />
+              <div className="register-section">
+              <p className='p-opacity'>You don’t have an account yet? </p>
+              <button className="secondary--btn secondary--btn__small" onClick={() => {
+                closeModal();
+                openModal('register');
+              }}>Register
+              </button>
+            </div>
+            </>
+          )}
 
-      )}
+        </form>
+      </div>
     </div>
   );
 };

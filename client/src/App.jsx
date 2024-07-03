@@ -3,6 +3,7 @@ import './style/App.scss';
 import Modal from 'react-modal';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import CustomModal from './components/CustomModal.jsx';
 
 
 import LoginPage from './pages/LoginPage.jsx';
@@ -97,13 +98,14 @@ const App = () => {
         )}
       </Routes>
       {!isMobile && modalIsOpen && (
-        <Modal
+        <CustomModal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
           contentLabel={modalContent === 'login' ? 'Login Modal' : 'Register Modal'}
+          isLoginModal={modalContent === 'login'}
         >
           {modalContent === 'forgot-password' ? <ForgotPassword openModal={openModal} closeModal={closeModal} /> : (modalContent === 'login' ? <LoginPage openModal={openModal} closeModal={closeModal} /> : <RegisterPage openModal={openModal} closeModal={closeModal} />)}
-        </Modal>
+        </CustomModal>
       )}
     </Router>
   );
