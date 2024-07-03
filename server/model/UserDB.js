@@ -83,6 +83,10 @@ class UserDB{
             Users.Admin
         `);
     }
+
+    async getLeafs(dataUser) {
+        return await this.dataBase.query(`SELECT Leafs FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
+    }
 }
 
 module.exports = UserDB;

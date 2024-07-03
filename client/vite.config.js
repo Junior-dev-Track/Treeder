@@ -28,6 +28,8 @@ export default defineConfig({
       '/logout': 'http://localhost:3000',
       '/settings': 'http://localhost:3000',
       '/userTrees': 'http://localhost:3000',
+      '/userLeafs': 'http://localhost:3000',
+      '/userLocks': 'http://localhost:3000',
 
     },
   },
