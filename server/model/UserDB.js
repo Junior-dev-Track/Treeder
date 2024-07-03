@@ -10,9 +10,9 @@ class UserDB{
 
     async getUser(dataUser){
         if (dataUser.IdUsers){
-            return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,NbTrees,Leafs,SkinPlayer,SkinTrees,Admin FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
+            return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,Leafs,SkinPlayer,SkinTrees,Admin FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
         }
-        return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,NbTrees,Leafs,SkinPlayer,SkinTrees,Admin FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
+        return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,Leafs,SkinPlayer,SkinTrees,Admin FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
     }
 
     async authentication(dataUser){
@@ -56,16 +56,36 @@ class UserDB{
     }
 
 
-    async getUserDatas() {
-        return await this.dataBase.query(`
-        SELECT Users.*, COUNT(Trees.Owner) AS NbTrees, Logs.*
+    async getUserDatas(dataUser) {
+    return await this.dataBase.query(`
+        SELECT 
+            Users.IdUsers, 
+            Users.Pseudo, 
+            Users.Mail, 
+            Users.Leafs, 
+            Users.SkinPlayer, 
+            Users.SkinTrees, 
+            Users.Admin, 
+            COUNT(Trees.Owner) AS NbTrees,
+            MAX(Logs.Date) AS LastLogDate, -- Example of aggregating Logs data
+            COUNT(Logs.IdLogs) AS NumberOfLogs -- Another example of aggregation
         FROM Users 
         LEFT JOIN Logs ON Users.IdUsers = Logs.User 
         LEFT JOIN Trees ON Users.IdUsers = Trees.Owner
         WHERE Users.IdUsers = '${dataUser.IdUsers}'
-        GROUP BY Users.IdUsers
-    `);
+        GROUP BY 
+            Users.IdUsers, 
+            Users.Pseudo, 
+            Users.Mail, 
+            Users.Leafs, 
+            Users.SkinPlayer, 
+            Users.SkinTrees, 
+            Users.Admin
+        `);
+    }
 
+    async getLeafs(dataUser) {
+        return await this.dataBase.query(`SELECT Leafs FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
     }
 }
 

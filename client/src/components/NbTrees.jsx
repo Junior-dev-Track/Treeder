@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import nbTreesIcon from '../assets/img/nb-trees.png';
+import Cookies from 'js-cookie';
 
 
 const isLoggedIn = () => {
@@ -7,21 +8,34 @@ const isLoggedIn = () => {
   return !!localStorage.getItem('token');
 }
 
+
 const NbTrees = () => {
   const [nbTrees, setNbTrees] = useState(0);
 
-  useEffect(() => {
+  const fetchNbTrees = () => {
     if (isLoggedIn()) {
-      fetch('/user')
+      fetch('/userTrees', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      }
+    })
         .then(response => response.json())
         .then(data => {
-          console.log(data); // Ajoutez cette ligne
-          const user = data.find(user => user.IdUsers === 1);
-          if (user) {
-            setNbTrees(user.NbTrees);
-          }
+          //console.log(data);
+          //console.log("NbTrees: ", data[0].NbTrees);
+          setNbTrees(data[0].NbTrees);
+          Cookies.set('nbTrees', data[0].NbTrees);
+          
         });
     }
+  };
+
+  useEffect(() => {
+    fetchNbTrees(); 
+    const intervalId = setInterval(fetchNbTrees, 5000); 
+
+    return () => clearInterval(intervalId);
   }, []);
 
   if (!isLoggedIn()) {

@@ -11,10 +11,13 @@ const scoreRoutes = require('./routes/scoreboard');
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const userRoutes = require('./routes/user');
+const userLeafsRoutes = require('./routes/userLeafs');
+const allUserRoutes = require('./routes/allUser');
 const profileRoutes = require('./routes/profileUser');
 const userAdminRoutes = require('./routes/admin');
 const logsRoutesAdmin = require('./routes/logsAdmin');
 const logsRoutesPlayer = require('./routes/logsPlayer');
+const treesUserRoutes = require('./routes/userTrees');
 const treesRoutes = require('./routes/trees');
 const logoutRoutes = require('./routes/logout');
 const refreshTokenRoutes = require('./routes/refreshToken');
@@ -26,11 +29,14 @@ app.use('/', indexRoutes);
 app.use('/score', scoreRoutes)
 app.use('/login', loginRoutes)
 app.use('/register', registerRoutes)
+app.use('/alluser', allUserRoutes)
 app.use('/user', userRoutes)
+app.use('/userLeafs', userLeafsRoutes)
 app.use('/profile', profileRoutes)
 app.use('/user/admin', userAdminRoutes)
 app.use('/logsAdmin', logsRoutesAdmin)
 app.use('/logsPlayer', logsRoutesPlayer)
+app.use('/userTrees', treesUserRoutes)
 app.use('/trees', treesRoutes)
 app.use('/logout', logoutRoutes)
 app.use('/refresh', refreshTokenRoutes)

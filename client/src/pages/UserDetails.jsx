@@ -1,23 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const UserDetails = ({ match }) => {
-  const userId = match.params.id; // Get the user ID from the URL
+const UserDetails = ({}) => {
   const navigate = useNavigate();
 
   // Create states for user information
   const [pseudo, setPseudo] = useState('');
-  // Add more states as needed...
+
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.log('Token not found');
+    return;
+  }
 
   // Fetch user information when component mounts
   useEffect(() => {
-    fetch(`/user/${userId}`)
+    fetch(`/user?IdUser=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
       .then(response => response.json())
       .then(data => {
         setPseudo(data.Pseudo);
         // Set more states as needed...
       });
-  }, [userId]);
+  }, [userId, token]);
 
   // Handle save button click
   const handleSave = () => {

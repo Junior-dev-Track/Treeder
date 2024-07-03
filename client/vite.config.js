@@ -23,9 +23,13 @@ export default defineConfig({
       '/score': 'http://localhost:3000',
       '/user': 'http://localhost:3000',
       '/user/admin': 'http://localhost:3000',
+      '/alluser': 'http://localhost:3000',
       '/profile': 'http://localhost:3000',
       '/logout': 'http://localhost:3000',
       '/settings': 'http://localhost:3000',
+      '/userTrees': 'http://localhost:3000',
+      '/userLeafs': 'http://localhost:3000',
+      '/userLocks': 'http://localhost:3000',
 
     },
   },
