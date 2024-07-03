@@ -18,7 +18,6 @@ class DataBase {
             database: this.db
         });
 
-        console.log("Connected to database!");
         return connection;
     }
 

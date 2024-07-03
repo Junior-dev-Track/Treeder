@@ -49,7 +49,7 @@ const RegisterPage = ({ openModal, closeModal }) => {
         document.cookie = `idUser=${data.IdUsers}`;
         document.cookie = `pseudo=${data.Pseudo}`;
         document.cookie = `leafs=${data.Leafs}`;
-        document.cookie = `nbtrees=${data.NbTrees}`;
+        document.cookie = `locks=${data.Locks}`;
         document.cookie = `skintrees=${data.SkinTrees}`;
         document.cookie = `skinplayer=${data.SkinPlayer}`;
         document.cookie = `admin=${data.Admin}`;
