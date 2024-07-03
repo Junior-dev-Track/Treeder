@@ -45,6 +45,7 @@ router.post('/', async (req, res) => {
         let data = {
             IdUsers: user.IdUsers,
             Pseudo: user.Pseudo,
+            Mail: user.Mail,
             Leafs: user.Leafs,
             NbTrees: user.NbTrees,
             SkinTrees: user.SkinTrees,

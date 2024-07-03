@@ -10,9 +10,9 @@ class UserDB{
 
     async getUser(dataUser){
         if (dataUser.IdUsers){
-            return await this.dataBase.query(`SELECT IdUsers,Pseudo,NbTrees,Leafs,SkinPlayer,SkinTrees, Admin FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
+            return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,NbTrees,Leafs,SkinPlayer,SkinTrees,Admin FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
         }
-        return await this.dataBase.query(`SELECT IdUsers,Pseudo, NbTrees,Leafs,SkinPlayer,SkinTrees, Admin FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
+        return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,NbTrees,Leafs,SkinPlayer,SkinTrees,Admin FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
     }
 
     async authentication(dataUser){
@@ -53,6 +53,19 @@ class UserDB{
         const query = "SELECT ROUND(AVG(Leafs)) as averageLeaves FROM Users";
         const result = await this.dataBase.query(query);
         return result[0].averageLeaves;
+    }
+
+
+    async getUserDatas() {
+        return await this.dataBase.query(`
+        SELECT Users.*, COUNT(Trees.Owner) AS NbTrees, Logs.*
+        FROM Users 
+        LEFT JOIN Logs ON Users.IdUsers = Logs.User 
+        LEFT JOIN Trees ON Users.IdUsers = Trees.Owner
+        WHERE Users.IdUsers = '${dataUser.IdUsers}'
+        GROUP BY Users.IdUsers
+    `);
+
     }
 }
 

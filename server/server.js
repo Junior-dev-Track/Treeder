@@ -19,7 +19,7 @@ const treesRoutes = require('./routes/trees');
 const logoutRoutes = require('./routes/logout');
 const refreshTokenRoutes = require('./routes/refreshToken');
 const settingsRoutes = require('./routes/settings');
-
+const deleteUserRoutes = require('./routes/deleteUser');
 
 // Use the routes
 app.use('/', indexRoutes);
@@ -36,6 +36,7 @@ app.use('/logout', logoutRoutes)
 app.use('/refresh', refreshTokenRoutes)
 app.use('/music', express.static('public/music'));
 app.use('/settings', settingsRoutes)
+app.use('/deleteUser', deleteUserRoutes)
 app.use('/*', (req, res) => {
   res.status(404).send('404 Not found');
 });
