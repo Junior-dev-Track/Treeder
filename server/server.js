@@ -16,6 +16,7 @@ const profileRoutes = require('./routes/profileUser');
 const userAdminRoutes = require('./routes/admin');
 const logsRoutesAdmin = require('./routes/logsAdmin');
 const logsRoutesPlayer = require('./routes/logsPlayer');
+const treesUserRoutes = require('./routes/userTrees');
 const treesRoutes = require('./routes/trees');
 const logoutRoutes = require('./routes/logout');
 const refreshTokenRoutes = require('./routes/refreshToken');
@@ -33,6 +34,7 @@ app.use('/profile', profileRoutes)
 app.use('/user/admin', userAdminRoutes)
 app.use('/logsAdmin', logsRoutesAdmin)
 app.use('/logsPlayer', logsRoutesPlayer)
+app.use('/userTrees', treesUserRoutes)
 app.use('/trees', treesRoutes)
 app.use('/logout', logoutRoutes)
 app.use('/refresh', refreshTokenRoutes)

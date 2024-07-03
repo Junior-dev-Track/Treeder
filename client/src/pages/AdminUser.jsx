@@ -22,7 +22,7 @@ const AdminUsers = () => {
       return;
     }
 
-    fetch('/user', {
+    fetch('/alluser', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -87,7 +87,7 @@ const AdminUsers = () => {
   };
 
   const handleViewUser = (userId) => {
-    navigate(`/userdetails/${userId}`);
+    navigate(`/user?IdUser=${userId}`);
   };
   
   const handleBack = () => {
