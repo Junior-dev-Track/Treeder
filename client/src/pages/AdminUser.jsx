@@ -107,16 +107,19 @@ const AdminUsers = () => {
 
   return (
     <div>
-      <header>
-        <button onClick={handleBack}>
-          <img src="../assets/img/logo.png" alt="Logo" style={{width: '75px', height: '36px', marginRight: '5px'}} />
-        </button>
+        <div className='container'>
+          <div className='header'>
+            <button onClick={handleBack}>
+              <div className='logo'>
+                <img className='logo__img' src="../assets/img/logo.png" alt="Logo" />
+              </div>
+            </button>
 
-        <button onClick={handleProfile}>Profil</button>
-        <button onClick={() => handleLogout(setIsAuthenticated, setModalIsOpen)}>
-          <img src={logoutIcon} alt="Logout" style={{width: '18px', height: '32px', marginRight: '5px'}} />Logout
-        </button>
-      </header>
+            <button onClick={handleProfile}>Profil</button>
+            <button onClick={() => handleLogout(setIsAuthenticated, setModalIsOpen)}>
+              <img src={logoutIcon} alt="Logout" style={{width: '18px', height: '32px', marginRight: '5px'}} />Logout
+            </button>
+        </div>
 
       <button onClick={handleBack}>
         <img src={arrowIcon} alt="arrow back" style={{width: '24px', height: '24px'}} />Back
@@ -208,6 +211,7 @@ const AdminUsers = () => {
         ))}
     </tbody>
       </table>
+      </div>
     </div>
   );
 };
