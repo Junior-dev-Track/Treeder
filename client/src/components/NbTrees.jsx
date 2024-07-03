@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import nbTreesIcon from '../assets/img/nb-trees.png';
 
-const nbTrees = 5; // Remplacez ceci par la constante réelle
 
 const isLoggedIn = () => {
   // Vérifie si l'utilisateur est connecté en vérifiant si un token d'utilisateur existe dans le localStorage
