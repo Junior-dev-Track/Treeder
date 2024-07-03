@@ -50,32 +50,40 @@ const LoginPage = ({ openModal, closeModal }) => {
   };
 
   return (
-    <div>
+    <div className="loginPage">
       <button onClick={closeModal}>
         <img className='close-icon' src={closeIcon} alt="Close" />
       </button>
       
-      <h1>Login Page</h1>
+      <h1 className="login--h1">Login</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Username:
+        <label className="label">
+          Username
           <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
         </label>
-        <label>
-          Password:
+        <label className="label">
+          Password
           <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
-        <input type="submit" value="Login" />
+        <input className="loginbtn" type="submit" value="Login" />
       </form>
       {isMobile ? (
-        <Link to="/forgot-password">Forgot Password?</Link>
+        <Link className="forget" to="/forgot-password">Forgot Password?</Link>
       ) : (
-        <button onClick={() => openModal('forgot-password')}>Forgot Password?</button>
+        <button className="forget" onClick={() => openModal('forgot-password')}>Forgot Password?</button>
       )}
       {isMobile ? (
-        <Link to="/register">Register</Link>
+        <Link className="registerbtn" to="/register">Register</Link>
       ) : (
-        <button onClick={() => { closeModal(); openModal('register'); }}>Register</button>
+          <div className="registerSection">
+            <p>You don’t have an account yet? </p>
+            <button className="registerbtn" onClick={() => {
+              closeModal();
+              openModal('register');
+            }}>Register
+            </button>
+          </div>
+
       )}
     </div>
   );

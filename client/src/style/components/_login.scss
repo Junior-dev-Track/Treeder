@@ -1,0 +1,111 @@
+@import './_variables.scss';
+
+
+.loginPage {
+  background-color: $background-light-color;
+  height: 100vh;
+}
+
+.login--h1 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 55%;
+}
+
+.label input {
+  border-bottom: 1px solid $brown-color;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: $background-light-color;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+
+.loginbtn {
+  background-color: $green-color;
+  color: $background-light-color;
+  border: none;
+  padding: 8px 40px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: 16px;
+}
+
+.registerbtn {
+    background-color: $background-light-color;
+    color: $green-color;
+    border: 1px solid $green-color;
+    padding: 8px 40px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+
+.forget {
+  color: $brown-color;
+  font-size: 14px;
+}
+
+//responsive
+
+@media (min-width: 769px) {
+
+  .loginPage {
+    background-color: $background-light-color;
+    width: 415px;
+    height: 470px;
+    border-radius: 30px;
+  }
+
+  .label {
+    width: 80%;
+  }
+
+  .login--h1 {
+    margin-bottom: 20px;
+    margin-left: 40px;
+    justify-content: left;
+  }
+
+  .loginbtn {
+    padding: 8px 22px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .registerbtn {
+    color: $brown-color;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+  }
+
+  form {
+    gap: 30px;
+  }
+
+  .registerSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+  }
+
+}
