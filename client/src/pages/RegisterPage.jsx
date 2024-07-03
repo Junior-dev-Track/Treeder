@@ -65,8 +65,8 @@ const RegisterPage = ({ openModal, closeModal }) => {
     };
 
   return (
-    <div>
-      <h1>Register Page</h1>
+    <div className="registerPage">
+      <h1>Register</h1>
       {isMobile ? (
         step === 1 ? (
           <div>
