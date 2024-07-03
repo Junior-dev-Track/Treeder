@@ -76,17 +76,21 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
           </div>
       
 
-        <div>
+        <div className='skins'>
             <h3>Skins:</h3>
-            {[1, 2, 3, 4, 5].map((skinNumber) => (
-              <button
-                key={skinNumber}
-                onClick={() => handleSkinSelect(skinNumber)}
-                style={{ backgroundColor: selectedSkin === skinNumber ? 'blue' : 'grey' }}
-              >
-                Skin {skinNumber}
-              </button>
-            ))}
+
+            <div className='skins--infos'>
+              {[1, 2, 3, 4, 5].map((skinNumber) => (
+                <button
+                  className='skin--btn'
+                  key={skinNumber}
+                  onClick={() => handleSkinSelect(skinNumber)}
+                  style={{ backgroundColor: selectedSkin === skinNumber ? 'blue' : 'grey' }}
+                >
+                  Skin {skinNumber}
+                </button>
+              ))}
+            </div>
           </div>
           {playerData.Admin === 1 && <button onClick={() => window.location.href='/adminusers'}>Admin Users</button>}
 
