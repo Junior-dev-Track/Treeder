@@ -10,9 +10,9 @@ class UserDB{
 
     async getUser(dataUser){
         if (dataUser.IdUsers){
-            return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,NbTrees,Leafs,SkinPlayer,SkinTrees,Admin FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
+            return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,Leafs,SkinPlayer,SkinTrees,Admin FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
         }
-        return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,NbTrees,Leafs,SkinPlayer,SkinTrees,Admin FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
+        return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,Leafs,SkinPlayer,SkinTrees,Admin FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
     }
 
     async authentication(dataUser){
@@ -62,7 +62,6 @@ class UserDB{
             Users.IdUsers, 
             Users.Pseudo, 
             Users.Mail, 
-            Users.NbTrees, 
             Users.Leafs, 
             Users.SkinPlayer, 
             Users.SkinTrees, 
@@ -78,7 +77,6 @@ class UserDB{
             Users.IdUsers, 
             Users.Pseudo, 
             Users.Mail, 
-            Users.NbTrees, 
             Users.Leafs, 
             Users.SkinPlayer, 
             Users.SkinTrees, 
