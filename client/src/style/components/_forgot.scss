@@ -19,9 +19,43 @@
   justify-content: center;
   //align-items: flex-start;
   gap: 20px;
-  width: 80%;
+  width: 50%;
+}
+
+.forgot--label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.forgot--label input {
+  border-bottom: 1px solid $brown-color;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: $background-light-color;
+  padding: 5px 4px;
+  font-family: $font-family;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: 1.5px solid $yellow-color;
 }
 
 @media (min-width: 768px) {
+
+  .forgot--title {
+    justify-content: left;
+  }
+
+  .forgot--form {
+    justify-content: left;
+    width: 100%;
+  }
+
+  .forgot--label {
+    width: 100%;
+  }
 
 }
