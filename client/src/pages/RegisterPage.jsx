@@ -82,24 +82,48 @@ const RegisterPage = ({ openModal, closeModal }) => {
         {isMobile ? (
           step === 1 ? (
             <div>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className='register--form'>
                 <div className="login--form">
                   <label className="register--label">
                     Choose your avatar
-                    <input type="file" name="avatar" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
+                    <div className="avatars-container">
+                      <div className='avatar'>
+                        <img
+                          src="http://localhost:3000/public/avatars/rat.png"
+                          alt="Avatar rat"
+                          className={`avatar ${avatar === 'rat.png' ? 'selected' : ''}`}
+                          onClick={() => setAvatar('rat.png')}
+                        />
+                        <p>rat</p>
+                      </div>
+
+                      <div className='avatar'>
+                        <img
+                          src="http://localhost:3000/public/avatars/cacaotes.png"
+                          alt="Avatar cacaotes"
+                          className={`avatar ${avatar === 'cacaotes.png' ? 'selected' : ''}`}
+                          onClick={() => setAvatar('cacaotes.png')}
+                        />
+                        <p>cacaotes</p>
+                      </div>
+                    </div>
                   </label>
                   <label className="register--label">
                     Username
                     <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
                   </label>
                 </div>
-                <button className="primary--btn" onClick={nextStep}>Next</button>
+
+                <div className="register--btn">
+                  <Link className="secondary--btn" to="/login">Login</Link>
+                  <button className="primary--btn" onClick={nextStep}>Next</button>
+                </div>
               </form>
             </div>
           ) : (
 
             <div>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className='register--form'>
                 <div className="login--form">
                   <label className='register--label'>
                     Email
@@ -115,12 +139,15 @@ const RegisterPage = ({ openModal, closeModal }) => {
                   </label>
                 </div>
 
-                <div className="mobile-btn">
-                  <button className="secondary--btn" onClick={prevStep}>Back</button>
-                  <input className="primary--btn" type="submit" value="Register" />
+                <div className="register--btn">
+                  <Link className="secondary--btn" to="/login">Login</Link>
+                  <div className="nav--btn">
+                    <button className="secondary--btn" onClick={prevStep}>Back</button>
+                    <input className="primary--btn" type="submit" value="Register" />
+                  </div>
                 </div>
+
               </form>
-              <Link className="secondary--btn" to="/login">Login</Link>
             </div>
           )
         ) : (
@@ -128,30 +155,55 @@ const RegisterPage = ({ openModal, closeModal }) => {
           <div>
             <form onSubmit={handleSubmit}>
               <div className="login--form">
-                <label>
-                  Avatar:
-                  <input type="file" name="avatar" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
+                <label className="register--label">
+                Choose your avatar
+                  <div className="avatars-container">
+                      <div className='avatar'>
+                        <img
+                          src="http://localhost:3000/public/avatars/rat.png"
+                          alt="Avatar rat"
+                          className={`avatar ${avatar === 'rat.png' ? 'selected' : ''}`}
+                          onClick={() => setAvatar('rat.png')}
+                        />
+                        <p>rat</p>
+                      </div>
+
+                      <div className='avatar'>
+                        <img
+                          src="http://localhost:3000/public/avatars/cacaotes.png"
+                          alt="Avatar cacaotes"
+                          className={`avatar ${avatar === 'cacaotes.png' ? 'selected' : ''}`}
+                          onClick={() => setAvatar('cacaotes.png')}
+                        />
+                        <p>cacaotes</p>
+                      </div>
+                    </div>
                 </label>
-                <label>
+                <label className="register--label">
                   Username:
                   <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
                 </label>
-                <label>
+                <label className="register--label">
                   Email:
                   <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </label>
-                <label>
+                <label className="register--label">
                   Password:
                   <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </label>
-                <label>
+                <label className="register--label">
                   Confirm Password:
                   <input type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                 </label>
               </div>
-              <input  className="registerbutton" type="submit" value="Register" />
+              <input  className="primary--btn" type="submit" value="Register" />
+
+              <div className="register-section">
+                <p className='p-opacity'>You already have an account? </p>
+                <button className="secondary--btn__small" onClick={() => { closeModal(); openModal('login'); }}>Login</button>
+              </div>
             </form>
-            <button onClick={() => { closeModal(); openModal('login'); }}>Login</button>
+
           </div>
         )}
       </div>

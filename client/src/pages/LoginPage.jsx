@@ -90,12 +90,12 @@ const LoginPage = ({ openModal, closeModal }) => {
             <>
               <input className="primary--btn" type="submit" value="Login" />
               <div className="register-section">
-              <p className='p-opacity'>You don’t have an account yet? </p>
-              <button className="secondary--btn secondary--btn__small" onClick={() => {
-                closeModal();
-                openModal('register');
-              }}>Register
-              </button>
+                <p className='p-opacity'>You don’t have an account yet? </p>
+                <button className="secondary--btn secondary--btn__small" onClick={() => {
+                  closeModal();
+                  openModal('register');
+                }}>Register
+                </button>
             </div>
             </>
           )}

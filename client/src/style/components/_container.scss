@@ -27,12 +27,23 @@
     padding: 40px 40px;
   }
 
+  .avatars-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+  }
+
 
   //responsive
 
-  @media (min-width: 769px) {
+  @media (min-width: 768px) {
     .container {
       padding: 0 40px;
+    }
+
+    .avatars-container {
+      justify-content: left;
     }
 
 

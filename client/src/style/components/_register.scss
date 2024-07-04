@@ -6,6 +6,10 @@
   min-height: 100vh;
 }
 
+.register--form {
+  gap: 30px;
+}
+
 .register--title {
   display: flex;
   justify-content: center;
@@ -25,53 +29,52 @@
   border-right: none;
   background-color: $background-light-color;
   padding: 5px 4px;
+  font-family: $font-family;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: 1.5px solid $yellow-color;
 }
 
 
 //buttons
 
-
-
-
-.backbutton {
-  background-color: $background-light-color;
-  color: $green-color;
-  border: 1px solid $green-color;
-  padding: 8px 40px;
-  border-radius: 30px;
-  cursor: pointer;
+.register--btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-.registerbutton {
-  background-color: $green-color;
-  color: $background-light-color;
-  border: none;
-  padding: 8px 34px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-family: $font-family;
-  font-size: 16px;
-
+.nav--btn {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
-
-
-.loginbutton {
-  background-color: $green-color;
-  color: $background-light-color;
-  border: none;
-  padding: 8px 34px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-family: $font-family;
-  font-size: 16px;
-}
-
-
 
 
 
 //responsive
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
+
+  .register-page {
+    min-height: auto;
+  }
+
+  .register--form {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .register--label {
+    width: 100%;
+  }
+
+  .register--title {
+    justify-content: left;
+  }
+
 
 }
