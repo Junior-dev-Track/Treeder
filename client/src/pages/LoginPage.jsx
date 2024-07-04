@@ -77,7 +77,7 @@ const LoginPage = ({ openModal, closeModal }) => {
             {isMobile ? (
               <Link className="forget--btn" to="/forgot-password">Forgot Password?</Link>
             ) : (
-              <button className="forget--btn" onClick={() => openModal('forgot-password')}>Forgot Password?</button>
+              <button className="forget--btn" type='button' onClick={() => openModal('forgot-password')}>Forgot Password?</button>
             )}
           </div>
 
