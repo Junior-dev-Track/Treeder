@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import Cookies from 'js-cookie';
 import settingsIcon from '../assets/img/settings.png';
 import arrowIcon from '../assets/img/arrow-back.svg';
+import * as refresh from '../utils/Refresh';
 
 
 const SettingsGamer = () => {
@@ -61,6 +62,15 @@ const SettingsGamer = () => {
         email: email,
         password: password,
       }),
+    })
+      .then((response) => {
+        if (response.status === 401) {
+            //if the token is expired call a function to send the refresh token and get a new acces token
+            refresh.tokenExpired();
+
+            return;
+        }
+        return response.json();
     })
     .then((response) => response.json())
     .then((data) => {
