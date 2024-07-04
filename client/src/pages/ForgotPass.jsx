@@ -27,24 +27,27 @@ const ForgotPassword = ({ openModal, closeModal }) => {
               <input type="email" name="email"/>
             </label>
           </div>
-          <input className="primary--btn" type="submit" value="Reset"/>
-        </form>
+
         {isMobile ? (
-            <Link className="secondary--btn" to="/login">Login</Link>
+            <div className="register--btn">
+              <Link className="secondary--btn" to="/login">Login</Link>
+              <input className="primary--btn" type="submit" value="Reset"/>
+            </div>
         ) : (
+          <>
+            <input className="primary--btn" type="submit" value="Reset"/>
             <div className="register-section">
-
               <p className='p-opacity'>You don’t have an account yet? </p>
-
-              <button className="secondary--btn" onClick={() => {
+              <button className="secondary--btn__small" onClick={() => {
                 closeModal();
                 openModal('login');
               }}>Login
               </button>
-
             </div>
-
+          </>
         )}
+      </form>
+
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ const RegisterPage = ({ openModal, closeModal }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   const [username, setUsername] = useState('');
-  const [avatar, setAvatar] = useState('');
+  const [avatar, setAvatar] = useState('rat.png');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -85,26 +85,32 @@ const RegisterPage = ({ openModal, closeModal }) => {
               <form onSubmit={handleSubmit} className='register--form'>
                 <div className="login--form">
                   <label className="register--label">
+                  <div className="avatar--label">
                     Choose your avatar
+                  </div>
                     <div className="avatars-container">
                       <div className='avatar'>
-                        <img
-                          src="http://localhost:3000/public/avatars/rat.png"
-                          alt="Avatar rat"
-                          className={`avatar ${avatar === 'rat.png' ? 'selected' : ''}`}
-                          onClick={() => setAvatar('rat.png')}
-                        />
-                        <p>rat</p>
+                      <div className={`avatar--img ${avatar === 'rat.png' ? 'selected' : ''}`}>
+                          <img
+                            src="http://localhost:3000/public/avatars/rat.png"
+                            alt="Avatar rat"
+                            className="rat-avatar"
+                            onClick={() => setAvatar('rat.png')}
+                          />
+                        </div>
+                        <p style={{ fontWeight: avatar === 'rat.png' ? 'bold' : 'normal' }}>rat</p>
                       </div>
 
                       <div className='avatar'>
-                        <img
-                          src="http://localhost:3000/public/avatars/cacaotes.png"
-                          alt="Avatar cacaotes"
-                          className={`avatar ${avatar === 'cacaotes.png' ? 'selected' : ''}`}
-                          onClick={() => setAvatar('cacaotes.png')}
-                        />
-                        <p>cacaotes</p>
+                        <div className={`avatar--img ${avatar === 'cacaotes.png' ? 'selected' : ''}`}>
+                          <img
+                            src="http://localhost:3000/public/avatars/cacaotes.png"
+                            alt="Avatar cacaotes"
+                            className="cacaotes-avatar"
+                            onClick={() => setAvatar('cacaotes.png')}
+                          />
+                        </div>
+                        <p style={{ fontWeight: avatar === 'cacaotes.png' ? 'bold' : 'normal' }}>cacaotes</p>
                       </div>
                     </div>
                   </label>
@@ -156,26 +162,32 @@ const RegisterPage = ({ openModal, closeModal }) => {
             <form onSubmit={handleSubmit}>
               <div className="login--form">
                 <label className="register--label">
+                <div className="avatar--label">
                 Choose your avatar
+                </div>
                   <div className="avatars-container">
                       <div className='avatar'>
-                        <img
-                          src="http://localhost:3000/public/avatars/rat.png"
-                          alt="Avatar rat"
-                          className={`avatar ${avatar === 'rat.png' ? 'selected' : ''}`}
-                          onClick={() => setAvatar('rat.png')}
-                        />
-                        <p>rat</p>
+                        <div className={`avatar--img ${avatar === 'rat.png' ? 'selected' : ''}`}>
+                          <img
+                            src="http://localhost:3000/public/avatars/rat.png"
+                            alt="Avatar rat"
+                            className="rat-avatar"
+                            onClick={() => setAvatar('rat.png')}
+                          />
+                        </div>
+                        <p style={{ fontWeight: avatar === 'rat.png' ? 'bold' : 'normal' }}>rat</p>
                       </div>
 
                       <div className='avatar'>
-                        <img
-                          src="http://localhost:3000/public/avatars/cacaotes.png"
-                          alt="Avatar cacaotes"
-                          className={`avatar ${avatar === 'cacaotes.png' ? 'selected' : ''}`}
-                          onClick={() => setAvatar('cacaotes.png')}
-                        />
-                        <p>cacaotes</p>
+                        <div className={`avatar--img ${avatar === 'cacaotes.png' ? 'selected' : ''}`}>
+                          <img
+                            src="http://localhost:3000/public/avatars/cacaotes.png"
+                            alt="Avatar cacaotes"
+                            className="cacaotes-avatar"
+                            onClick={() => setAvatar('cacaotes.png')}
+                          />
+                        </div>
+                        <p style={{ fontWeight: avatar === 'cacaotes.png' ? 'bold' : 'normal' }}>cacaotes</p>
                       </div>
                     </div>
                 </label>
