@@ -1,0 +1,61 @@
+@import './_variables.scss';
+
+.settings-page {
+  background-color: $background-light-color;
+  min-height: 100vh;
+}
+
+.settings--title {
+  display: flex;
+  justify-content: center;
+}
+
+.settings-container {
+  display: flex;
+  gap: 50px;
+  width: 100%;
+}
+
+.settings-reste {
+  order: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 50%;
+  margin-left: 40px;
+}
+
+.settings-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-right: 20px;
+}
+
+.settings-avatar {
+  order: 1;
+}
+
+.settings--label {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings--label input {
+  border-bottom: 1px solid $brown-color;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: $background-light-color;
+  padding: 5px 4px;
+  font-family: $font-family;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: 1.5px solid $yellow-color;
+}
+
+@media (min-width: 768px) {
+
+}
