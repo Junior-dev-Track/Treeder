@@ -85,7 +85,7 @@ const SettingsGamer = () => {
     <div>
       <button onClick={() => setModalIsOpen(true)}>
         <img src={settingsIcon} alt="Settings" style={{width: '32px', height: '31px'}} /></button>
-      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+      <CustomModal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
         <button onClick={() => setModalIsOpen(false)}>
           <img src={arrowIcon} alt="arrow back" style={{width: '24px', height: '24px'}} />Back
         </button>
@@ -128,7 +128,7 @@ const SettingsGamer = () => {
         </div>
         <button onClick={handleSave}>Save</button>
         <button onClick={() => setModalIsOpen(false)}>Cancel</button>
-      </Modal>
+      </CustomModal>
     </div>
   );
 };
