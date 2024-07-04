@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import Cookies from 'js-cookie';
 import settingsIcon from '../assets/img/settings.png';
 import arrowIcon from '../assets/img/arrow-back.svg';
+import CustomModal from '../components/CustomModal.jsx';
 import * as refresh from '../utils/Refresh';
 
 
