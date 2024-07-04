@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import '../style/components/_scrollbar.scss';
 
-const getCustomStyles = (isLoginModal) => {
+const getCustomStyles = (isLoginModal, isRegisterModal) => {
   const isMobile = window.matchMedia("(max-width: 768px)").matches;
   const isTablet = window.matchMedia("(min-width: 425px) and (max-width: 768px)").matches;
 
@@ -15,6 +15,27 @@ const getCustomStyles = (isLoginModal) => {
         margin: 'auto',
         height: 'auto',
         maxHeight: '57%',
+        overflowY: 'auto',
+        backgroundColor: '#F8F3EE',
+        borderRadius: '30px',
+        border: 'none',
+        boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)',
+      },
+      overlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+      },
+    };
+  }
+
+  if (isRegisterModal) {
+    return {
+      content: {
+        // Styles spécifiques pour le modal de register
+        padding: '3px',
+        width: isTablet ? '70%' : '35%',
+        margin: 'auto',
+        height: 'auto',
+        maxHeight: '90%',
         overflowY: 'auto',
         backgroundColor: '#F8F3EE',
         borderRadius: '30px',
@@ -44,13 +65,13 @@ const getCustomStyles = (isLoginModal) => {
   };
 };
 
-const CustomModal = ({ isOpen, onRequestClose, children, isLoginModal = false }) => {
-  const [customStyles, setCustomStyles] = useState(getCustomStyles(isLoginModal));
+const CustomModal = ({ isOpen, onRequestClose, children, isLoginModal = false, isRegisterModal = false }) => {
+  const [customStyles, setCustomStyles] = useState(getCustomStyles(isLoginModal, isRegisterModal));
   const [isScrolling, setIsScrolling] = useState(false);
 
   useEffect(() => {
-    setCustomStyles(getCustomStyles(isLoginModal));
-  }, [isLoginModal]);
+    setCustomStyles(getCustomStyles(isLoginModal, isRegisterModal));
+  }, [isLoginModal, isRegisterModal]);
 
 
   const handleScroll = () => {
