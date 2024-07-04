@@ -1,0 +1,27 @@
+@import './_variables.scss';
+
+
+.forgot-page {
+  background-color: $background-light-color;
+  height: 100vh;
+}
+
+.forgot--title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.forgot--form {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  //align-items: flex-start;
+  gap: 20px;
+  width: 80%;
+}
+
+@media (min-width: 768px) {
+
+}

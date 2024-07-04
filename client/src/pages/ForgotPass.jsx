@@ -7,7 +7,7 @@ const ForgotPassword = ({ openModal, closeModal }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   return (
-    <div>
+    <div className="forgot-page">
       <div className='login-container'>
         <button className='close-btn' onClick={() => {
           if (isMobile) {
@@ -19,16 +19,16 @@ const ForgotPassword = ({ openModal, closeModal }) => {
             <img className='close-icon' src={closeIcon} alt="Close" />
         </button>
 
-        <h1>Forgot Password</h1>
-        <form>
+        <h1 className="forgot--title">Forgot Password</h1>
+        <form className="forgot--form">
           <label>
             Email:
             <input type="email" name="email" />
           </label>
-          <input type="submit" value="Reset Password" />
+          <input className="primary--btn" type="submit" value="Reset" />
         </form>
         {isMobile ? (
-          <Link to="/login">Login</Link>
+          <Link className="secondary--btn" to="/login">Login</Link>
         ) : (
           <button onClick={() => { closeModal(); openModal('login'); }}>Login</button>
         )}
