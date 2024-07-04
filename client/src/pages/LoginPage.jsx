@@ -59,8 +59,8 @@ const LoginPage = ({ openModal, closeModal }) => {
           closeModal();
         }
       }}>
-          <img className='close-icon' src={closeIcon} alt="Close" />
-        </button>
+        <img className='close-icon' src={closeIcon} alt="Close" />
+      </button>
         
         <h1 className="login--title">Login</h1>
         <form onSubmit={handleSubmit}>

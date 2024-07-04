@@ -103,8 +103,13 @@ const App = () => {
           onRequestClose={closeModal}
           contentLabel={modalContent === 'login' ? 'Login Modal' : 'Register Modal'}
           isLoginModal={modalContent === 'login'}
+          isRegisterModal={modalContent === 'register'}
         >
-          {modalContent === 'forgot-password' ? <ForgotPassword openModal={openModal} closeModal={closeModal} /> : (modalContent === 'login' ? <LoginPage openModal={openModal} closeModal={closeModal} /> : <RegisterPage openModal={openModal} closeModal={closeModal} />)}
+          {modalContent === 'forgot-password' ? 
+          <ForgotPassword openModal={openModal} closeModal={closeModal} /> : 
+          (modalContent === 'login' ? 
+          <LoginPage openModal={openModal} closeModal={closeModal} /> : 
+          <RegisterPage openModal={openModal} closeModal={closeModal} />)}
         </CustomModal>
       )}
     </Router>

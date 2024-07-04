@@ -65,76 +65,96 @@ const RegisterPage = ({ openModal, closeModal }) => {
     };
 
   return (
-    <div className="registerPage">
-      <h1 className="registerh1">Register</h1>
-      {isMobile ? (
-        step === 1 ? (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <label className="avatarlabel">
-                Choose your avatar
-                <input type="file" name="avatar" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
-              </label>
-              <label className="usernamelabel">
-                Username
-                <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-              </label>
-              <button className="nextbutton" onClick={nextStep}>Next</button>
-            </form>
-          </div>
+    <div className="register-page">
+      <div className='login-container'>
+        <button className='close-btn' onClick={() => {
+          if (isMobile) {
+            window.location.href = '/';
+          } else {
+            closeModal();
+          }
+        }}>
+          <img className='close-icon' src={closeIcon} alt="Close" />
+        </button>
+
+        <h1 className="register--title">Register</h1>
+
+        {isMobile ? (
+          step === 1 ? (
+            <div>
+              <form onSubmit={handleSubmit}>
+                <div className="login--form">
+                  <label className="register--label">
+                    Choose your avatar
+                    <input type="file" name="avatar" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
+                  </label>
+                  <label className="register--label">
+                    Username
+                    <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                  </label>
+                </div>
+                <button className="primary--btn" onClick={nextStep}>Next</button>
+              </form>
+            </div>
+          ) : (
+
+            <div>
+              <form onSubmit={handleSubmit}>
+                <div className="login--form">
+                  <label className='register--label'>
+                    Email
+                    <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                  </label>
+                  <label className='register--label'>
+                    Password
+                    <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                  </label>
+                  <label className='register--label'>
+                    Confirm Password
+                    <input type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                  </label>
+                </div>
+
+                <div className="mobile-btn">
+                  <button className="secondary--btn" onClick={prevStep}>Back</button>
+                  <input className="primary--btn" type="submit" value="Register" />
+                </div>
+              </form>
+              <Link className="secondary--btn" to="/login">Login</Link>
+            </div>
+          )
         ) : (
+
           <div>
             <form onSubmit={handleSubmit}>
-              <label>
-                Email
-                <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-              </label>
-              <label>
-                Password
-                <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-              </label>
-              <label>
-                Confirm Password
-                <input type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-              </label>
-              <button className="backbutton" onClick={prevStep}>Back</button>
-              <input className="registerbutton" type="submit" value="Register" />
+              <div className="login--form">
+                <label>
+                  Avatar:
+                  <input type="file" name="avatar" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
+                </label>
+                <label>
+                  Username:
+                  <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                </label>
+                <label>
+                  Email:
+                  <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </label>
+                <label>
+                  Password:
+                  <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                </label>
+                <label>
+                  Confirm Password:
+                  <input type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                </label>
+              </div>
+              <input  className="registerbutton" type="submit" value="Register" />
             </form>
-            <Link className="loginbutton" to="/login">Login</Link>
-            <button onClick={closeModal}>Close</button>
+            <button onClick={() => { closeModal(); openModal('login'); }}>Login</button>
           </div>
-        )
-      ) : (
-        <div>
-          <form onSubmit={handleSubmit}>
-            <label>
-              Avatar:
-              <input type="file" name="avatar" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
-            </label>
-            <label>
-              Username:
-              <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-            </label>
-            <label>
-              Email:
-              <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </label>
-            <label>
-              Password:
-              <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </label>
-            <label>
-              Confirm Password:
-              <input type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-            </label>
-            <input  className="registerbutton" type="submit" value="Register" />
-          </form>
-          <button onClick={() => { closeModal(); openModal('login'); }}>Login</button>
-          <button onClick={closeModal}>
-            <img src={closeIcon} alt="Close" style={{width: '34px', height: '34px'}} />
-          </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
