@@ -3,7 +3,7 @@
 
 .forgot-page {
   background-color: $background-light-color;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .forgot--title {
@@ -47,6 +47,10 @@ input:focus {
 //responsive
 
 @media (min-width: 768px) {
+
+  .forgot-page {
+    min-height: auto;
+  }
 
   .forgot--title {
     justify-content: left;
