@@ -17,7 +17,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  //align-items: flex-start;
   gap: 20px;
   width: 50%;
 }
@@ -42,6 +41,10 @@ input:focus {
   outline: none;
   border-bottom: 1.5px solid $yellow-color;
 }
+
+
+
+//responsive
 
 @media (min-width: 768px) {
 
