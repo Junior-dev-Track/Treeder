@@ -85,7 +85,6 @@ class UserDB{
     }
 
     async getLeafs(dataUser) {
-        console.log(dataUser)
         return await this.dataBase.query(`SELECT Leafs FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
     }
 }

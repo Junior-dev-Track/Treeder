@@ -10,7 +10,6 @@ router.post('/', authenticateToken, async (req, res) => {
 
     let usersDB = new UserDB(new DataBase())
 
-    console.log("test data user",dataUser);
     let users = await usersDB.getUserWithLog(dataUser);
 
     res.status(200).send(users);

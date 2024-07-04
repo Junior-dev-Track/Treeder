@@ -66,8 +66,8 @@ const SettingsGamer = () => {
       .then((response) => {
         if (response.status === 401) {
             //if the token is expired call a function to send the refresh token and get a new acces token
+            console.log('Token expired');
             refresh.tokenExpired();
-
             return;
         }
         return response.json();

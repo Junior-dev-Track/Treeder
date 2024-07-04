@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import nbTreesIcon from '../assets/img/nb-trees.png';
 import Cookies from 'js-cookie';
+import * as refresh from "../utils/Refresh";
 
 
 const isLoggedIn = () => {
@@ -20,7 +21,19 @@ const NbTrees = () => {
         'Content-Type': 'application/json',
       }
     })
-        .then(response => response.json())
+          .then((response) => {
+            if (response.status === 401) {
+              //if the token is expired call a function to send the refresh token and get a new acces token
+              console.log('Token expired');
+              refresh.tokenExpired().then(() => {
+                // After refreshing the token, retry the fetchNbLeafs function
+                fetchNbTrees();
+              });
+              return;
+            }
+            return response.json();
+          })
+        //.then(response => response.json())
         .then(data => {
           //console.log(data);
           //console.log("NbTrees: ", data[0].NbTrees);
