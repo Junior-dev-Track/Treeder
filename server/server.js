@@ -2,8 +2,12 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const webSocket = require('ws');
+const cookieParser = require('cookie-parser');
+const path = require('path');
 
 app.use(express.json());
+app.use(cookieParser());
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Import the different routes
 const indexRoutes = require('./routes/index');
@@ -20,7 +24,7 @@ const logsRoutesPlayer = require('./routes/logsPlayer');
 const treesUserRoutes = require('./routes/userTrees');
 const treesRoutes = require('./routes/trees');
 const logoutRoutes = require('./routes/logout');
-const refreshTokenRoutes = require('./routes/refreshToken');
+const refreshTokenRoutes = require('./routes/refresh');
 const settingsRoutes = require('./routes/settings');
 const deleteUserRoutes = require('./routes/deleteUser');
 

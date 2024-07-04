@@ -13,7 +13,6 @@ function authenticateToken(req, res, next) {
       }
       return res.status(403).json({ message: 'Invalid Token' }); // If the token is invalid, return a 403 error (Forbidden)
     }
-    console.log(user);
     req.user = user; // Store the user information in the request
     next(); // Pass to the next middleware or route function
   });

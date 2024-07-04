@@ -37,7 +37,6 @@ router.post('/', async (req, res) => {
 
     // créer l'user
     dataUser.Leafs  = await userDB.getAverageLeaves();
-    console.log(dataUser)
     if(await userDB.insertUser(dataUser)){
         let userLogin = await userDB.getUser(dataUser);
         userLogin = userLogin[0];
@@ -66,7 +65,6 @@ router.post('/', async (req, res) => {
         let trees = await treeDB.getRandomTrees();
 
         for(let tree of trees) {
-            console.log(tree, userLogin)
             const name = nameGenerator.nameByRace("fairy", { gender: "female" });
             await treeDB.assignUserAndNameToTree(userLogin, name, tree);
         }

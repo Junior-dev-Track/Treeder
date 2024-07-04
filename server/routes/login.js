@@ -22,10 +22,8 @@ router.post('/', async (req, res) => {
     }
     userExist = userExist[0];
 
-    console.log(userExist);
 
     // vérifier le mdp
-    console.log(dataUser.Password, userExist.Password);
     if(!bcrypt.compareSync(dataUser.Password, userExist.Password)){
         return res.status(400).send('Invalid password');
     }
@@ -38,7 +36,7 @@ router.post('/', async (req, res) => {
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            sameSite: 'None', secure: false,
+            sameSite: 'Lax', secure: false,
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 

@@ -10,8 +10,6 @@ class DeleteTree {
 
     async deleteTree(lat, lon) {
         const trees = await this.tree.getTreesRadius(lat, lon, 700);
-        if (trees.length > 150) {
-            console.log("200")
             const percentage = trees.length / 100 * 30;
 
             for (let i = 0; i < percentage; i++) {

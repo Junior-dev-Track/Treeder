@@ -8,6 +8,7 @@ import CustomModal from '../components/CustomModal.jsx';
 import NbTrees from '../components/NbTrees.jsx';
 import NbLeafs from '../components/NbLeafs.jsx';
 import NbLocks from '../components/NbLocks.jsx';
+import * as refresh from "../utils/Refresh";
 
 
 const ProfilGamer = ({ isOpen, setIsOpen }) => {
@@ -40,11 +41,15 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
         Pseudo: Cookies.get('pseudo'),
       }
     })
-    .then((response) => response.text())
-    .then((text) => {
-      //console.log(text); 
-      return JSON.parse(text);
-    })
+        .then((response) => {
+          if (response.status === 401) {
+            //if the token is expired call a function to send the refresh token and get a new acces token
+            console.log('Token expired');
+            refresh.tokenExpired();
+            return;
+          }
+          return response.json();
+        })
 
     //.then((data) => console.log(data[0]))
     .then((data) => {
