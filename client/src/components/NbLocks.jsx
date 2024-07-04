@@ -1,5 +1,6 @@
 import React from 'react';
 import nbLocksIcon from '../assets/img/nb-locks.png';
+import Cookies from "js-cookie";
 
 const nbLocks = 5; // Remplacez ceci par la constante réelle
 
@@ -16,7 +17,7 @@ const NbLocks = () => {
   return (
     <button className='lock--btn'>
       <img className='lock-icon' src={nbLocksIcon} alt="Lock Icon" />
-      {nbLocks}
+      {Cookies.get('locks')}
     </button>
   );
 }

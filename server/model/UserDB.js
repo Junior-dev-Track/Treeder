@@ -10,9 +10,9 @@ class UserDB{
 
     async getUser(dataUser){
         if (dataUser.IdUsers){
-            return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,Leafs,SkinPlayer,SkinTrees,Admin FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
+            return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,Leafs,Locks,SkinPlayer,SkinTrees,Admin FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
         }
-        return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,Leafs,SkinPlayer,SkinTrees,Admin FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
+        return await this.dataBase.query(`SELECT IdUsers,Pseudo,Mail,Leafs,Locks,SkinPlayer,SkinTrees,Admin FROM Users WHERE Pseudo = '${dataUser.Pseudo}'`);
     }
 
     async authentication(dataUser){
@@ -85,6 +85,7 @@ class UserDB{
     }
 
     async getLeafs(dataUser) {
+        console.log(dataUser)
         return await this.dataBase.query(`SELECT Leafs FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
     }
 }

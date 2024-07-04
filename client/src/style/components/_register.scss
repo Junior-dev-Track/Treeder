@@ -6,6 +6,79 @@
   height: 100vh;
 }
 
+.registerh1 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.avatarlabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 55%;
+}
+
+label input {
+  border-bottom: 1px solid $brown-color;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: $background-light-color;
+}
+
+.backbutton {
+  background-color: $background-light-color;
+  color: $green-color;
+  border: 1px solid $green-color;
+  padding: 8px 40px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.registerbutton {
+  background-color: $green-color;
+  color: $background-light-color;
+  border: none;
+  padding: 8px 34px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: 16px;
+
+}
+
+.nextbutton {
+    background-color: $green-color;
+    color: $background-light-color;
+    border: none;
+    padding: 8px 40px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: $font-family;
+    font-size: 16px;
+}
+
+.loginbutton {
+  background-color: $green-color;
+  color: $background-light-color;
+  border: none;
+  padding: 8px 34px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: 16px;
+}
+
+
+
+
 
 //responsive
 

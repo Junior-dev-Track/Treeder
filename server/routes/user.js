@@ -7,7 +7,7 @@ const {authenticateToken} = require("../middleware/authenticateToken");
 router.get('/',authenticateToken, async (req, res) => {
 
     let usersDB = new UserDB(new DataBase())
-    let userData = req.query.user;
+    let userData = { IdUsers: req.query.IdUser};
 
     let users = await usersDB.getUserDatas(userData);
 

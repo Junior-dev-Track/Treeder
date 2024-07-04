@@ -49,7 +49,7 @@ const RegisterPage = ({ openModal, closeModal }) => {
         document.cookie = `idUser=${data.IdUsers}`;
         document.cookie = `pseudo=${data.Pseudo}`;
         document.cookie = `leafs=${data.Leafs}`;
-        document.cookie = `nbtrees=${data.NbTrees}`;
+        document.cookie = `locks=${data.Locks}`;
         document.cookie = `skintrees=${data.SkinTrees}`;
         document.cookie = `skinplayer=${data.SkinPlayer}`;
         document.cookie = `admin=${data.Admin}`;
@@ -66,41 +66,41 @@ const RegisterPage = ({ openModal, closeModal }) => {
 
   return (
     <div className="registerPage">
-      <h1>Register</h1>
+      <h1 className="registerh1">Register</h1>
       {isMobile ? (
         step === 1 ? (
           <div>
             <form onSubmit={handleSubmit}>
-              <label>
-                Avatar:
+              <label className="avatarlabel">
+                Choose your avatar
                 <input type="file" name="avatar" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
               </label>
-              <label>
-                Username:
+              <label className="usernamelabel">
+                Username
                 <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
               </label>
-              <button onClick={nextStep}>Next</button>
+              <button className="nextbutton" onClick={nextStep}>Next</button>
             </form>
           </div>
         ) : (
           <div>
             <form onSubmit={handleSubmit}>
               <label>
-                Email:
+                Email
                 <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
               </label>
               <label>
-                Password:
+                Password
                 <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </label>
               <label>
-                Confirm Password:
+                Confirm Password
                 <input type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
               </label>
-              <button onClick={prevStep}>Back</button>
-              <input type="submit" value="Register" />
+              <button className="backbutton" onClick={prevStep}>Back</button>
+              <input className="registerbutton" type="submit" value="Register" />
             </form>
-            <Link to="/login">Login</Link>
+            <Link className="loginbutton" to="/login">Login</Link>
             <button onClick={closeModal}>Close</button>
           </div>
         )
@@ -127,7 +127,7 @@ const RegisterPage = ({ openModal, closeModal }) => {
               Confirm Password:
               <input type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             </label>
-            <input type="submit" value="Register" />
+            <input  className="registerbutton" type="submit" value="Register" />
           </form>
           <button onClick={() => { closeModal(); openModal('login'); }}>Login</button>
           <button onClick={closeModal}>

@@ -23,6 +23,7 @@ export const handleLogout = async (setIsAuthenticated, setModalIsOpen) => {
       Cookies.remove('idUser');
       Cookies.remove('mail');
       Cookies.remove('leafs');
+      Cookies.remove('locks');
       Cookies.remove('skintrees');
       Cookies.remove('skinplayer');
       Cookies.remove('avatarUrl');

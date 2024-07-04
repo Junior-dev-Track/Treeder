@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
             Pseudo: user.Pseudo,
             Mail: user.Mail,
             Leafs: user.Leafs,
-            NbTrees: user.NbTrees,
+            Locks: user.Locks,
             SkinTrees: user.SkinTrees,
             SkinPlayer: user.SkinPlayer,
             Admin: user.Admin,
