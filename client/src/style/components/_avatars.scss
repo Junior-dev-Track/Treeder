@@ -1,0 +1,49 @@
+@import './_variables.scss';
+
+
+.avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.avatar--img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: $primary-color;
+    overflow: hidden;
+
+    &.selected {
+        border: 2px solid $yellow-color;
+    }
+}
+
+.rat-avatar {
+    width: 82px;
+    object-fit: cover;
+    object-position: -35px -7px;
+}
+
+.cacaotes-avatar {
+    width: 60px;
+    object-fit: cover;
+    object-position: -11px -4px;
+}
+
+.avatar--label {
+    margin-bottom: 3px;
+    text-align: center;
+}
+
+
+//responsive
+
+@media (min-width: 768px) {
+    .avatar--label {
+        text-align: left;
+    }
+
+}
