@@ -64,25 +64,30 @@ const LoginPage = ({ openModal, closeModal }) => {
         
         <h1 className="login--title">Login</h1>
         <form onSubmit={handleSubmit}>
-          <label className="login--label">
-            Username
-            <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-          </label>
-          <label className="login--label">
-            Password
-            <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          </label>
-          {isMobile ? (
-            <>
-            <Link className="forget--btn" to="/forgot-password">Forgot Password?</Link>
-            <div className="btn-container-mobile">
-              <input className="primary--btn" type="submit" value="Login" />
-              <Link className="secondary--btn" to="/register">Register</Link>
-            </div>
-          </>
+          <div className="login--form">
+            <label className="login--label">
+              Username
+              <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+            </label>
+            <label className="login--label">
+              Password
+              <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            </label>
+
+            {isMobile ? (
+              <Link className="forget--btn" to="/forgot-password">Forgot Password?</Link>
+            ) : (
+              <button className="forget--btn" onClick={() => openModal('forgot-password')}>Forgot Password?</button>
+            )}
+          </div>
+
+            {isMobile ? (
+              <div className="mobile-btn">
+                <input className="primary--btn" type="submit" value="Login" />
+                <Link className="secondary--btn" to="/register">Register</Link>
+              </div>
           ) : (
             <>
-              <button className="forget--btn" onClick={() => openModal('forgot-password')}>Forgot Password?</button>
               <input className="primary--btn" type="submit" value="Login" />
               <div className="register-section">
               <p className='p-opacity'>You don’t have an account yet? </p>

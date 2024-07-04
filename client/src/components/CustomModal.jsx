@@ -4,16 +4,17 @@ import '../style/components/_scrollbar.scss';
 
 const getCustomStyles = (isLoginModal) => {
   const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const isTablet = window.matchMedia("(min-width: 425px) and (max-width: 768px)").matches;
 
   if (isLoginModal) {
     return {
       content: {
         // Styles spécifiques pour le modal de login
         padding: '3px',
-        width: '35%',
+        width: isTablet ? '70%' : '35%',
         margin: 'auto',
         height: 'auto',
-        maxHeight: '56%',
+        maxHeight: '57%',
         overflowY: 'auto',
         backgroundColor: '#F8F3EE',
         borderRadius: '30px',

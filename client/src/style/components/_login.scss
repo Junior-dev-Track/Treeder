@@ -5,7 +5,7 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
   gap: 20px;
 }
@@ -21,11 +21,21 @@ form {
   margin-bottom: 30px;
 }
 
+.login--form {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  //align-items: flex-start;
+  gap: 20px;
+  width: 55%;
+}
+
 .login--label {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: 55%;
+  gap: 8px;
+  //width: 55%;
 }
 
 .login--label input {
@@ -34,6 +44,18 @@ form {
   border-left: none;
   border-right: none;
   background-color: $background-light-color;
+  padding: 5px 4px;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: 1.5px solid $yellow-color;
+}
+
+.mobile-btn {
+  display: flex;
+  gap: 20px;
+  margin: 0 auto;
 }
 
 .primary--btn {
@@ -65,12 +87,13 @@ form {
 .p-opacity {
   color: $secondary-color;
   opacity: 0.5;
+  text-align: center;
 }
 
 
 //responsive
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
 
   form {
     gap: 30px;
@@ -79,6 +102,11 @@ form {
 
   .login-page {
     height: auto;
+  }
+
+  .login--form {
+    align-items: flex-start;
+    width: 100%;
   }
 
   .login--label {
@@ -105,11 +133,11 @@ form {
   .secondary--btn__small {
     color: $secondary-color;
     text-decoration: underline;
-    
   }
 
   .forget--btn {
-    margin-top: -20px;
+    //margin-top: -20px;
+    cursor: pointer;
   }
 
   .register-section {
