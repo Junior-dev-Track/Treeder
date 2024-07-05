@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import Cookies from 'js-cookie';
 import settingsIcon from '../assets/img/settings.png';
 import arrowIcon from '../assets/img/arrow-back.svg';
-import CustomModal from '../components/CustomModal.jsx';
+import ProfilModal from '../components/ProfilModal.jsx';
 import * as refresh from '../utils/Refresh';
 
 import closeIcon from '../assets/img/close.svg';
@@ -11,9 +11,8 @@ import closeIcon from '../assets/img/close.svg';
 
 const SettingsGamer = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
 
-  const [selectedAvatar, setSelectedAvatar] = useState(1);
+  const [avatar, setSelectedAvatar] = useState(1);
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -92,9 +91,9 @@ const SettingsGamer = () => {
         <img className='settings-icon' src={settingsIcon} alt="Settings" />
       </button>
 
-      <CustomModal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} isRegisterModal={modalContent === 'settings'} >
+      <ProfilModal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} >
         <div className="settings-page">
-          <div className='login-container'>
+          <div className='settings-container'>
             <button className='close-btn' onClick={() => setModalIsOpen(false)}>
               <img className='close-icon' src={closeIcon} alt="Close" />
             </button>
@@ -110,15 +109,68 @@ const SettingsGamer = () => {
             <div className="settings-infos-container">
               <div className="settings-container-avatar">
                 <h3>Avatars</h3>
-                {[1, 2, 3, 4, 5].map((avatarNumber) => (
-                    <button
-                        key={avatarNumber}
-                        onClick={() => handleAvatarSelect(avatarNumber)}
-                        style={{backgroundColor: selectedAvatar === avatarNumber ? 'blue' : 'grey'}}
-                    >
-                      Avatar {avatarNumber}
-                    </button>
-                ))}
+                <div className="settings-avatar">
+                      <div className='avatar'>
+                        <div className={`avatar--img ${avatar === 'rat.png' ? 'selected' : ''}`}>
+                          <img
+                            src="http://localhost:3000/public/avatars/rat.png"
+                            alt="Avatar rat"
+                            className="rat-avatar"
+                            onClick={() => setAvatar('rat.png')}
+                          />
+                        </div>
+                        <p style={{ fontWeight: avatar === 'rat.png' ? 'bold' : 'normal' }}>rat</p>
+                      </div>
+
+                      <div className='avatar'>
+                        <div className={`avatar--img ${avatar === 'cacaotes.png' ? 'selected' : ''}`}>
+                          <img
+                            src="http://localhost:3000/public/avatars/cacaotes.png"
+                            alt="Avatar cacaotes"
+                            className="cacaotes-avatar"
+                            onClick={() => setAvatar('cacaotes.png')}
+                          />
+                        </div>
+                        <p style={{ fontWeight: avatar === 'cacaotes.png' ? 'bold' : 'normal' }}>cacaotes</p>
+                      </div>
+
+                      <div className='avatar'>
+                        <div className={`avatar--img ${avatar === 'cat.png' ? 'selected' : ''}`}>
+                          <img
+                            src="http://localhost:3000/public/avatars/cat.png"
+                            alt="Avatar cat"
+                            className="cat-avatar"
+                            onClick={() => setAvatar('cat.png')}
+                          />
+                        </div>
+                        <p style={{ fontWeight: avatar === 'cat.png' ? 'bold' : 'normal' }}>cat</p>
+                      </div>
+
+                      <div className='avatar'>
+                        <div className={`avatar--img ${avatar === 'dog.png' ? 'selected' : ''}`}>
+                          <img
+                            src="http://localhost:3000/public/avatars/dog.png"
+                            alt="Avatar dog"
+                            className="dog-avatar"
+                            onClick={() => setAvatar('dog.png')}
+                          />
+                        </div>
+                        <p style={{ fontWeight: avatar === 'dog.png' ? 'bold' : 'normal' }}>dog</p>
+                      </div>
+
+                      <div className='avatar'>
+                        <div className={`avatar--img ${avatar === 'rabbit.png' ? 'selected' : ''}`}>
+                          <img
+                            src="http://localhost:3000/public/avatars/rabbit.png"
+                            alt="Avatar rabbit"
+                            className="rabbit-avatar"
+                            onClick={() => setAvatar('rabbit.png')}
+                          />
+                        </div>
+                        <p style={{ fontWeight: avatar === 'rabbit.png' ? 'bold' : 'normal' }}>rabbit</p>
+                      </div>
+
+                    </div>
               </div>
               <div className="settings-container-label">
                 <div>
@@ -155,7 +207,7 @@ const SettingsGamer = () => {
           </div>
         </div>
 
-      </CustomModal>
+      </ProfilModal>
     </div>
   );
 };

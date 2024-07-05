@@ -33,9 +33,40 @@
     object-position: -11px -4px;
 }
 
+.cat-avatar {
+    width: 80px;
+    object-fit: cover;
+    object-position: 2px -1px;
+}
+
+.dog-avatar {
+    width: 97px;
+    object-fit: cover;
+    object-position: -4px 2px;
+}
+
+.rabbit-avatar {
+    width: 57px;
+    object-fit: cover;
+    object-position: 4px 1px;
+}
+
 .avatar--label {
     margin-bottom: 3px;
     text-align: center;
+}
+
+.settings-avatar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+}
+
+.settings-avatar {
+    justify-content: left;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 
@@ -45,5 +76,12 @@
     .avatar--label {
         text-align: left;
     }
+
+    .settings-avatar {
+        display: flex;
+        gap: 20px;
+        text-align: center;
+    }
+    
 
 }

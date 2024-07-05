@@ -26,7 +26,7 @@ const RegisterPage = ({ openModal, closeModal }) => {
       Pseudo: username,
       Password: password,
       Mail: email,
-      //Avatar: avatar,
+      SkinPlayer: avatar,
   };
 
 
