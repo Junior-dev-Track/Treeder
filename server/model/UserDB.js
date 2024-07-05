@@ -36,17 +36,17 @@ class UserDB{
     }
 
     async updateUser(dataUser){
-        return !!(await this.dataBase.query(`UPDATE Users SET Pseudo = '${dataUser.Pseudo}', Password = '${dataUser.Password}', Mail = '${dataUser.Mail}' WHERE IdUsers = '${dataUser.IdUsers}'`));
+        return !!(await this.dataBase.query(`UPDATE Users SET Pseudo = '${dataUser.Pseudo}', Password = '${dataUser.Password}', Mail = '${dataUser.Mail}', SkinPlayer = '${dataUser.SkinPlayer}' WHERE IdUsers = '${dataUser.IdUsers}'`));
     }
 
     async getScore() {
-        return await this.dataBase.query(`SELECT U.IdUsers, U.Pseudo, U.Leafs, COUNT(T.Owner) AS NbTrees FROM Users AS U JOIN Trees T ON U.IdUsers = T.Owner GROUP BY U.IdUsers ORDER BY U.Leafs`);
+        // i want my users to be sorted by the number of trees they have and then if they have the same number of tree sort by their leafs
+        return await this.dataBase.query(`SELECT IdUsers, Pseudo, Leafs, SkinPlayer, SkinTrees, Admin, COUNT(Trees.Owner) AS NbTrees FROM Users LEFT JOIN Trees ON Users.IdUsers = Trees.Owner GROUP BY IdUsers, Pseudo, Leafs, SkinPlayer, SkinTrees, Admin ORDER BY NbTrees DESC, Leafs DESC`);
     }
 
     async getUserWithLog(dataUser) {
 
         return await this.dataBase.query(`SELECT * FROM Users JOIN Logs ON Users.IdUsers=Logs.User WHERE IdUsers = '${dataUser.IdUsers}'`)
-
     }
 
     async verifyUser(dataUser) {

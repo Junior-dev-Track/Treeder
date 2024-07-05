@@ -4,6 +4,7 @@ const UserDB = require('../model/UserDB');
 const DataBase = require ('../model/DataBase')
 const {authenticateToken} = require("../middleware/authenticateToken");
 const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 router.post('/', authenticateToken, async (req, res) => {
 
@@ -17,7 +18,7 @@ router.post('/', authenticateToken, async (req, res) => {
     dataUser.Mail = dataUser.Mail.trim();
     dataUser.Password = dataUser.Password.trim();
 
-    if (!dataUser.Pseudo || !dataUser.Password || !dataUser.Mail) {
+    if (!dataUser.Pseudo || !dataUser.Mail) {
         return res.status(400).send('Invalid data');
     }
 
@@ -32,7 +33,7 @@ router.post('/', authenticateToken, async (req, res) => {
     }
 
     // vérifier que l'user n'existe pas déjà
-    let user = await userDB.verifyUser(dataUser);
+    let user = await usersDB.verifyUser(dataUser);
     if (user.length > 0) {
         return res.status(400).send('User already exists');
     }
