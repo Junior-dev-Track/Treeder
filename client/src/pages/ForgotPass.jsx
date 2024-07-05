@@ -37,7 +37,7 @@ const ForgotPassword = ({ openModal, closeModal }) => {
           <>
             <input className="primary--btn" type="submit" value="Reset"/>
             <div className="register-section">
-              <p className='p-opacity'>You don’t have an account yet? </p>
+              <p className='p-opacity'>You remember your password? </p>
               <button className="secondary--btn__small" onClick={() => {
                 closeModal();
                 openModal('login');

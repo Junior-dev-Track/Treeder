@@ -20,7 +20,7 @@ const Scores = ({ score }) => {
       { 
         Header: () => (
           <div>
-            <img src={scoreIcon} alt="Score" style={{width: '31px', height: '22px'}} />
+            <img className='score-icon--table' src={scoreIcon} alt="Score" />
           </div>
         ), 
         accessor: 'IdUsers' 

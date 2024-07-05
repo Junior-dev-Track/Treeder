@@ -102,7 +102,7 @@ const App = () => {
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
           contentLabel={modalContent === 'login' ? 'Login Modal' : 'Register Modal'}
-          isLoginModal={modalContent === 'login'}
+          isLoginModal={modalContent === 'login' || modalContent === 'forgot-password'}
           isRegisterModal={modalContent === 'register'}
         >
           {modalContent === 'forgot-password' ? 
