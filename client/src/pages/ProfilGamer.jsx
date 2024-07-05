@@ -82,7 +82,7 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
       
 
         <div className='skins'>
-            <h3>Skins:</h3>
+            <h3>Skins</h3>
 
             <div className='skins--infos'>
               {[1, 2, 3, 4, 5].map((skinNumber) => (
@@ -99,7 +99,7 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
           </div>
           {playerData.Admin === 1 && <button onClick={() => window.location.href='/adminusers'}>Admin Users</button>}
 
-          <div className='round--btn'>
+          <div className='round--btn, settings--param'>
             <SettingsGamer />
           </div>
         </div>

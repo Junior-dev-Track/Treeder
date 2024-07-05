@@ -40,10 +40,17 @@
 
 //settings
 
-.settings-icon {
-    width: 32px; 
-    height: 31px;
+ .settings-icon {
+   width: 32px;
+   height: 31px;
 }
+
+ .settings--param {
+     display: flex;
+     align-content: right;
+     justify-content: right;
+     justify-self: right;
+ }
 
 
 
