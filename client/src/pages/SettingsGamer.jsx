@@ -108,7 +108,7 @@ const SettingsGamer = () => {
 
             <div className="settings-infos-container">
               <div className="settings-container-avatar">
-                <h3>Avatars</h3>
+                <h3 className='avatar--title__small'>Avatars</h3>
                 <div className="settings-avatar">
                       <div className='avatar'>
                         <div className={`avatar--img ${avatar === 'rat.png' ? 'selected' : ''}`}>
