@@ -52,5 +52,15 @@
      justify-self: right;
  }
 
+@media (min-width: 768px) {
+
+    .profil--infos {
+        flex-direction: column;
+        justify-content: left;
+    }
+}
+
+
+
 
 
