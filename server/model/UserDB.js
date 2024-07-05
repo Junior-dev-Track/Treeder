@@ -27,8 +27,12 @@ class UserDB{
         return await this.dataBase.query(`SELECT * FROM Users`);
     }
 
+
     async deleteUser(dataUser){
-        return !!(await this.dataBase.query(`DELETE FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`));
+        await this.dataBase.query(`UPDATE Trees SET Owner = NULL WHERE Owner = '${dataUser.IdUsers}'`);
+        await this.dataBase.query(`DELETE FROM Logs WHERE User = '${dataUser.IdUsers}'`);
+        await this.dataBase.query(`DELETE FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
+        return true;
     }
 
     async updateUser(dataUser){
@@ -86,6 +90,10 @@ class UserDB{
 
     async getLeafs(dataUser) {
         return await this.dataBase.query(`SELECT Leafs FROM Users WHERE IdUsers = '${dataUser.IdUsers}'`);
+    }
+
+    async updateUserLeavesBalance(IdUsers, leafs) {
+        return !!(await this.dataBase.query(`UPDATE Users SET Leafs = '${leafs}' WHERE IdUsers = '${IdUsers}'`));
     }
 }
 

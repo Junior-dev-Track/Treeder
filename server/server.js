@@ -8,6 +8,7 @@ const path = require('path');
 app.use(express.json());
 app.use(cookieParser());
 app.use('/public', express.static(path.join(__dirname, 'public')));
+require('./services/leafService');
 
 // Import the different routes
 const indexRoutes = require('./routes/index');

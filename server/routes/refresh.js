@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
         }
 
         const accessToken = jwt.sign({IdUsers: user.IdUsers, Pseudo: user.Pseudo}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
-        console.log('New access token:', accessToken);
+        //console.log('New access token:', accessToken);
         res.json({accessToken: accessToken});
     });
 });
