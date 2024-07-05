@@ -62,7 +62,6 @@ const SettingsGamer = () => {
         user: {
           Pseudo: Cookies.get('pseudo'),
         },
-  
         Pseudo: pseudo,
         Password: password,
         Mail: email,

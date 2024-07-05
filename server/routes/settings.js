@@ -19,20 +19,25 @@ router.post('/', authenticateToken, async (req, res) => {
     dataUser.Password = dataUser.Password.trim();
 
     if (!dataUser.Pseudo || !dataUser.Mail) {
+        console.log(dataUser);
         return res.status(400).send('Invalid data');
     }
 
     // verifier la force du mdp
-    let regex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
-    if (!dataUser.Password.trim().match(regex)) {
-        return res.status(400).send('Invalid password');
-    }
-    else {
-        let salt = await bcrypt.genSalt(saltRounds);
-        dataUser.Password = await bcrypt.hash(dataUser.Password.trim(), salt);
-    }
 
-    // vérifier que l'user n'existe pas déjà
+    if (dataUser.Password) {
+        let regex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+        if (!dataUser.Password.trim().match(regex)) {
+            return res.status(400).send('Invalid password');
+        }
+        else {
+            let salt = await bcrypt.genSalt(saltRounds);
+            dataUser.Password = await bcrypt.hash(dataUser.Password.trim(), salt);
+        }
+    }
+    
+
+    // TODO : vérifier que l'user n'existe pas déjà en dehors de lui même
     let user = await usersDB.verifyUser(dataUser);
     if (user.length > 0) {
         return res.status(400).send('User already exists');
