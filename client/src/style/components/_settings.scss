@@ -8,6 +8,7 @@
 .settings--title {
   display: flex;
   justify-content: center;
+  margin-top: -30px;
 }
 
 .settings-container {
@@ -23,6 +24,7 @@
   gap: 15px;
   width: 50%;
   margin-left: 40px;
+  margin-top: 20px;
 }
 
 .settings-buttons {
@@ -34,6 +36,7 @@
 
 .settings-avatar {
   order: 1;
+  margin-top: 20px;
 }
 
 .settings--label {
@@ -56,6 +59,66 @@ input:focus {
   border-bottom: 1.5px solid $yellow-color;
 }
 
+.settings-close {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 40px;
+  margin-top: 30px;
+  font-size: 16px;
+}
+
 @media (min-width: 768px) {
+
+  .settings--title {
+    display: flex;
+    justify-content: left;
+    margin-top: 15px;
+    margin-left: 40px;
+  }
+
+  .settings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+  }
+
+  .settings-avatar {
+    order: 0;
+    margin-top: 20px;
+    margin-left: 40px;
+  }
+
+
+  .settings-reste {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 80%;
+    margin-left: 40px;
+    margin-top: 20px;
+  }
+
+
+  .settings-buttons {
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .settings-primary-button {
+    margin: 0;
+  }
+
+  .settings-secondary-button {
+    background-color: $background-light-color;
+    color: $green-color;
+    border: 1px solid $green-color;
+    padding: 8px 17px;
+    border-radius: 30px;
+    cursor: pointer;
+  }
 
 }
