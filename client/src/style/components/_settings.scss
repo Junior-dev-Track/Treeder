@@ -1,124 +1,160 @@
 @import './_variables.scss';
 
+
 .settings-page {
   background-color: $background-light-color;
   min-height: 100vh;
 }
 
+
+//header
+
+.settings--header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  margin-bottom: 20px;
+}
+
 .settings--title {
   display: flex;
   justify-content: center;
-  margin-top: -30px;
 }
 
-.settings-container {
+.settings--btn-back {
+  position: absolute;
+  left: 0;
   display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+//content
+
+.settings-infos-container {
+  display: flex;
+  justify-content: space-between;
   gap: 50px;
   width: 100%;
 }
 
-.settings-reste {
+.settings-container-avatar {
+  order: 1;
+  width: 50%;
+}
+
+.settings-container-label {
   order: 0;
   display: flex;
   flex-direction: column;
   gap: 15px;
   width: 50%;
-  margin-left: 40px;
-  margin-top: 20px;
 }
 
-.settings-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  margin-right: 20px;
-}
 
-.settings-avatar {
-  order: 1;
-  margin-top: 20px;
-}
+//labels
 
 .settings--label {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .settings--label input {
-  border-bottom: 1px solid $brown-color;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  background-color: $background-light-color;
-  padding: 5px 4px;
-  font-family: $font-family;
+border-bottom: 1px solid $brown-color;
+border-top: none;
+border-left: none;
+border-right: none;
+background-color: $background-light-color;
+padding: 5px 4px;
+font-family: $font-family;
 }
 
 input:focus {
-  outline: none;
-  border-bottom: 1.5px solid $yellow-color;
+outline: none;
+border-bottom: 1.5px solid $yellow-color;
 }
 
-.settings-close {
+
+//buttons
+
+.settings--btn {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-left: 40px;
-  margin-top: 30px;
-  font-size: 16px;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
 }
+
+.settings-primary--btn {
+  margin: 0;
+  padding: 8px 25px;
+}
+
+.settings-secondary--btn {
+  background-color: $background-light-color;
+  color: $brown-color;
+  border: 1px solid $brown-color;
+  padding: 8px 17px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+
+//icons
+
+.arrow-icon {
+  width: 24px;
+  height: 24px;
+}
+
+
+
+//responsive
 
 @media (min-width: 768px) {
 
-  .settings--title {
-    display: flex;
-    justify-content: left;
-    margin-top: 15px;
-    margin-left: 40px;
+  .settings-page {
+    min-height: auto;
   }
 
-  .settings-container {
+  .settings--header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 15px;
+  }
+
+  .settings--btn-back {
+    position: relative;
+  }
+  
+  .settings--title {
+    justify-content: left;
+  }
+
+  .settings-infos-container {
     display: flex;
     flex-direction: column;
     gap: 30px;
     width: 100%;
   }
 
-  .settings-avatar {
+  .settings-container-avatar {
     order: 0;
-    margin-top: 20px;
-    margin-left: 40px;
+    width: 100%;
   }
 
-
-  .settings-reste {
+  .settings-container-label {
     order: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 80%;
-    margin-left: 40px;
-    margin-top: 20px;
+    gap: 20px;
+    width: 100%;
   }
 
-
-  .settings-buttons {
-    display: flex;
+  .settings--btn {
     margin-top: 30px;
-    margin-bottom: 30px;
-  }
-
-  .settings-primary-button {
-    margin: 0;
-  }
-
-  .settings-secondary-button {
-    background-color: $background-light-color;
-    color: $green-color;
-    border: 1px solid $green-color;
-    padding: 8px 17px;
-    border-radius: 30px;
-    cursor: pointer;
   }
 
 }

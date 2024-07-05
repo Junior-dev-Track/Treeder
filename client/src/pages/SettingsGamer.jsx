@@ -6,9 +6,13 @@ import arrowIcon from '../assets/img/arrow-back.svg';
 import CustomModal from '../components/CustomModal.jsx';
 import * as refresh from '../utils/Refresh';
 
+import closeIcon from '../assets/img/close.svg';
+
 
 const SettingsGamer = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+
   const [selectedAvatar, setSelectedAvatar] = useState(1);
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail] = useState('');
@@ -83,58 +87,74 @@ const SettingsGamer = () => {
 
 
   return (
-    <div className="settings-page">
-      <button onClick={() => setModalIsOpen(true)}>
-        <img src={settingsIcon} alt="Settings" style={{width: '32px', height: '31px'}} /></button>
-      <CustomModal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-        <button className="settings-close" onClick={() => setModalIsOpen(false)}>
-          <img src={arrowIcon} alt="arrow back" style={{width: '24px', height: '24px'}}/>Back
-        </button>
-        <h2 className="settings--title">Settings</h2>
-        <div className="settings-container">
-          <div className="settings-avatar">
-            <h3>Avatars</h3>
-            {[1, 2, 3, 4, 5].map((avatarNumber) => (
-                <button
-                    key={avatarNumber}
-                    onClick={() => handleAvatarSelect(avatarNumber)}
-                    style={{backgroundColor: selectedAvatar === avatarNumber ? 'blue' : 'grey'}}
-                >
-                  Avatar {avatarNumber}
-                </button>
-            ))}
-          </div>
-          <div className="settings-reste">
-            <div>
-              <label className="settings--label">
-                Pseudo
-                <input value={pseudo} onChange={(e) => setPseudo(e.target.value)}/>
-              </label>
+    <div>
+      <button className='round--btn' onClick={() => setModalIsOpen(true)}>
+        <img className='settings-icon' src={settingsIcon} alt="Settings" />
+      </button>
+
+      <CustomModal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} isRegisterModal={modalContent === 'settings'} >
+        <div className="settings-page">
+          <div className='login-container'>
+            <button className='close-btn' onClick={() => setModalIsOpen(false)}>
+              <img className='close-icon' src={closeIcon} alt="Close" />
+            </button>
+
+            <div className="settings--header">
+              <button className="settings--btn-back" onClick={() => setModalIsOpen(false)}>
+                <img className='arrow-icon' src={arrowIcon} alt="arrow back"/>Back
+              </button>
+
+              <h2 className="settings--title">Settings</h2>
             </div>
-            <div>
-              <label className="settings--label">
-                Email
-                <input value={email} onChange={(e) => setEmail(e.target.value)}/>
-              </label>
+
+            <div className="settings-infos-container">
+              <div className="settings-container-avatar">
+                <h3>Avatars</h3>
+                {[1, 2, 3, 4, 5].map((avatarNumber) => (
+                    <button
+                        key={avatarNumber}
+                        onClick={() => handleAvatarSelect(avatarNumber)}
+                        style={{backgroundColor: selectedAvatar === avatarNumber ? 'blue' : 'grey'}}
+                    >
+                      Avatar {avatarNumber}
+                    </button>
+                ))}
+              </div>
+              <div className="settings-container-label">
+                <div>
+                  <label className="settings--label">
+                    Pseudo
+                    <input value={pseudo} onChange={(e) => setPseudo(e.target.value)}/>
+                  </label>
+                </div>
+                <div>
+                  <label className="settings--label">
+                    Email
+                    <input value={email} onChange={(e) => setEmail(e.target.value)}/>
+                  </label>
+                </div>
+                <div>
+                  <label className="settings--label">
+                    Password
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                  </label>
+                </div>
+                <div>
+                  <label className="settings--label">
+                    Confirm Password
+                    <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+                  </label>
+                </div>
+              </div>
             </div>
-            <div>
-              <label className="settings--label">
-                Password
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-              </label>
-            </div>
-            <div>
-              <label className="settings--label">
-                Confirm Password
-                <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
-              </label>
+
+            <div className="settings--btn">
+              <button className="primary--btn settings-primary--btn" onClick={handleSave}>Save</button>
+              <button className="secondary--btn settings-secondary--btn" onClick={() => setModalIsOpen(false)}>Cancel</button>
             </div>
           </div>
         </div>
-        <div className="settings-buttons">
-          <button className="primary--btn settings-primary-button" onClick={handleSave}>Save</button>
-          <button className="secondary--btn settings-secondary-button" onClick={() => setModalIsOpen(false)}>Cancel</button>
-        </div>
+
       </CustomModal>
     </div>
   );
