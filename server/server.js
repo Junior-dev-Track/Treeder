@@ -23,6 +23,7 @@ const logsRoutesAdmin = require('./routes/logsAdmin');
 const logsRoutesPlayer = require('./routes/logsPlayer');
 const treesUserRoutes = require('./routes/userTrees');
 const treesRoutes = require('./routes/trees');
+const treesValuesRoutes = require('./routes/treeValue');
 const logoutRoutes = require('./routes/logout');
 const refreshTokenRoutes = require('./routes/refresh');
 const settingsRoutes = require('./routes/settings');
@@ -42,6 +43,7 @@ app.use('/logsAdmin', logsRoutesAdmin)
 app.use('/logsPlayer', logsRoutesPlayer)
 app.use('/userTrees', treesUserRoutes)
 app.use('/trees', treesRoutes)
+app.use('/treevalues', treesValuesRoutes)
 app.use('/logout', logoutRoutes)
 app.use('/refresh', refreshTokenRoutes)
 app.use('/music', express.static('public/music'));
