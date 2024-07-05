@@ -73,6 +73,18 @@
     margin-bottom: 5px;
 }
 
+.general-avatar {
+    width: 78px;
+    object-fit: cover;
+    object-position: -2px 3px;
+}
+
+.general-avatar__big {
+    width: 140px;
+    object-fit: cover;
+    object-position: -8px 2px;
+}
+
 
 //responsive
 

@@ -7,7 +7,7 @@ const getCustomStyles = () => {
   const isTablet = window.matchMedia("(min-width: 425px) and (max-width: 768px)").matches;
 
   let width = '35%'; 
-  let height = 'auto';
+  let height = '80%';
   let maxHeight = 'auto';
 
   if (isMobile) {

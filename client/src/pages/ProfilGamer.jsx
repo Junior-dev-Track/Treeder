@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import Cookies from 'js-cookie';
 import SettingsGamer from './SettingsGamer';
 import closeIcon from '../assets/img/close.svg';
-import CustomModal from '../components/CustomModal.jsx';
+import ProfilModal from '../components/ProfilModal.jsx';
 
 import NbTrees from '../components/NbTrees.jsx';
 import NbLeafs from '../components/NbLeafs.jsx';
@@ -15,6 +15,8 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedSkin, setSelectedSkin] = useState(1);
   const [playerData, setPlayerData] = useState({});
+
+  const avatarUrl = 'http://localhost:3000/public/avatars/' + Cookies.get('skinplayer');
 
   const handleSkinSelect = (skinNumber) => {
     setSelectedSkin(skinNumber);
@@ -60,7 +62,7 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
 
   return (
     <div>
-      <CustomModal isOpen={modalIsOpen} onRequestClose={() => {setModalIsOpen(false); setIsOpen(false);}}>
+      <ProfilModal isOpen={modalIsOpen} onRequestClose={() => {setModalIsOpen(false); setIsOpen(false);}}>
         <div className='profil-container'>
           <button className='close-btn' onClick={() => {setModalIsOpen(false); setIsOpen(false);}}>
             <img className='close-icon' src={closeIcon} alt="Close" />
@@ -68,13 +70,13 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
 
           <div className='profil'>
             <div className='profil--avatar__big'>
-              <img src={playerData.Avatar} alt="Avatar" />
+              <img className='general-avatar__big' src={avatarUrl} alt="Avatar" />
             </div>
             {playerData.Admin === 1 && <h1>Admin</h1>}
             <h2>{playerData.Pseudo}</h2>
           </div>
 
-          <div className='infos--btn profil--infos'>
+          <div className='profil--infos'>
             <NbTrees playerData={playerData.NbTrees} />
             <NbLeafs playerData={playerData.Leafs} />
             <NbLocks playerData={playerData.Locks} />
@@ -103,7 +105,7 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
             <SettingsGamer />
           </div>
         </div>
-      </CustomModal>
+      </ProfilModal>
     </div>
   );
 };

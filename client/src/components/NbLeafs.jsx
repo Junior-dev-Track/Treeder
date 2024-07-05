@@ -54,7 +54,7 @@ const NbLeafs = () => {
 
 
   return (
-    <button className='leaf--btn'>
+    <button className='leaf--btn profil-leaf--btn'>
       <img className='leaf-icon' src={nbLeafsIcon} alt="Leaf Icon" />
       {Cookies.get('leafs')}
     </button>

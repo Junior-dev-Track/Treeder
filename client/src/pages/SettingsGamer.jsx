@@ -12,7 +12,7 @@ import closeIcon from '../assets/img/close.svg';
 const SettingsGamer = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const [avatar, setSelectedAvatar] = useState(1);
+  const [avatar, setSelectedAvatar] = useState(Cookies.get('skinplayer'));
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +22,8 @@ const SettingsGamer = () => {
   useEffect(() => {
     const pseudo = Cookies.get('pseudo');
     const email = Cookies.get('mail');
-    const avatar = Cookies.get('avatar');
+
+    Cookies.set('skinplayer', avatar);
 
 
     if (pseudo) {
@@ -36,7 +37,7 @@ const SettingsGamer = () => {
     if (avatar) {
       setSelectedAvatar(avatar);
     }
-  }, []);
+  }, [avatar]);
 
 
   const handleSave = () => {
@@ -61,10 +62,11 @@ const SettingsGamer = () => {
         user: {
           Pseudo: Cookies.get('pseudo'),
         },
-        avatar: selectedAvatar,
-        pseudo: pseudo,
-        email: email,
-        password: password,
+  
+        Pseudo: pseudo,
+        Password: password,
+        Mail: email,
+        SkinPlayer: avatar,
       }),
     })
       .then((response) => {
@@ -116,7 +118,7 @@ const SettingsGamer = () => {
                             src="http://localhost:3000/public/avatars/rat.png"
                             alt="Avatar rat"
                             className="rat-avatar"
-                            onClick={() => setAvatar('rat.png')}
+                            onClick={() => setSelectedAvatar('rat.png')}
                           />
                         </div>
                         <p style={{ fontWeight: avatar === 'rat.png' ? 'bold' : 'normal' }}>rat</p>
@@ -128,7 +130,7 @@ const SettingsGamer = () => {
                             src="http://localhost:3000/public/avatars/cacaotes.png"
                             alt="Avatar cacaotes"
                             className="cacaotes-avatar"
-                            onClick={() => setAvatar('cacaotes.png')}
+                            onClick={() => setSelectedAvatar('cacaotes.png')}
                           />
                         </div>
                         <p style={{ fontWeight: avatar === 'cacaotes.png' ? 'bold' : 'normal' }}>cacaotes</p>
@@ -140,7 +142,7 @@ const SettingsGamer = () => {
                             src="http://localhost:3000/public/avatars/cat.png"
                             alt="Avatar cat"
                             className="cat-avatar"
-                            onClick={() => setAvatar('cat.png')}
+                            onClick={() => setSelectedAvatar('cat.png')}
                           />
                         </div>
                         <p style={{ fontWeight: avatar === 'cat.png' ? 'bold' : 'normal' }}>cat</p>
@@ -152,7 +154,7 @@ const SettingsGamer = () => {
                             src="http://localhost:3000/public/avatars/dog.png"
                             alt="Avatar dog"
                             className="dog-avatar"
-                            onClick={() => setAvatar('dog.png')}
+                            onClick={() => setSelectedAvatar('dog.png')}
                           />
                         </div>
                         <p style={{ fontWeight: avatar === 'dog.png' ? 'bold' : 'normal' }}>dog</p>
@@ -164,7 +166,7 @@ const SettingsGamer = () => {
                             src="http://localhost:3000/public/avatars/rabbit.png"
                             alt="Avatar rabbit"
                             className="rabbit-avatar"
-                            onClick={() => setAvatar('rabbit.png')}
+                            onClick={() => setSelectedAvatar('rabbit.png')}
                           />
                         </div>
                         <p style={{ fontWeight: avatar === 'rabbit.png' ? 'bold' : 'normal' }}>rabbit</p>

@@ -56,7 +56,7 @@ const NbTrees = () => {
   }
 
   return (
-    <button className='tree--btn'>
+    <button className='tree--btn profil-tree--btn'>
       <img className='tree-icon' src={nbTreesIcon} alt="Tree Icon" />
       {nbTrees}
     </button>

@@ -90,6 +90,7 @@
     border-radius: 100%;
     border: 3px solid $yellow-color;
     background-color: $primary-color;
+    overflow: hidden;
 }
 
 
@@ -163,7 +164,7 @@
 
 //responsive
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
     .round--btn__big {
         width: 64px;
         height: 64px;

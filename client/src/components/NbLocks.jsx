@@ -15,7 +15,7 @@ const NbLocks = () => {
   }
 
   return (
-    <button className='lock--btn'>
+    <button className='lock--btn profil-lock--btn'>
       <img className='lock-icon' src={nbLocksIcon} alt="Lock Icon" />
       {Cookies.get('locks')}
     </button>

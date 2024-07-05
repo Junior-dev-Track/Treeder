@@ -78,7 +78,7 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
             <>
               <button className='btn' onClick={() => setIsProfileModalOpen(true)}>
                 <div className='profil-avatar'>
-                  <img src={avatarUrl} alt="Avatar" />
+                  <img className='general-avatar' src={avatarUrl} alt="Avatar" />
                 </div>
                 <span className='profil--btn btn--text'>{pseudo}</span>
               </button>
