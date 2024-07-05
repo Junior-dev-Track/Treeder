@@ -106,7 +106,7 @@ const AdminUsers = () => {
   
 
   return (
-    <div>
+    <div className="adminuser--page">
         <div className='container'>
           <div className='header'>
             <button onClick={handleBack}>
@@ -121,13 +121,13 @@ const AdminUsers = () => {
             </button>
         </div>
 
-      <button onClick={handleBack}>
+      <button className="adminuser--back" onClick={handleBack}>
         <img src={arrowIcon} alt="arrow back" style={{width: '24px', height: '24px'}} />Back
       </button>
 
-      <h2>Utilisateurs</h2>
-      <table>
-        <thead>
+      <h2 className="adminuser--title">Utilisateurs</h2>
+      <table className="table">
+        <thead className="th">
           <tr>
             <th>ID</th>
             <th>Avatar</th>
@@ -137,7 +137,7 @@ const AdminUsers = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="td">
         {users.map((user) => (
           <tr key={user.IdUsers}>
             <td>{user.IdUsers}</td>
@@ -152,7 +152,7 @@ const AdminUsers = () => {
                   e.preventDefault();
                   handleSaveEdit(user.IdUsers);
                 }}>
-                  <input
+                  <input className="adminuser--editinginput"
                     type="text"
                     name="Pseudo"
                     value={editedValues.Pseudo}
@@ -173,7 +173,7 @@ const AdminUsers = () => {
                   e.preventDefault();
                   handleSaveEdit(user.IdUsers);
                 }}>
-                  <input
+                  <input className="adminuser--editinginput"
                     type="email"
                     name="Mail"
                     value={editedValues.Mail}
@@ -185,33 +185,35 @@ const AdminUsers = () => {
               )}
             </td>
             <td>
-              <button onClick={() => handleResetPassword(user.IdUsers)}>Reset Password</button>
+              <button className="settings-secondary-button" onClick={() => handleResetPassword(user.IdUsers)}>Reset Password</button>
             </td>
             <td>
               {editingUser === user.IdUsers ? (
-                <button onClick={() => handleSaveEdit(user.IdUsers)}>Save</button>
+                <button className="adminuser--save" onClick={() => handleSaveEdit(user.IdUsers)}>Save</button>
               ) : (
                 <>
-                  <button onClick={() => handleViewUser(user.IdUsers)}>
-                    <img src={viewIcon} alt="View" style={{width: '24px', height: '24px'}} />
-                  </button>
-                  {/*<Link to={`/user/${userId}`}>Voir</Link>*/}
-                  <button onClick={() => {
-                    handleEditUser(user.IdUsers);
-                    setEditingUser(user.IdUsers);
-                    setEditingField(null);
-                    setEditedValues({Pseudo: user.Pseudo, Mail: user.Mail});
-                  }}>
-                    <img src={editIcon} alt="Edit" style={{width: '24px', height: '24px'}} />
-                  </button>
+                  <div className="adminuser--buttons">
+                    <button onClick={() => handleViewUser(user.IdUsers)}>
+                      <img src={viewIcon} alt="View" style={{width: '24px', height: '24px'}}/>
+                    </button>
+                    {/*<Link to={`/user/${userId}`}>Voir</Link>*/}
+                    <button onClick={() => {
+                      handleEditUser(user.IdUsers);
+                      setEditingUser(user.IdUsers);
+                      setEditingField(null);
+                      setEditedValues({Pseudo: user.Pseudo, Mail: user.Mail});
+                    }}>
+                      <img src={editIcon} alt="Edit" style={{width: '24px', height: '24px'}}/>
+                    </button>
+                  </div>
                 </>
               )}
             </td>
           </tr>
         ))}
-    </tbody>
+        </tbody>
       </table>
-      </div>
+        </div>
     </div>
   );
 };

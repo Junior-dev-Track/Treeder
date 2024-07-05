@@ -1,0 +1,42 @@
+@import './_variables.scss';
+
+
+.adminuser--page {
+  background-color: $background-light-color;
+  height: 100vh;
+}
+
+.adminuser--back {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.adminuser--title {
+  margin-bottom: 30px;
+}
+
+.adminuser--buttons {
+  display: flex;
+  gap: 17.5px;
+}
+
+.adminuser--save {
+    background-color: $green-color;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+}
+
+.adminuser--editinginput {
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  border-bottom: 1px solid $brown-color;
+  background-color: $background-light-color;
+  font-family: $font-family;
+}
