@@ -26,7 +26,8 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   const pseudo = Cookies.get('pseudo');
-  const avatarUrl = Cookies.get('avatarUrl');
+
+  const avatarUrl = 'http://localhost:3000/public/avatars/' + Cookies.get('skinplayer');
 
   const location = useLocation();
   const openProfilePopup = location.state?.openProfilePopup;

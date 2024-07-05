@@ -47,6 +47,10 @@ class TreeDB{
     async getNbtreesForUser(userLogin){
         return await this.dataBase.query(`SELECT COUNT(*) AS NbTrees FROM Trees WHERE Owner = '${userLogin.IdUsers}'`);
     }
+
+    async getTreesByUserId(IdUsers) {
+        return await this.dataBase.query(`SELECT * FROM Trees WHERE Owner = '${IdUsers}'`);
+    }
 }
 
 module.exports = TreeDB;

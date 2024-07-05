@@ -7,6 +7,8 @@ const {authenticateToken} = require("../middleware/authenticateToken");
 router.get('/', authenticateToken, async (req, res) => {
 
     let usersDB = new UserDB(new DataBase())
+    let dataUser = req.query;
+
 
     let users = await usersDB.deleteUser(dataUser);
 
