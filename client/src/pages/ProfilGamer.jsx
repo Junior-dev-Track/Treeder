@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import Cookies from 'js-cookie';
 import SettingsGamer from './SettingsGamer';
 import closeIcon from '../assets/img/close.svg';
+import userIcon from '../assets/img/user.png';
 import ProfilModal from '../components/ProfilModal.jsx';
 
 import NbTrees from '../components/NbTrees.jsx';
@@ -60,6 +61,27 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
     .catch((error) => console.error(error));
     }, [isOpen]);
 
+
+    function getAvatarClass(avatarUrl) {
+      if (!avatarUrl) {
+        return 'general-avatar__big'; // Default class if avatarUrl is undefined or null
+      }
+      if (avatarUrl.includes('rat.png')) {
+        return 'avatar-rat__big';
+      } else if (avatarUrl.includes('cacatoes.png')) {
+        return 'avatar-cacaotes__big';
+      } else if (avatarUrl.includes('cat.png')) {
+        return 'avatar-cat__big';
+      } else if (avatarUrl.includes('dog.png')) {
+        return 'avatar-dog__big';
+      } else if (avatarUrl.includes('rabbit.png')) {
+        return 'avatar-rabbit__big';
+      } else {
+        return 'general-avatar__big';
+      }
+    }
+
+
   return (
     <div>
       <ProfilModal isOpen={modalIsOpen} onRequestClose={() => {setModalIsOpen(false); setIsOpen(false);}}>
@@ -70,7 +92,7 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
 
           <div className='profil'>
             <div className='profil--avatar__big'>
-              <img className='general-avatar__big' src={avatarUrl} alt="Avatar" />
+              <img className={getAvatarClass(avatarUrl)} src={avatarUrl} alt="Avatar" />
             </div>
             {playerData.Admin === 1 && <h1>Admin</h1>}
             <h2>{playerData.Pseudo}</h2>
@@ -99,11 +121,21 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
               ))}
             </div>
           </div>
-          {playerData.Admin === 1 && <button onClick={() => window.location.href='/adminusers'}>Admin Users</button>}
 
-          <div className='round--btn, settings--param'>
-            <SettingsGamer />
+          <div className='settings--param'>
+              {playerData.Admin === 1 && (
+                <div className='round--btn admin--btn'>
+                  <button className='admin-users--btn' onClick={() => window.location.href='/adminusers'}>
+                    <img className='admin-users-icon' src={userIcon} alt="Users Admin" />
+                  </button>
+                </div>
+              )}
+
+            <div className='round--btn'>
+              <SettingsGamer />
+            </div>
           </div>
+
         </div>
       </ProfilModal>
     </div>
