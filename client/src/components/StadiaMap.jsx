@@ -31,31 +31,31 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
     treeData.forEach(tree => {
       const icon = tree.Owner ? boughtTreeIcon : treeIcon; 
       const marker = L.marker([tree.Lat, tree.Lon], { icon: icon });
-      let popupContent = `<h2>${tree.Name ? tree.Name : 'Groot'}</h2>`;
+      let popupContent = `<div class="popup-content"><h2>${tree.Name ? tree.Name : 'Groot'}</h2>`;
 
       const leafCount = Math.round(tree.TotHight * tree.DiaLeafs);
       const treeHight = Math.round(tree.TotHight);
 
-      popupContent += `<br>${tree.Species}
-        <br><img src="${heightIcon}" alt="Height" style="width: 11px; height: 14px;" />${treeHight}
-        <br><img src="${diaIcon}" alt="Diameter" style="width: 14px; height: 16px;" />${tree.DiaLeafs}
-        <br><img src="${leafIcon}" alt="Leafs" style="width: 14px; height: 18px;" />${leafCount} Leafs
-        <br>${tree.Pseudo ? tree.Pseudo : ''}`;
+      popupContent += `<div class="popup-treespecies">${tree.Species}</div>
+        <div class="popup-infos"> <div><img src="${heightIcon}" alt="Height" style="width: 11px; height: 14px;" />${treeHight}m</div>
+        <div><img src="${diaIcon}" alt="Diameter" style="width: 14px; height: 16px;" />${tree.DiaLeafs}m</div>
+        <div><img src="${leafIcon}" alt="Leafs" style="width: 14px; height: 18px;" />${leafCount} Leafs</div> </div>
+        ${tree.Pseudo ? tree.Pseudo : ''}`;
 
       if (tree.owner) {
         if (tree.owner === currentUser) {
           // Si l'utilisateur actuel est le propriétaire de l'arbre
-          popupContent += `<button onclick="lockTree(${tree.id})">Lock</button>`;
+          popupContent += `<button class="popup-btn" onclick="lockTree(${tree.id})">Lock</button> </div>`;
           if (tree.isLocked) {
-            popupContent += `<img src="${lockIcon}" alt="Locked" style="width: 16px; height: 24px;" />`;
+            popupContent += `<img src="${lockIcon}" alt="Locked" style="width: 16px; height: 24px;" /> </div>`;
           }
         } else {
           // Si l'arbre a un autre propriétaire
-          popupContent += `<button onclick="buyTree(${tree.id})"><img src="${leafIcon}" alt="Leafs" style="width: 20px; height: 25px;" />${leafCount} Leafs</button>`;
+          popupContent += `<button class="popup-btn" onclick="buyTree(${tree.id})"><img src="${leafIcon}" alt="Leafs" style="width: 20px; height: 25px;" />${leafCount} Leafs</button> </div>`;
         }
       } else {
         // Si l'arbre n'a pas de propriétaire
-        popupContent += `<button onclick="buyTree(${tree.id})"><img src="${leafIcon}" alt="Leafs" style="width: 20px; height: 25px;" />${leafCount} Leafs</button>`;
+        popupContent += `<div class="popup-btn-class"><button class="popup-btn" onclick="buyTree(${tree.id})"><img src="${leafIcon}" alt="Leafs" style="width: 20px; height: 25px;" />${leafCount} Leafs</button> </div> </div>`;
       }
 
       marker.bindPopup(popupContent);

@@ -1,0 +1,49 @@
+@import './_variables.scss';
+
+
+.popup-content {
+  background-color: $background-light-color;
+}
+
+.popup-content h2 {
+  margin-bottom: 5px;
+}
+
+.popup-treespecies {
+  margin-bottom: 20px;
+}
+
+.popup-infos {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 24px;
+}
+
+.popup-infos div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.popup-btn {
+  background-color: $background-light-color;
+  color: $green-color;
+  border: 1px solid $green-color;
+  padding: 5px 5px;
+  border-radius: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-btn-class {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@media (min-width: 768px) {
+
+}
