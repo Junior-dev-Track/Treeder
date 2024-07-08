@@ -27,6 +27,8 @@ const UserDetails = ({}) => {
   const [logsDate, setLogsDate] = useState([]);
   const [logsCategory, setLogsCategory] = useState([]);
 
+    const [filteredLogs, setFilteredLogs] = useState([]);
+
 
   const token = localStorage.getItem('token');
   if (!token) {
@@ -53,30 +55,11 @@ const UserDetails = ({}) => {
         setSkinTrees(data[0].SkinTrees);
         setSelectedAvatar(data[0].SkinPlayer);
         
-        setLogs(data[0].LogMessages);
-        setLogsDate(data[0].LogDate);
-        setLogsCategory(data[0].LogCategories);
+        setLogs(data[0].Logs);
+        setFilteredLogs(data[0].Logs);
 
         console.log(data);
-        
 
-        //TODO : Set other states
-        /*[
-            {
-              IdUsers: 1,
-              Pseudo: 'Kriidfel',
-              Mail: 'test@hotmail.com',
-              Leafs: 10,
-              SkinPlayer: null,
-              SkinTrees: null,
-              Admin: 1,
-              NbTrees: 1,
-              LastLogDate: 2024-06-13T13:48:16.000Z,
-              NumberOfLogs: 1
-            }
-          ]*/
-
-        // Set more states as needed...
       });
   }, [IdUser, token]);
 
@@ -150,6 +133,38 @@ const UserDetails = ({}) => {
 const handleSkinSelect = (skinNumber) => {
   setSelectedSkin(skinNumber);
 };
+
+const handleFilterSelect = (filter) => {
+    // Filter logs based on the selected filter
+    // Set the filtered logs in a state
+    // You can use the logs, logsDate, and logsCategory states to filter the logs
+    // You can use the filter parameter to determine the type of filter
+
+    // Example:
+    //console.log(logs)
+    const filteredLogs = logs.filter((log) => {
+        console.log(filter)
+        if (filter === 'all') {
+            return true;
+        } else if (filter === log.LogCategories) {
+            console.log("buy " + log.LogCategories)
+            return log;
+        } else if (filter === log.LogCategories) {
+            console.log("wasPurchasedBy")
+            return log;
+        } else if (filter === log.LogCategories) {
+            console.log("lock")
+            return log;
+        }
+    });
+
+    setFilteredLogs(filteredLogs);
+}
+
+    function formatDate(dateString) {
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return new Date(dateString).toLocaleDateString('fr-FR', options);
+    }
 
 
   return (
@@ -288,14 +303,15 @@ const handleSkinSelect = (skinNumber) => {
           <div className="log-filters">
             <button onClick={() => handleFilterSelect('all')}>All</button>
             <button onClick={() => handleFilterSelect('buy')}>Buy</button>
+            <button onClick={() => handleFilterSelect('wasPurchasedBy')}>Purchase</button>
             <button onClick={() => handleFilterSelect('lock')}>Lock</button>
           </div>
           <div className="log-entries">
             {filteredLogs.map((log, index) => (
               <div key={index} className="log-entry">
-                <span>{log.date} {log.time} - </span>
-                <span>{log.pseudo}: </span>
-                <span>{log.message}</span>
+                <span>{formatDate(log.LogDate)} </span>
+                <span>{pseudo}</span>
+                <span>{log.LogMessages}</span>
               </div>
             ))}
           </div>
