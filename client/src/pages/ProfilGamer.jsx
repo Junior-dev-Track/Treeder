@@ -19,9 +19,17 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
 
   const avatarUrl = 'http://localhost:3000/public/avatars/' + Cookies.get('skinplayer');
 
-  const handleSkinSelect = (skinNumber) => {
-    setSelectedSkin(skinNumber);
-  };
+  /*const SkinSelector = ({ onSkinChange }) => {
+    // Liste des skins disponibles
+    const skins = [
+      { id: 'default', name: 'Défaut', imageUrl: 'url-to-default-skin-image' },
+      { id: 'skin1', name: 'Skin 1', imageUrl: 'url-to-skin1-image' },
+      { id: 'skin2', name: 'Skin 2', imageUrl: 'url-to-skin2-image' },
+      { id: 'skin3', name: 'Skin 3', imageUrl: 'url-to-skin3-image' },
+      { id: 'skin4', name: 'Skin 4', imageUrl: 'url-to-skin4-image' },
+      // Ajouter d'autres skins ici
+    ];*/
+  
 
   useEffect(() => {
     setModalIsOpen(isOpen);
