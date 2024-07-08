@@ -130,29 +130,24 @@ const UserDetails = ({}) => {
   }
 };
 
-const handleSkinSelect = (skinNumber) => {
-  setSelectedSkin(skinNumber);
-};
+    const handleSkinSelect = (skinNumber) => {
+      setSelectedSkin(skinNumber);
+    };
 
-const handleFilterSelect = (filter) => {
-    let filteredLogs = [];
-    if (filter === 'all') {
-        console.log('all')
-        filteredLogs = logs;
+    const handleFilterSelect = (filter) => {
+        let filteredLogs = [];
+        if (filter === 'all') {
+            console.log('all: ' + logs)
+            filteredLogs = [...logs];
+            console.log(filteredLogs);
+        }
+        else {
+            filteredLogs = logs.filter(log => log.LogCategory.includes(filter));
+        }
+
         console.log(filteredLogs);
-    }
-    else {
-        for (let i = 0; i < logs.length; i++) {
-            if (logs[i].LogCategory.includes(filter)) {
-                console.log('filter: ' + filter);
-                filteredLogs.push(logs[i]);
-                console.log(filteredLogs);
-            }
-    }
-
-    console.log(filteredLogs);
-    setFilteredLogs(filteredLogs);
-}}
+        setFilteredLogs(filteredLogs);
+    };
 
     function formatDate(dateString) {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -304,7 +299,7 @@ const handleFilterSelect = (filter) => {
               <div key={index} className="log-entry">
                 <span>{formatDate(log.LogDate)} </span>
                 <span>{pseudo}</span>
-                <span>{log.LogMessages}</span>
+                <span>{log.LogMessage}</span>
               </div>
             ))}
           </div>

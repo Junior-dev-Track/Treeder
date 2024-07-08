@@ -74,7 +74,7 @@ class UserDB{
             COUNT(DISTINCT Trees.Owner) AS NbTrees
         FROM Users
                  LEFT JOIN Trees ON Users.IdUsers = Trees.Owner
-        WHERE Users.IdUsers = 1
+        WHERE Users.IdUsers = '${dataUser.IdUsers}'
         GROUP BY
             Users.IdUsers,
             Users.Pseudo,
