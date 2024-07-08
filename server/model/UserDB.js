@@ -62,29 +62,28 @@ class UserDB{
 
     async getUserDatas(dataUser) {
     return await this.dataBase.query(`
-        SELECT 
-            Users.IdUsers, 
-            Users.Pseudo, 
-            Users.Mail, 
-            Users.Leafs, 
-            Users.SkinPlayer, 
-            Users.SkinTrees, 
-            Users.Admin, 
+        SELECT
+            Users.IdUsers,
+            Users.Pseudo,
+            Users.Mail,
+            Users.Leafs,
+            Users.SkinPlayer,
+            Users.SkinTrees,
+            Users.Admin,
             COUNT(Trees.Owner) AS NbTrees,
-            Logs.Date,
-            Logs.Categorie,
-            Logs.Log
-        FROM Users 
-        LEFT JOIN Logs ON Users.IdUsers = Logs.User 
-        LEFT JOIN Trees ON Users.IdUsers = Trees.Owner
-        WHERE Users.IdUsers = '${dataUser.IdUsers}'
-        GROUP BY 
-            Users.IdUsers, 
-            Users.Pseudo, 
-            Users.Mail, 
-            Users.Leafs, 
-            Users.SkinPlayer, 
-            Users.SkinTrees, 
+            MAX(Logs.Date) AS LatestLogDate,
+            GROUP_CONCAT(DISTINCT Logs.Categorie) AS LogCategories,
+            GROUP_CONCAT(DISTINCT Logs.Log) AS LogMessages
+        FROM Users
+                 LEFT JOIN Logs ON Users.IdUsers = Logs.User
+                 LEFT JOIN Trees ON Users.IdUsers = Trees.Owner
+        GROUP BY
+            Users.IdUsers,
+            Users.Pseudo,
+            Users.Mail,
+            Users.Leafs,
+            Users.SkinPlayer,
+            Users.SkinTrees,
             Users.Admin
         `);
     }
