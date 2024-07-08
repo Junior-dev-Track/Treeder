@@ -71,8 +71,9 @@ class UserDB{
             Users.SkinTrees, 
             Users.Admin, 
             COUNT(Trees.Owner) AS NbTrees,
-            MAX(Logs.Date) AS LastLogDate, -- Example of aggregating Logs data
-            COUNT(Logs.IdLogs) AS NumberOfLogs -- Another example of aggregation
+            Logs.Date,
+            Logs.Categorie,
+            Logs.Log
         FROM Users 
         LEFT JOIN Logs ON Users.IdUsers = Logs.User 
         LEFT JOIN Trees ON Users.IdUsers = Trees.Owner
