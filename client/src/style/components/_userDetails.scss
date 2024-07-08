@@ -1,0 +1,38 @@
+@import './_variables.scss';
+
+
+.profil--section {
+  display: flex;
+  gap: 120px;
+}
+
+.log-filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.userdetails--btn {
+  background-color: $primary-color;
+  color: black;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 35px;
+  cursor: pointer;
+}
+
+.log-entries {
+  background-color: $primary-color;
+  color: black;
+  border-radius: 10px;
+  padding: 20px 20px;
+  gap: 15px;
+}
+
+.logs-section h3 {
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+
+}
