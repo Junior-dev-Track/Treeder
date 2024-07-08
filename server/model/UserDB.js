@@ -71,12 +71,13 @@ class UserDB{
             Users.SkinTrees,
             Users.Admin,
             COUNT(Trees.Owner) AS NbTrees,
-            Logs.Date AS LogDate,
+            GROUP_CONCAT(DISTINCT Logs.Date) AS LogDate,
             GROUP_CONCAT(DISTINCT Logs.Categorie) AS LogCategories,
             GROUP_CONCAT(DISTINCT Logs.Log) AS LogMessages
         FROM Users
                  LEFT JOIN Logs ON Users.IdUsers = Logs.User
                  LEFT JOIN Trees ON Users.IdUsers = Trees.Owner
+        WHERE Users.IdUsers = '${dataUser.IdUsers}'
         GROUP BY
             Users.IdUsers,
             Users.Pseudo,

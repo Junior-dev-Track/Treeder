@@ -8,6 +8,8 @@ import arrowIcon from '../assets/img/arrow-back.svg';
 import viewIcon from '../assets/img/view.svg';
 import editIcon from '../assets/img/edit.svg';
 
+const avatarUrl = 'http://localhost:3000/public/avatars/'
+
 const AdminUsers = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
@@ -46,6 +48,7 @@ const AdminUsers = () => {
   const [editedValues, setEditedValues] = useState({});
   const [editingField, setEditingField] = useState(null);
 
+  console.log(users);
   const handleEditUser = (userId) => {
     const user = users.find((user) => user.IdUsers === userId);
     setEditingUser(userId);
@@ -141,7 +144,7 @@ const AdminUsers = () => {
         {users.map((user) => (
           <tr key={user.IdUsers}>
             <td>{user.IdUsers}</td>
-            <td><img src={user.Avatar} alt="Avatar" /></td>
+            <td><img src={avatarUrl + user.SkinPlayer} alt="Avatar" /></td>
             <td onClick={() => {
               setEditingUser(user.IdUsers);
               setEditingField('Pseudo');
