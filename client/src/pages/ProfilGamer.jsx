@@ -68,7 +68,7 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
       }
       if (avatarUrl.includes('rat.png')) {
         return 'avatar-rat__big';
-      } else if (avatarUrl.includes('cacatoes.png')) {
+      } else if (avatarUrl.includes('cacaotes.png')) {
         return 'avatar-cacaotes__big';
       } else if (avatarUrl.includes('cat.png')) {
         return 'avatar-cat__big';

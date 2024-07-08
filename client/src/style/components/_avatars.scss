@@ -73,23 +73,85 @@
     margin-bottom: 5px;
 }
 
+
+//avatars general homepage
+
 .general-avatar {
+    width: 67px;
+    object-fit: cover;
+    object-position: -2px 3px;
+}
+
+.avatar-rat__general {
+    width: 67px;
+    object-fit: cover;
+    object-position: 0px 0px;
+}
+
+.avatar-cacaotes__general {
+    width: 51px;
+    object-fit: cover;
+    object-position: -9px -2px;
+}
+
+.avatar-cat__general {
+    width: 67px;
+    object-fit: cover;
+    object-position: 2px 1px;
+}
+
+.avatar-dog__general {
     width: 78px;
     object-fit: cover;
     object-position: -2px 3px;
 }
 
-/*.general-avatar__big {
+.avatar-rabbit__general {
+    width: 53px;
+    object-fit: cover;
+    object-position: 5px 1px;
+}
+
+
+
+//avatars profil gamer
+
+.general-avatar__big {
+    width: 100px;
+    object-fit: cover;
+    object-position: 0px 0px;
+}
+
+.avatar-rat__big {
+    width: 108px;
+    object-fit: cover;
+    object-position: -44px -9px;
+}
+
+.avatar-cacaotes__big {
+    width: 86px;
+    object-fit: cover;
+    object-position: -20px -4px;
+}
+
+.avatar-cat__big {
+    width: 106px;
+    object-fit: cover;
+    object-position: 1px 0px;
+}
+
+.avatar-dog__big {
     width: 140px;
     object-fit: cover;
     object-position: -8px 2px;
-}*/
-
-.avatar-rat__big {
-    width: 140px;
-    object-fit: cover;
-    object-position: -68px 2px;
 }
+
+.avatar-rabbit__big {
+    width: 80px;
+    object-fit: cover;
+    object-position: 8px 1px;
+}
+
 
 
 //responsive

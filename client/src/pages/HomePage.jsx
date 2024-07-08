@@ -48,6 +48,27 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
   }, [openProfilePopup, navigate]);
 
 
+  function getAvatarClass(avatarUrl) {
+    if (!avatarUrl) {
+      return 'general-avatar'; // Default class if avatarUrl is undefined or null
+    }
+    if (avatarUrl.includes('rat.png')) {
+      return 'avatar-rat__general';
+    } else if (avatarUrl.includes('cacaotes.png')) {
+      return 'avatar-cacaotes__general';
+    } else if (avatarUrl.includes('cat.png')) {
+      return 'avatar-cat__general';
+    } else if (avatarUrl.includes('dog.png')) {
+      return 'avatar-dog__general';
+    } else if (avatarUrl.includes('rabbit.png')) {
+      return 'avatar-rabbit__general';
+    } else {
+      return 'general-avatar';
+    }
+  }
+
+
+
   return (
     <div>
       <div className='map-container'>
@@ -78,7 +99,7 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
             <>
               <button className='btn' onClick={() => setIsProfileModalOpen(true)}>
                 <div className='profil-avatar'>
-                  <img className='general-avatar' src={avatarUrl} alt="Avatar" />
+                  <img className={getAvatarClass(avatarUrl)} src={avatarUrl} alt="Avatar" />
                 </div>
                 <span className='profil--btn btn--text'>{pseudo}</span>
               </button>
