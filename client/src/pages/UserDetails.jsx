@@ -151,7 +151,6 @@ const handleSkinSelect = (skinNumber) => {
   setSelectedSkin(skinNumber);
 };
 
-  
 
   return (
 
@@ -283,8 +282,24 @@ const handleSkinSelect = (skinNumber) => {
         <button onClick={handleSave}>Save</button>
         <button onClick={handleCancel}>Cancel</button>
 
-        <h3>Logs</h3>
+        <div className="logs-section">
+          <h3>Logs</h3>
 
+          <div className="log-filters">
+            <button onClick={() => handleFilterSelect('all')}>All</button>
+            <button onClick={() => handleFilterSelect('buy')}>Buy</button>
+            <button onClick={() => handleFilterSelect('lock')}>Lock</button>
+          </div>
+          <div className="log-entries">
+            {filteredLogs.map((log, index) => (
+              <div key={index} className="log-entry">
+                <span>{log.date} {log.time} - </span>
+                <span>{log.pseudo}: </span>
+                <span>{log.message}</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
   
       </div>
