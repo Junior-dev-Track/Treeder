@@ -59,9 +59,7 @@ const SettingsGamer = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user: {
-          Pseudo: Cookies.get('pseudo'),
-        },
+        IdUsers: Cookies.get('idUser'),
         Pseudo: pseudo,
         Password: password,
         Mail: email,

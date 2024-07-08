@@ -9,6 +9,7 @@ const saltRounds = 10;
 router.post('/', authenticateToken, async (req, res) => {
 
     let dataUser = req.body
+    console.log(dataUser)
 
     let usersDB = new UserDB(new DataBase())
 
@@ -39,8 +40,14 @@ router.post('/', authenticateToken, async (req, res) => {
 
     // TODO : vérifier que l'user n'existe pas déjà en dehors de lui même
     let user = await usersDB.verifyUser(dataUser);
+    // exemple : user = [{IdUsers: 1, Pseudo: 'Kriidfel', Mail: 'test@test.com'}]
+    //          dataUser = [{ IdUsers: 1, Pseudo: 'Kriidfel', Mail: 'test1@test.com'}]
+    //si j'ai les mêmes données que mon exemple  je dois update mon user
+
     if (user.length > 0) {
-        return res.status(400).send('User already exists');
+        if (user[0].IdUsers !== dataUser.IdUsers) {
+            return res.status(400).send('User already exists');
+        }
     }
 
     let users = await usersDB.updateUser(dataUser);
