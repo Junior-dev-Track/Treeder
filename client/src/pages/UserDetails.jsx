@@ -135,31 +135,24 @@ const handleSkinSelect = (skinNumber) => {
 };
 
 const handleFilterSelect = (filter) => {
-    // Filter logs based on the selected filter
-    // Set the filtered logs in a state
-    // You can use the logs, logsDate, and logsCategory states to filter the logs
-    // You can use the filter parameter to determine the type of filter
+    let filteredLogs = [];
+    if (filter === 'all') {
+        console.log('all')
+        filteredLogs = logs;
+        console.log(filteredLogs);
+    }
+    else {
+        for (let i = 0; i < logs.length; i++) {
+            if (logs[i].LogCategory.includes(filter)) {
+                console.log('filter: ' + filter);
+                filteredLogs.push(logs[i]);
+                console.log(filteredLogs);
+            }
+    }
 
-    // Example:
-    //console.log(logs)
-    const filteredLogs = logs.filter((log) => {
-        console.log(filter)
-        if (filter === 'all') {
-            return true;
-        } else if (filter === log.LogCategories) {
-            console.log("buy " + log.LogCategories)
-            return log;
-        } else if (filter === log.LogCategories) {
-            console.log("wasPurchasedBy")
-            return log;
-        } else if (filter === log.LogCategories) {
-            console.log("lock")
-            return log;
-        }
-    });
-
+    console.log(filteredLogs);
     setFilteredLogs(filteredLogs);
-}
+}}
 
     function formatDate(dateString) {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };

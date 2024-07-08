@@ -48,7 +48,7 @@ const AdminUsers = () => {
   const [editedValues, setEditedValues] = useState({});
   const [editingField, setEditingField] = useState(null);
 
-  console.log(users);
+  //console.log(users);
   const handleEditUser = (userId) => {
     const user = users.find((user) => user.IdUsers === userId);
     setEditingUser(userId);

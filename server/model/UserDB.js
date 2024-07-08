@@ -61,6 +61,7 @@ class UserDB{
 
 
     async getUserDatas(dataUser) {
+        console.log(dataUser)
     return await this.dataBase.query(`
         SELECT
             Users.IdUsers,
@@ -70,14 +71,10 @@ class UserDB{
             Users.SkinPlayer,
             Users.SkinTrees,
             Users.Admin,
-            COUNT(Trees.Owner) AS NbTrees,
-            GROUP_CONCAT(DISTINCT Logs.Date) AS LogDate,
-            GROUP_CONCAT(DISTINCT Logs.Categorie) AS LogCategories,
-            GROUP_CONCAT(DISTINCT Logs.Log) AS LogMessages
+            COUNT(DISTINCT Trees.Owner) AS NbTrees
         FROM Users
-                 LEFT JOIN Logs ON Users.IdUsers = Logs.User
                  LEFT JOIN Trees ON Users.IdUsers = Trees.Owner
-        WHERE Users.IdUsers = '${dataUser.IdUsers}'
+        WHERE Users.IdUsers = 1
         GROUP BY
             Users.IdUsers,
             Users.Pseudo,
@@ -85,7 +82,7 @@ class UserDB{
             Users.Leafs,
             Users.SkinPlayer,
             Users.SkinTrees,
-            Users.Admin
+            Users.Admin;
         `);
     }
 

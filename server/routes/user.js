@@ -3,13 +3,16 @@ const router = express.Router();
 const UserDB = require('../model/UserDB');
 const DataBase = require ('../model/DataBase')
 const {authenticateToken} = require("../middleware/authenticateToken");
+const LogsDb = require("../model/LogsDB");
 
 router.get('/',authenticateToken, async (req, res) => {
 
     let usersDB = new UserDB(new DataBase())
+    let logsDB = new LogsDb(new DataBase())
     let userData = { IdUsers: req.query.IdUser};
 
     let rawUsers = await usersDB.getUserDatas(userData);
+    let logs = await logsDB.getLogForOneUser(userData);
 
     let users = rawUsers.map(user => {
         return {
@@ -21,16 +24,8 @@ router.get('/',authenticateToken, async (req, res) => {
             SkinTrees: user.SkinTrees,
             Admin: user.Admin,
             NbTrees: user.NbTrees,
-            Logs: user.LogDate ? user.LogDate.split(',').map((date, index) => {
-                return {
-                    LogDate: date,
-                    LogCategories: user.LogCategories.split(',')[index],
-                    LogMessages: user.LogMessages.split(',')[index]
-                }
-            }) : []
-        }
-    });
-
+            Logs: logs
+        }});
 
     res.status(200).send(users);
 });

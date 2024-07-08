@@ -27,6 +27,16 @@ class LogsDB {
     async updateLog(dataLogs) {
         return await this.dataBase.query(`UPDATE Logs SET Log = '${dataLogs.Log}', User = '${dataLogs.User}', Date = '${dataLogs.Date}', Categorie = '${dataLogs.Categorie}')`)
     }
+
+    async getLogForOneUser(userData) {
+        return await this.dataBase.query(`SELECT
+                                              Logs.Date AS LogDate,
+                                              Logs.Categorie AS LogCategory,
+                                              Logs.Log AS LogMessage
+                                          FROM Logs
+                                          WHERE Logs.User = ${userData.IdUsers}
+                                          ORDER BY Logs.Date DESC;`)
+    }
 }
 
 module.exports = LogsDB;
