@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import Cookies from 'js-cookie';
 import SettingsGamer from './SettingsGamer';
 import closeIcon from '../assets/img/close.svg';
+import userIcon from '../assets/img/user.png';
 import ProfilModal from '../components/ProfilModal.jsx';
 
 import NbTrees from '../components/NbTrees.jsx';
@@ -99,11 +100,21 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
               ))}
             </div>
           </div>
-          {playerData.Admin === 1 && <button onClick={() => window.location.href='/adminusers'}>Admin Users</button>}
 
-          <div className='round--btn, settings--param'>
-            <SettingsGamer />
+          <div className='settings--param'>
+              {playerData.Admin === 1 && (
+                <div className='round--btn admin--btn'>
+                  <button className='admin-users--btn' onClick={() => window.location.href='/adminusers'}>
+                    <img className='admin-users-icon' src={userIcon} alt="Users Admin" />
+                  </button>
+                </div>
+              )}
+
+            <div className='round--btn'>
+              <SettingsGamer />
+            </div>
           </div>
+
         </div>
       </ProfilModal>
     </div>
