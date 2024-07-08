@@ -61,6 +61,27 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
     .catch((error) => console.error(error));
     }, [isOpen]);
 
+
+    function getAvatarClass(avatarUrl) {
+      if (!avatarUrl) {
+        return 'general-avatar__big'; // Default class if avatarUrl is undefined or null
+      }
+      if (avatarUrl.includes('rat.png')) {
+        return 'avatar-rat__big';
+      } else if (avatarUrl.includes('cacatoes.png')) {
+        return 'avatar-cacaotes__big';
+      } else if (avatarUrl.includes('cat.png')) {
+        return 'avatar-cat__big';
+      } else if (avatarUrl.includes('dog.png')) {
+        return 'avatar-dog__big';
+      } else if (avatarUrl.includes('rabbit.png')) {
+        return 'avatar-rabbit__big';
+      } else {
+        return 'general-avatar__big';
+      }
+    }
+
+
   return (
     <div>
       <ProfilModal isOpen={modalIsOpen} onRequestClose={() => {setModalIsOpen(false); setIsOpen(false);}}>
@@ -71,7 +92,7 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
 
           <div className='profil'>
             <div className='profil--avatar__big'>
-              <img className='general-avatar__big' src={avatarUrl} alt="Avatar" />
+              <img className={getAvatarClass(avatarUrl)} src={avatarUrl} alt="Avatar" />
             </div>
             {playerData.Admin === 1 && <h1>Admin</h1>}
             <h2>{playerData.Pseudo}</h2>
