@@ -71,7 +71,7 @@ class UserDB{
             Users.SkinTrees,
             Users.Admin,
             COUNT(Trees.Owner) AS NbTrees,
-            MAX(Logs.Date) AS LatestLogDate,
+            Logs.Date AS LogDate,
             GROUP_CONCAT(DISTINCT Logs.Categorie) AS LogCategories,
             GROUP_CONCAT(DISTINCT Logs.Log) AS LogMessages
         FROM Users

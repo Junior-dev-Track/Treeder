@@ -21,7 +21,10 @@ const UserDetails = ({}) => {
   const [locks, setLocks] = useState('');
   const [skinTrees, setSkinTrees] = useState('');
   const [avatar, setSelectedAvatar] = useState('');
+
   const [logs, setLogs] = useState([]);
+  const [logsDate, setLogsDate] = useState([]);
+  const [logsCategory, setLogsCategory] = useState([]);
 
 
   const token = localStorage.getItem('token');
@@ -48,7 +51,12 @@ const UserDetails = ({}) => {
         setLocks(data[0].Locks);
         setSkinTrees(data[0].SkinTrees);
         setSelectedAvatar(data[0].SkinPlayer);
+        
+        setLogs(data[0].LogMessages);
+        setLogsDate(data[0].LogDate);
+        setLogsCategory(data[0].LogCategories);
 
+        console.log(data);
         
 
         //TODO : Set other states
@@ -273,7 +281,10 @@ const handleSkinSelect = (skinNumber) => {
 
         <button onClick={handleSave}>Save</button>
         <button onClick={handleCancel}>Cancel</button>
-        {/* Add more fields and logs... */}
+
+        <h3>Logs</h3>
+
+
   
       </div>
     </div>
