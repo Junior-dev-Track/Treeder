@@ -1,0 +1,72 @@
+@import './_variables.scss';
+
+
+.skins {
+    margin-top: 20px;
+}
+
+.skins--infos {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+}
+
+.skin--btn {
+    background-color: $primary-color;
+    border: none;
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+.skin--img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: $primary-color;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.selected {
+        border: 2px solid $yellow-color;
+    }
+}
+
+.tree-avatar {
+    width: 19px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.tree-1-avatar {
+    width: 25px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.tree-2-avatar {
+    width: 29px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.tree-3-avatar {
+    width: 18px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.tree-4-avatar {
+    width: 45px;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+//responsive
+
+@media (min-width: 768px) {
+
+}

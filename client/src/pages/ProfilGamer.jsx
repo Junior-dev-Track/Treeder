@@ -14,23 +14,11 @@ import * as refresh from "../utils/Refresh";
 
 const ProfilGamer = ({ isOpen, setIsOpen }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedSkin, setSelectedSkin] = useState(1);
+  const [skin, setSelectedSkin] = useState('tree.png');
   const [playerData, setPlayerData] = useState({});
 
   const avatarUrl = 'http://localhost:3000/public/avatars/' + Cookies.get('skinplayer');
-
-  /*const SkinSelector = ({ onSkinChange }) => {
-    // Liste des skins disponibles
-    const skins = [
-      { id: 'default', name: 'Défaut', imageUrl: 'url-to-default-skin-image' },
-      { id: 'skin1', name: 'Skin 1', imageUrl: 'url-to-skin1-image' },
-      { id: 'skin2', name: 'Skin 2', imageUrl: 'url-to-skin2-image' },
-      { id: 'skin3', name: 'Skin 3', imageUrl: 'url-to-skin3-image' },
-      { id: 'skin4', name: 'Skin 4', imageUrl: 'url-to-skin4-image' },
-      // Ajouter d'autres skins ici
-    ];*/
   
-
   useEffect(() => {
     setModalIsOpen(isOpen);
 
@@ -117,16 +105,67 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
             <h3>Skins</h3>
 
             <div className='skins--infos'>
-              {[1, 2, 3, 4, 5].map((skinNumber) => (
-                <button
-                  className='skin--btn'
-                  key={skinNumber}
-                  onClick={() => handleSkinSelect(skinNumber)}
-                  style={{ backgroundColor: selectedSkin === skinNumber ? 'blue' : 'grey' }}
-                >
-                  Skin {skinNumber}
-                </button>
-              ))}
+            <div className='avatar'>
+              <div className={`skin--img  ${skin === 'tree.png' ? 'selected' : ''}`}>
+                <img
+                  src="http://localhost:3000/public/skins/tree.png"
+                  alt="Avatar tree"
+                  className="tree-avatar"
+                  onClick={() => setSelectedSkin('tree.png')}
+                />
+              </div>
+              <p style={{ fontWeight: skin === 'tree.png' ? 'bold' : 'normal' }}>Default</p>
+            </div>
+
+            <div className='avatar'>
+              <div className={`skin--img ${skin === 'tree-1.png' ? 'selected' : ''}`}>
+                <img
+                  src="http://localhost:3000/public/skins/tree-1.png"
+                  alt="Avatar tree"
+                  className="tree-1-avatar"
+                  onClick={() => setSelectedSkin('tree-1.png')}
+                />
+              </div>
+              <p style={{ fontWeight: skin === 'tree-1.png' ? 'bold' : 'normal' }}>Skin 1</p>
+            </div>
+
+            <div className='avatar'>
+              <div className={`skin--img ${skin === 'tree-2.png' ? 'selected' : ''}`}>
+                <img
+                  src="http://localhost:3000/public/skins/tree-2.png"
+                  alt="Avatar tree"
+                  className="tree-2-avatar"
+                  onClick={() => setSelectedSkin('tree-2.png')}
+                />
+              </div>
+              <p style={{ fontWeight: skin === 'tree-2.png' ? 'bold' : 'normal' }}>Skin 2</p>
+            </div>
+
+            <div className='avatar'>
+              <div className={`skin--img ${skin === 'tree-3.png' ? 'selected' : ''}`}>
+                <img
+                  src="http://localhost:3000/public/skins/tree-3.png"
+                  alt="Avatar tree"
+                  className="tree-3-avatar"
+                  onClick={() => setSelectedSkin('tree-3.png')}
+                />
+              </div>
+              <p style={{ fontWeight: skin === 'tree-3.png' ? 'bold' : 'normal' }}>Skin 3</p>
+            </div>
+
+            <div className='avatar'>
+              <div className={`skin--img ${skin === 'tree-5.png' ? 'selected' : ''}`}>
+                <img
+                  src="http://localhost:3000/public/skins/tree-5.png"
+                  alt="Avatar tree"
+                  className="tree-4-avatar"
+                  onClick={() => setSelectedSkin('tree-5.png')}
+                />
+              </div>
+              <p style={{ fontWeight: skin === 'tree-5.png' ? 'bold' : 'normal' }}>Shiny</p>
+            </div>
+
+
             </div>
           </div>
 
