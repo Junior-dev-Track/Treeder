@@ -36,7 +36,10 @@ class UserDB{
     }
 
     async updateUser(dataUser){
-        return !!(await this.dataBase.query(`UPDATE Users SET Pseudo = '${dataUser.Pseudo}', Password = '${dataUser.Password}', Mail = '${dataUser.Mail}', SkinPlayer = '${dataUser.SkinPlayer}' WHERE IdUsers = '${dataUser.IdUsers}'`));
+        if (dataUser.Password){
+            return !!(await this.dataBase.query(`UPDATE Users SET Pseudo = '${dataUser.Pseudo}', Password = '${dataUser.Password}', Mail = '${dataUser.Mail}', SkinPlayer = '${dataUser.SkinPlayer}' WHERE IdUsers = '${dataUser.IdUsers}'`));
+        }
+        return !!(await this.dataBase.query(`UPDATE Users SET Pseudo = '${dataUser.Pseudo}', Mail = '${dataUser.Mail}', SkinPlayer = '${dataUser.SkinPlayer}' WHERE IdUsers = '${dataUser.IdUsers}'`));
     }
 
     async getScore() {
