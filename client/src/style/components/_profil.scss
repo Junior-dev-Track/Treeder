@@ -1,3 +1,4 @@
+@import './_variables.scss';
 
 .profil {
     display: flex;
@@ -11,6 +12,15 @@
     height: 74px;
     border-radius: 100%;
     border: 3px solid $yellow-color;
+    background-color: $primary-color;
+    overflow: hidden;
+}
+
+.profil--avatar__small {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 1px solid $yellow-color;
     background-color: $primary-color;
     overflow: hidden;
 }
@@ -86,6 +96,11 @@
         align-items: center;
         justify-content: center;
     }
+
+    .settings--param {
+        margin-top: 20px;
+    }
+   
 
 
     

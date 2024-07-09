@@ -1,4 +1,4 @@
-
+@import './_variables.scss';
 
 .table {
     width: 100%;
@@ -14,7 +14,6 @@
 
 .th {
     border-bottom: 1.5px solid $brown-color;
-
 }
 
 .score-icon--table {

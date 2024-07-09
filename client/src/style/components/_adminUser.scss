@@ -18,19 +18,78 @@
   margin-bottom: 30px;
 }
 
-.adminuser--buttons {
-  display: flex;
-  gap: 17.5px;
+
+//avatars small
+
+.avatar-rat__small {
+  width: 40px;
+  object-fit: cover;
+  object-position: -15px -2px;
 }
 
-.adminuser--save {
+.avatar-cacaotes__small {
+  width: 30px;
+  object-fit: cover;
+  object-position: -4px -1px;
+}
+
+.avatar-cat__small {
+  width: 40px;
+  object-fit: cover;
+  object-position: 2px 1px;
+}
+
+.avatar-dog__small {
+  width: 50px;
+  object-fit: cover;
+  object-position: -1px 2px;
+}
+
+.avatar-rabbit__small {
+  width: 33px;
+  object-fit: cover;
+  object-position: 4px 1px;
+}
+
+
+//buttons
+
+.adminuser-reset--btn {
+  background-color: transparent;
+  border: 1px solid $green-color;
+  color: $green-color;
+  padding: 6px 10px;
+  border-radius: 40px;
+  cursor: pointer;
+}
+
+.adminuser--btn {
+  display: flex;
+  gap: 17px;
+  cursor: pointer;
+}
+
+.view-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.edit-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.adminuser-save--btn {
     background-color: $green-color;
     color: white;
-    padding: 10px 20px;
+    padding: 6px 15px;
     border: none;
-    border-radius: 35px;
+    border-radius: 40px;
     cursor: pointer;
 }
+
+
+//inputs
 
 .adminuser--editinginput {
   border-right: none;
@@ -38,7 +97,9 @@
   border-top: none;
   border-bottom: 1px solid $brown-color;
   background-color: $background-light-color;
+  padding: 5px 4px;
   font-family: $font-family;
+
 }
 
 

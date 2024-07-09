@@ -98,14 +98,34 @@ const AdminUsers = () => {
   };
 
 
-  const handleProfile = () => {
+  /*const handleProfile = () => {
     navigate('/', { state: { openProfilePopup: true } });
-  };
+  };*/
 
   const handleLogout = async () => {
     await logout(setIsAuthenticated, setModalIsOpen); // Appelle la fonction logout
     navigate('/'); // Redirige vers la page d'accueil
   };
+
+
+  function getAvatarClass(avatarUrl) {
+    if (!avatarUrl) {
+      return 'general-avatar';
+    }
+    if (avatarUrl.includes('rat.png')) {
+      return 'avatar-rat__small';
+    } else if (avatarUrl.includes('cacaotes.png')) {
+      return 'avatar-cacaotes__small';
+    } else if (avatarUrl.includes('cat.png')) {
+      return 'avatar-cat__small';
+    } else if (avatarUrl.includes('dog.png')) {
+      return 'avatar-dog__small';
+    } else if (avatarUrl.includes('rabbit.png')) {
+      return 'avatar-rabbit__small';
+    } else {
+      return 'general-avatar';
+    }
+  }
   
 
   return (
@@ -118,9 +138,13 @@ const AdminUsers = () => {
               </div>
             </button>
 
-            <button onClick={handleProfile}>Profil</button>
-            <button onClick={() => handleLogout(setIsAuthenticated, setModalIsOpen)}>
-              <img src={logoutIcon} alt="Logout" style={{width: '18px', height: '32px', marginRight: '5px'}} />Logout
+            {/*<button onClick={handleProfile}>
+              Profil
+            </button>*/}
+
+            <button className='btn logout--btn' onClick={() => handleLogout(setIsAuthenticated, setModalIsOpen)}>
+            <img className='logout-icon' src={logoutIcon} alt="Logout" />
+            <span className='btn--text'>Logout</span>
             </button>
         </div>
 
@@ -130,22 +154,26 @@ const AdminUsers = () => {
 
       <h2 className="adminuser--title">Utilisateurs</h2>
       <table className="table">
-        <thead className="th">
+        <thead>
           <tr>
-            <th>ID</th>
-            <th>Avatar</th>
-            <th>Pseudo</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Actions</th>
+            <th className="th">ID</th>
+            <th className="th">Avatar</th>
+            <th className="th">Pseudo</th>
+            <th className="th">Email</th>
+            <th className="th">Password</th>
+            <th className="th">Actions</th>
           </tr>
         </thead>
-        <tbody className="td">
+        <tbody>
         {users.map((user) => (
           <tr key={user.IdUsers}>
-            <td>{user.IdUsers}</td>
-            <td><img src={avatarUrl + user.SkinPlayer} alt="Avatar" /></td>
-            <td onClick={() => {
+            <td className="td">{user.IdUsers}</td>
+            <td className="td">
+              <div className='profil--avatar__small'>
+                <img className={getAvatarClass(avatarUrl + user.SkinPlayer)} src={avatarUrl + user.SkinPlayer} alt="Avatar" />
+              </div>
+            </td>
+            <td className="td" onClick={() => {
               setEditingUser(user.IdUsers);
               setEditingField('Pseudo');
               setEditedValues({Pseudo: user.Pseudo, Mail: user.Mail});
@@ -166,7 +194,7 @@ const AdminUsers = () => {
                 user.Pseudo
               )}
             </td>
-            <td onClick={() => {
+            <td className="td" onClick={() => {
               setEditingUser(user.IdUsers);
               setEditingField('Mail');
               setEditedValues({Pseudo: user.Pseudo, Mail: user.Mail});
@@ -187,26 +215,25 @@ const AdminUsers = () => {
                 user.Mail
               )}
             </td>
-            <td>
-              <button className="settings-secondary-button" onClick={() => handleResetPassword(user.IdUsers)}>Reset Password</button>
+            <td className="td">
+              <button className="adminuser-reset--btn" onClick={() => handleResetPassword(user.IdUsers)}>Reset Password</button>
             </td>
-            <td>
+            <td className="td">
               {editingUser === user.IdUsers ? (
-                <button className="adminuser--save" onClick={() => handleSaveEdit(user.IdUsers)}>Save</button>
+                <button className="adminuser-save--btn" onClick={() => handleSaveEdit(user.IdUsers)}>Save</button>
               ) : (
                 <>
-                  <div className="adminuser--buttons">
+                  <div className="adminuser--btn">
                     <button onClick={() => handleViewUser(user.IdUsers)}>
-                      <img src={viewIcon} alt="View" style={{width: '24px', height: '24px'}}/>
+                      <img className='view-icon' src={viewIcon} alt="View" />
                     </button>
-                    {/*<Link to={`/user/${userId}`}>Voir</Link>*/}
                     <button onClick={() => {
                       handleEditUser(user.IdUsers);
                       setEditingUser(user.IdUsers);
                       setEditingField(null);
                       setEditedValues({Pseudo: user.Pseudo, Mail: user.Mail});
                     }}>
-                      <img src={editIcon} alt="Edit" style={{width: '24px', height: '24px'}}/>
+                      <img className='edit-icon' src={editIcon} alt="Edit" />
                     </button>
                   </div>
                 </>
