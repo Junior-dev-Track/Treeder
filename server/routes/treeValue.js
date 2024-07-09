@@ -1,17 +1,23 @@
 const express = require('express');
 const router = express.Router();
+const DataBase = require('../model/DataBase');
+const TreeDB = require('../model/TreeDB');
 const treeController = require('../controller/treesController');
 
 router.get('/', async (req, res) => {
 
 
-    let treeId = { IdTree: req.query.IdTree};
-    let user = { IdUsers: req.query.IdUsers};
+    let treeId = { IdTrees: Number(req.query.IdTree)};
+    let user = { IdUsers: Number(req.query.IdUsers)};
     const treeControllerInstance = new treeController();
 
-    let values = treeControllerInstance.treeValue(treeId);
-    let price = treeControllerInstance.treePrice(treeId, user);
-    let lock = treeControllerInstance.lockTree(treeId);
+    const treeDB = new TreeDB(new DataBase());
+
+    let tree = await treeDB.getTree(treeId);
+
+    let values = await treeControllerInstance.treeValue(tree[0]);
+    let price = await treeControllerInstance.treePrice(tree[0], user);
+    let lock = await treeControllerInstance.lockTree(tree[0]);
 
 
     let allValues= {value: values, price: price, lock: lock};

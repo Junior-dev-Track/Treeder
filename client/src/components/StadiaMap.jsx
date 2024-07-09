@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import treeImage from '../assets/img/tree.png'; 
 import treeOwnImage from '../assets/img/tree-own.png';
+import Cookies from 'js-cookie';
 
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
@@ -31,37 +32,59 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
     treeData.forEach(tree => {
       const icon = tree.Owner ? boughtTreeIcon : treeIcon; 
       const marker = L.marker([tree.Lat, tree.Lon], { icon: icon });
-      let popupContent = `<div class="popup-content"><h2>${tree.Name ? tree.Name : 'Groot'}</h2>`;
 
-      const leafCount = Math.round(tree.TotHight * tree.DiaLeafs);
-      const treeHight = Math.round(tree.TotHight);
 
-      popupContent += `<div class="popup-treespecies">${tree.Species}</div>
-        <div class="popup-infos"> <div><img src="${heightIcon}" alt="Height" style="width: 11px; height: 14px;" />${treeHight}m</div>
-        <div><img src="${diaIcon}" alt="Diameter" style="width: 14px; height: 16px;" />${tree.DiaLeafs}m</div>
-        <div><img src="${leafIcon}" alt="Leafs" style="width: 14px; height: 18px;" />${leafCount} Leafs</div> </div>
-        ${tree.Pseudo ? tree.Pseudo : ''}`;
+      marker.on('click', () => {
+      const idusers = Cookies.get('idUser');
 
-      if (tree.owner) {
-        if (tree.owner === currentUser) {
-          // Si l'utilisateur actuel est le propriétaire de l'arbre
-          popupContent += `<button class="popup-btn" onclick="lockTree(${tree.id})">Lock</button> </div>`;
-          if (tree.isLocked) {
-            popupContent += `<img src="${lockIcon}" alt="Locked" style="width: 16px; height: 24px;" /> </div>`;
+      marker.bindPopup("Chargement des informations...").openPopup();
+    
+      fetch(`/treevalues?IdTree=${tree.IdTrees}&IdUsers=${idusers}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
           }
-        } else {
-          // Si l'arbre a un autre propriétaire
-          popupContent += `<button class="popup-btn" onclick="buyTree(${tree.id})"><img src="${leafIcon}" alt="Leafs" style="width: 20px; height: 25px;" />${leafCount} Leafs</button> </div>`;
-        }
-      } else {
-        // Si l'arbre n'a pas de propriétaire
-        popupContent += `<div class="popup-btn-class"><button class="popup-btn" onclick="buyTree(${tree.id})"><img src="${leafIcon}" alt="Leafs" style="width: 20px; height: 25px;" />${leafCount} Leafs</button> </div> </div>`;
-      }
+          return response.json();
+        })
+        .then(data => {
+          let popupContent = `<div class="popup-content"><h2>${tree.Name ? tree.Name : 'Groot'}</h2>`;
 
-      marker.bindPopup(popupContent);
-      markerClusterGroup.addLayer(marker);
+          popupContent += `<div class="popup-treespecies">${tree.Species}</div>
+            <div class="popup-infos"> <div><img src="${heightIcon}" alt="Height" style="width: 11px; height: 14px;" />${Math.floor(tree.TotHight)}m</div>
+            <div><img src="${diaIcon}" alt="Diameter" style="width: 14px; height: 16px;" />${Math.floor(tree.DiaLeafs)}m</div>
+            <div><img src="${leafIcon}" alt="Leafs" style="width: 14px; height: 18px;" />${data.value} Leafs</div> </div>
+            ${tree.Pseudo ? tree.Pseudo : ''}`;
+
+          if (tree.Owner) {
+            console.log(tree.Owner);
+            console.log(idusers);
+            if (tree.Owner === Number(idusers)){
+              // Si l'utilisateur actuel est le propriétaire de l'arbre
+              console.log(data.lock);
+              popupContent += `<button class="popup-btn" onclick="lockTree(${tree.id})">Lock</button> </div>`;
+              if (tree.isLocked) {
+                popupContent += `<img src="${lockIcon}" alt="Locked" style="width: 16px; height: 24px;" /> </div>`;
+              }
+            } else {
+              // Si l'arbre a un autre propriétaire
+              popupContent += `<button class="popup-btn" onclick="buyTree(${tree.id})"><img src="${leafIcon}" alt="Leafs" style="width: 20px; height: 25px;" />${data.price} Leafs</button> </div>`;
+            }
+          } else {
+            // Si l'arbre n'a pas de propriétaire
+            popupContent += `<div class="popup-btn-class"><button class="popup-btn" onclick="buyTree(${tree.id})"><img src="${leafIcon}" alt="Leafs" style="width: 20px; height: 25px;" />${data.price} Leafs</button> </div> </div>`;
+            //TODO : Achat envoie ds le fetch -> le tree le owner l'achteur et le prix
+          }
+
+          marker.getPopup().setContent(popupContent);
+        });
     });
 
+    markerClusterGroup.addLayer(marker);
     map.addLayer(markerClusterGroup);
 
     // Clean up on unmount
@@ -70,8 +93,7 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
     };
   }, [map, treeData, treeIcon, boughtTreeIcon]);
 
-  return null;
-};
+})};
 
 
 const StadiaMap = ({ treeData }) => {
