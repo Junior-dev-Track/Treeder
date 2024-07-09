@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import treeImage from '../assets/img/tree.png'; 
-import treeOwnImage from '../assets/img/tree-own.png';
+const treeImage = 'http://localhost:3000/public/skins/tree.png';
+const treeOwnImage = "http://localhost:3000/public/skins/tree-5-own.png";
 import Cookies from 'js-cookie';
 
 import 'leaflet.markercluster/dist/MarkerCluster.css';
@@ -17,6 +17,7 @@ import lockIcon from '../assets/img/nb-locks.png';
 
 
 const avatarUrl = 'http://localhost:3000/public/avatars/';
+const skinTreeUrl = 'http://localhost:3000/public/skins/';
 
 
 const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => {
@@ -114,6 +115,7 @@ const StadiaMap = ({ treeData }) => {
     shadowSize: [41, 41]
   });
 
+  console.log(treeData)
   const boughtTreeIcon = L.icon({
     iconUrl: treeOwnImage,
     iconSize: [25, 53], 

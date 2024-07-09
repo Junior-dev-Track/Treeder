@@ -10,7 +10,7 @@ const UserDetails = ({}) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const IdUser = queryParams.get('IdUser');
-  const avatarUrl = 'http://localhost:3000/public/avatars/'
+  const avatarUrl = 'http://localhost:3000/public/avatars/';
 
   const [selectedSkin, setSelectedSkin] = useState(1);
 

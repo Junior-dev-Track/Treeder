@@ -13,7 +13,7 @@ class TreeDB{
     }
 
     async getTrees(){
-        return await this.dataBase.query('SELECT T.*, U.Pseudo FROM Trees AS T LEFT JOIN Users AS U ON T.Owner = U.IdUsers');
+        return await this.dataBase.query('SELECT T.*, U.Pseudo, U.SkinTrees FROM Trees AS T LEFT JOIN Users AS U ON T.Owner = U.IdUsers');
     }
 
 

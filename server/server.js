@@ -4,10 +4,15 @@ const port = process.env.PORT || 3000;
 const webSocket = require('ws');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const cors = require('cors');
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+  origin: 'http://localhost:8000'
+}));
 app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static('public'));
 require('./services/leafService');
 
 // Import the different routes
