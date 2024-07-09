@@ -93,6 +93,10 @@ class UserDB{
     async updateUserLeavesBalance(IdUsers, leafs) {
         return !!(await this.dataBase.query(`UPDATE Users SET Leafs = '${leafs}' WHERE IdUsers = '${IdUsers}'`));
     }
+
+    async getSkins(dataTree) {
+        return await this.dataBase.query(`SELECT SkinPlayer, SkinTrees FROM Users WHERE IdUsers = '${dataTree.Owner}'`);
+    }
 }
 
 module.exports = UserDB;

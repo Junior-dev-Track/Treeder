@@ -16,6 +16,9 @@ import diaIcon from '../assets/img/diameter.svg';
 import lockIcon from '../assets/img/nb-locks.png';
 
 
+const avatarUrl = 'http://localhost:3000/public/avatars/';
+
+
 const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => {
   const map = useMap();
 
@@ -55,17 +58,22 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
           let popupContent = `<div class="popup-content"><h2>${tree.Name ? tree.Name : 'Groot'}</h2>`;
 
           popupContent += `<div class="popup-treespecies">${tree.Species}</div>
-            <div class="popup-infos"> <div><img src="${heightIcon}" alt="Height" style="width: 11px; height: 14px;" />${Math.floor(tree.TotHight)}m</div>
-            <div><img src="${diaIcon}" alt="Diameter" style="width: 14px; height: 16px;" />${Math.floor(tree.DiaLeafs)}m</div>
-            <div><img src="${leafIcon}" alt="Leafs" style="width: 14px; height: 18px;" />${data.value} Leafs</div> </div>
-            ${tree.Pseudo ? tree.Pseudo : ''}`;
+            <div class="popup-infos"> 
+            <div>
+              <img src="${heightIcon}" alt="Height" style="width: 11px; height: 14px;" />${Math.floor(tree.TotHight)}m
+            </div>
+            <div>
+              <img src="${diaIcon}" alt="Diameter" style="width: 14px; height: 16px;" />${Math.floor(tree.DiaLeafs)}m
+            </div>
+            <div>
+              <img src="${leafIcon}" alt="Leafs" style="width: 14px; height: 18px;" />${data.value} Leafs
+            </div></div>
+            <div><img src="${avatarUrl + data.skinPlayer}" alt="Skinplayer" style="width: 14px; height: 18px;" />${tree.Pseudo ? tree.Pseudo : ''}</div>
+            `;
 
           if (tree.Owner) {
-            console.log(tree.Owner);
-            console.log(idusers);
             if (tree.Owner === Number(idusers)){
               // Si l'utilisateur actuel est le propriétaire de l'arbre
-              console.log(data.lock);
               popupContent += `<button class="popup-btn" onclick="lockTree(${tree.id})">Lock</button> </div>`;
               if (tree.isLocked) {
                 popupContent += `<img src="${lockIcon}" alt="Locked" style="width: 16px; height: 24px;" /> </div>`;
