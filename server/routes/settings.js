@@ -9,7 +9,6 @@ const saltRounds = 10;
 router.post('/', authenticateToken, async (req, res) => {
 
     let dataUser = req.body
-    console.log(dataUser)
 
     let usersDB = new UserDB(new DataBase())
 
@@ -20,7 +19,6 @@ router.post('/', authenticateToken, async (req, res) => {
     dataUser.Password = dataUser.Password.trim();
 
     if (!dataUser.Pseudo || !dataUser.Mail) {
-        console.log(dataUser);
         return res.status(400).send('Invalid data');
     }
 
@@ -45,7 +43,7 @@ router.post('/', authenticateToken, async (req, res) => {
     //si j'ai les mêmes données que mon exemple  je dois update mon user
 
     if (user.length > 0) {
-        if (user[0].IdUsers !== dataUser.IdUsers) {
+        if (user[0].IdUsers !== Number(dataUser.IdUsers)) {
             return res.status(400).send('User already exists');
         }
     }
