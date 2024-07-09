@@ -26,12 +26,16 @@ const SettingsGamer = () => {
     Cookies.set('skinplayer', avatar);
 
 
+
+
     if (pseudo) {
       setPseudo(pseudo);
+      Cookies.set('pseudo', pseudo);
     }
 
     if (email) {
       setEmail(email);
+      Cookies.set('mail', email);
     }
 
     if (avatar) {
@@ -75,7 +79,6 @@ const SettingsGamer = () => {
         }
         return response.json();
     })
-    .then((response) => response.json())
     .then((data) => {
       console.log(data);
       setModalIsOpen(false);
