@@ -5,6 +5,7 @@ import settingsIcon from '../assets/img/settings.png';
 import arrowIcon from '../assets/img/arrow-back.svg';
 import ProfilModal from '../components/ProfilModal.jsx';
 import * as refresh from '../utils/Refresh';
+import { useNavigate } from 'react-router-dom';
 
 import closeIcon from '../assets/img/close.svg';
 
@@ -18,14 +19,13 @@ const SettingsGamer = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const pseudo = Cookies.get('pseudo');
     const email = Cookies.get('mail');
 
     Cookies.set('skinplayer', avatar);
-
-
 
 
     if (pseudo) {
@@ -82,6 +82,7 @@ const SettingsGamer = () => {
     .then((data) => {
       console.log(data);
       setModalIsOpen(false);
+      navigate('/');
     })
     .catch((error) => console.error(error));
   };
