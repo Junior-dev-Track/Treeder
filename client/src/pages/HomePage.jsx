@@ -1,5 +1,5 @@
 // HomePage.jsx
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import Cookies from 'js-cookie';
@@ -67,6 +67,52 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
     }
   }
 
+  const songs = [
+    '/public/music/1.mp3',
+    '/public/music/2.mp3',
+    '/public/music/3.mp3',
+    '/public/music/4.mp3',
+    '/public/music/5.mp3',
+    '/public/music/6.mp3',
+    '/public/music/7.mp3',
+    '/public/music/8.mp3',
+    '/public/music/9.mp3',
+    '/public/music/10.mp3',
+    '/public/music/11.mp3',
+    '/public/music/12.mp3',
+    '/public/music/13.mp3',
+    '/public/music/14.mp3',
+    '/public/music/15.mp3',
+  ];
+
+  const audioRef = useRef(null); // Step 1: Create a reference to the audio element
+
+  const [currentSongIndex, setCurrentSongIndex] = useState(2);
+
+  const nextSong = () => {
+    setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
+  };
+
+  const prevSong = () => {
+    let newIndex = currentSongIndex - 1;
+    if (newIndex < 0) {
+      newIndex = songs.length - 1; // Loop back to the last song if we're at the first song
+    }
+    setCurrentSongIndex(newIndex);
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      const handleSongEnd = () => nextSong();
+      audio.addEventListener('ended', handleSongEnd);
+
+      // Cleanup function to remove the event listener
+      return () => {
+        audio.removeEventListener('ended', handleSongEnd);
+      };
+    }
+  }, [currentSongIndex, songs]); // Re-run the effect if currentSongIndex or songs array changes
 
 
   return (
@@ -78,48 +124,58 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
       <div className='container'>
         <div className='header'>
           <div className='logo'>
-            <img className='logo__img' src="../assets/img/logo.png" alt="Logo" />
+            <img className='logo__img' src="../assets/img/logo.png" alt="Logo"/>
           </div>
 
           <div className='infos--btn'>
-            <NbTrees isAuthenticated={isAuthenticated} />
-            <NbLeafs isAuthenticated={isAuthenticated} />
-            <NbLocks isAuthenticated={isAuthenticated} />
+            <NbTrees isAuthenticated={isAuthenticated}/>
+            <NbLeafs isAuthenticated={isAuthenticated}/>
+            <NbLocks isAuthenticated={isAuthenticated}/>
           </div>
 
           {!pseudo ? (
-            isMobile ? (
-              <div className='btn login--btn'>
-                <Link to="/login">Login</Link>
-              </div>
-            ) : (
-              <button className='btn login--btn' onClick={() => openModal('login')}>Login</button>
-            )
+              isMobile ? (
+                  <div className='btn login--btn'>
+                    <Link to="/login">Login</Link>
+                  </div>
+              ) : (
+                  <button className='btn login--btn' onClick={() => openModal('login')}>Login</button>
+              )
           ) : (
-            <>
-              <button className='btn' onClick={() => setIsProfileModalOpen(true)}>
-                <div className='profil-avatar'>
-                  <img className={getAvatarClass(avatarUrl)} src={avatarUrl} alt="Avatar" />
-                </div>
-                <span className='profil--btn btn--text'>{pseudo}</span>
-              </button>
-              <Logout setIsAuthenticated={setIsAuthenticated} />
-            </>
+              <>
+                <button className='btn' onClick={() => setIsProfileModalOpen(true)}>
+                  <div className='profil-avatar'>
+                    <img className={getAvatarClass(avatarUrl)} src={avatarUrl} alt="Avatar"/>
+                  </div>
+                  <span className='profil--btn btn--text'>{pseudo}</span>
+                </button>
+                <Logout setIsAuthenticated={setIsAuthenticated}/>
+              </>
           )}
         </div>
 
-      
+
         <div className='nav--right'>
-          <Scores score={scoreData} />
+          <Scores score={scoreData}/>
         </div>
 
-      <div className='footer'>
-        <Logs logs={playerLogs} />
-        <SpotifyButton />
+        <div className='footer'>
+          <Logs logs={playerLogs}/>
+          <SpotifyButton/>
+        </div>
+
+        <div>
+          <audio controls ref={audioRef}>
+            <source src={`http://localhost:3000${songs[currentSongIndex]}`} type="audio/mpeg"/>
+            Your browser does not support the audio element.
+          </audio>
+          <button onClick={prevSong}>Previous</button>
+          <button onClick={nextSong}>Next</button>
+        </div>
+
+
+        <ProfilGamer isOpen={isProfileModalOpen} setIsOpen={setIsProfileModalOpen}/>
       </div>
-    
-      <ProfilGamer isOpen={isProfileModalOpen} setIsOpen={setIsProfileModalOpen} />
-    </div>
 
     </div>
   );
