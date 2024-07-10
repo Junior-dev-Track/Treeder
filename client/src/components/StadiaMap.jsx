@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 const treeImage = 'http://localhost:3000/public/skins/tree.png';
-const treeOwnImage = "http://localhost:3000/public/skins/tree-5-own.png";
+const treeOwnImage = "http://localhost:3000/public/skins/";
 import Cookies from 'js-cookie';
 
 import 'leaflet.markercluster/dist/MarkerCluster.css';
@@ -34,8 +34,16 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
     });
 
     treeData.forEach(tree => {
-      const icon = tree.Owner ? boughtTreeIcon : treeIcon; 
-      const marker = L.marker([tree.Lat, tree.Lon], { icon: icon });
+      let iconUrl = tree.SkinTrees ? `${skinTreeUrl}${tree.SkinTrees}` : treeImage;
+      let customIcon = L.icon({
+        iconUrl: iconUrl,
+        iconSize: [25, 53],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
+      const marker = L.marker([tree.Lat, tree.Lon], { icon: customIcon });
 
 
       marker.on('click', () => {
@@ -107,23 +115,7 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
 
 const StadiaMap = ({ treeData }) => {
 
-  const treeIcon = L.icon({
-    iconUrl: treeImage,
-    iconSize: [25, 53], 
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
 
-  console.log(treeData)
-  const boughtTreeIcon = L.icon({
-    iconUrl: treeOwnImage,
-    iconSize: [25, 53], 
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
-  
 
   return (
     <MapContainer 
@@ -144,7 +136,7 @@ const StadiaMap = ({ treeData }) => {
         //attribution='&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
       />
 
-      <MarkerClusterGroupComponent treeData={treeData} treeIcon={treeIcon} boughtTreeIcon={boughtTreeIcon} />
+      <MarkerClusterGroupComponent treeData={treeData}/>
 
     </MapContainer>
   );
