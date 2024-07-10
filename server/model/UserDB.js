@@ -5,7 +5,7 @@ class UserDB{
     }
 
     async insertUser(dataUser){
-        return !!(await this.dataBase.query(`INSERT INTO Users (Pseudo, Password, Mail, Leafs, SkinPlayer) VALUES ('${dataUser.Pseudo}', '${dataUser.Password}', '${dataUser.Mail}', '${dataUser.Leafs}', '${dataUser.SkinPlayer}')`));
+        return !!(await this.dataBase.query(`INSERT INTO Users (Pseudo, Password, Mail, Leafs,SkinTrees, SkinPlayer) VALUES ('${dataUser.Pseudo}', '${dataUser.Password}', '${dataUser.Mail}', '${dataUser.Leafs}', 'tree-own.png' , '${dataUser.SkinPlayer}')`));
     }
 
     async getUser(dataUser){
