@@ -12,7 +12,7 @@ const UserDetails = ({}) => {
   const IdUser = queryParams.get('IdUser');
   const avatarUrl = 'http://localhost:3000/public/avatars/';
 
-  const [selectedSkin, setSelectedSkin] = useState(1);
+  const [skin, setSelectedSkin] = useState(1);
 
   // Create states for user information
   const [pseudo, setPseudo] = useState('');
@@ -27,7 +27,8 @@ const UserDetails = ({}) => {
   const [logsDate, setLogsDate] = useState([]);
   const [logsCategory, setLogsCategory] = useState([]);
 
-    const [filteredLogs, setFilteredLogs] = useState([]);
+  const [filteredLogs, setFilteredLogs] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState('all');
 
 
   const token = localStorage.getItem('token');
@@ -87,9 +88,9 @@ const UserDetails = ({}) => {
     navigate(-1);
   };
 
-  const handleProfile = () => {
+  /*const handleProfile = () => {
     navigate('/', { state: { openProfilePopup: true } });
-  };
+  };*/
 
   const handleLogout = async () => {
     await logout(setIsAuthenticated, setModalIsOpen); 
@@ -147,6 +148,7 @@ const UserDetails = ({}) => {
 
         console.log(filteredLogs);
         setFilteredLogs(filteredLogs);
+        setSelectedFilter(filter);
     };
 
     function formatDate(dateString) {
@@ -154,10 +156,30 @@ const UserDetails = ({}) => {
         return new Date(dateString).toLocaleDateString('fr-FR', options);
     }
 
+    function getAvatarClass(avatarUrl) {
+      if (!avatarUrl) {
+        return 'general-avatar__big'; // Default class if avatarUrl is undefined or null
+      }
+      if (avatarUrl.includes('rat.png')) {
+        return 'user-rat__big';
+      } else if (avatarUrl.includes('cacaotes.png')) {
+        return 'user-cacaotes__big';
+      } else if (avatarUrl.includes('cat.png')) {
+        return 'user-cat__big';
+      } else if (avatarUrl.includes('dog.png')) {
+        return 'user-dog__big';
+      } else if (avatarUrl.includes('rabbit.png')) {
+        return 'user-rabbit__big';
+      } else {
+        return 'general-avatar__big';
+      }
+    }
+
+
 
   return (
     <div className="adminuser--page">
-        <div className='adminuser--container'>
+        <div className='container'>
           <div className='header'>
             <button onClick={handleBack}>
               <div className='logo'>
@@ -165,30 +187,36 @@ const UserDetails = ({}) => {
               </div>
             </button>
 
-            <button onClick={handleProfile}>Profil</button>
-            <button onClick={() => handleLogout(setIsAuthenticated, setModalIsOpen)}>
-              <img src={logoutIcon} alt="Logout" style={{width: '18px', height: '32px', marginRight: '5px'}} />Logout
+            {/*<button onClick={handleProfile}>
+              Profil
+            </button>*/}
+
+            <button className='btn logout--btn' onClick={() => handleLogout(setIsAuthenticated, setModalIsOpen)}>
+              <img className='logout-icon' src={logoutIcon} alt="Logout" />
+              <span className='btn--text'>Logout</span>
             </button>
           </div>
 
             <button className="adminuser--back" onClick={handleBack}>
               <img src={arrowIcon} alt="arrow back" style={{width: '24px', height: '24px'}} />Back
             </button>
+
             <div className="adminuser--topsection">
                 <h1>Profil - {pseudo}</h1>
-                <button onClick={handleDeleteProfile} className="delete-profile-btn">
+                <button onClick={handleDeleteProfile} className="delete--btn">
                   Ban
                 </button>
             </div>
 
 
-
             <div className="profil--section">
-                <div className="profil-section-left">
-                    <div className="adminuser--avatarchoose">
-                        <div className="profil--avatar__big">
-                            <img className="general-avatar__big" src={avatarUrl + avatar} alt="Avatar"/>
+                <div className="profil--section-left">
+                    <div className="avatar-choose">
+
+                        <div className="profil--avatar__big user--avatar__big">
+                            <img className={getAvatarClass(avatarUrl + avatar)} src={avatarUrl + avatar} alt="Avatar"/>
                         </div>
+
                         <div className="settings-avatar">
                             <div className='avatar'>
                                 <div className={`avatar--img ${avatar === 'rat.png' ? 'selected' : ''}`}>
@@ -252,53 +280,120 @@ const UserDetails = ({}) => {
                         </div>
                     </div>
 
-                    <div className="adminuser--leftform">
+                    <div className="adminuser--form__left">
+                      <div className="adminuser--label">
                         <p>Pseudo</p>
                         <input type="text" value={pseudo} onChange={e => setPseudo(e.target.value)}/>
+                      </div>
 
+                      <div className="adminuser--label">
                         <p>Email</p>
                         <input type="text" value={email} onChange={e => setEmail(e.target.value)}/>
+                      </div>
 
+                      <div className="adminuser--label">
                         <p>Password</p>
+                      </div>
                     </div>
-                    <button className="adminuser--resetbtn" onClick={handleResetPassword}>Reset Password</button>
+                        <button className="adminuser-reset--btn" onClick={handleResetPassword}>Reset Password</button>
                 </div>
 
+                <div class="separation-bar"></div>
 
-                <div className="profil-section-right">
-                    <div className="adminuser--rightform">
+                <div className="profil--section-right">
+                    <div className="adminuser--form__right">
 
-                        <p>Trees</p>
-                        <input type="text" value={trees !== null && trees !== undefined ? trees.toString() : '0'} onChange={e => setTrees(e.target.value)} />
+                      <div className='adminuser--col'>
+                        <div className="adminuser--label label-trees">
+                          <p>Trees</p>
+                          <p>{trees !== null && trees !== undefined ? trees.toString() : '0'}</p>
+                        </div>
 
-                        <p>Leafs</p>
-                        <input type="text" value={leafs !== null && leafs !== undefined ? leafs.toString() : '0'} onChange={e => setLeafs(e.target.value)} />
+                        <div className="adminuser--label">
+                          <p>Leafs</p>
+                          <input type="text" value={leafs !== null && leafs !== undefined ? leafs.toString() : '0'} onChange={e => setLeafs(e.target.value)} />
+                        </div>
+                      </div>
 
-                        <p>Locks</p>
-                        <input type="text" value={locks !== null && locks !== undefined ? locks.toString() : '0'} onChange={e => setLocks(e.target.value)} />
-                    </div>
+                      <div className="adminuser--label">
+                          <p>Locks</p>
+                          <input type="text" value={locks !== null && locks !== undefined ? locks.toString() : '0'} onChange={e => setLocks(e.target.value)} />
+                      </div>
 
                     <div className='skins'>
                       <p>Skins</p>
 
                       <div className='skins--infos'>
-                        {[1, 2, 3, 4, 5].map((skinNumber) => (
-                          <button
-                            className='skin--btn'
-                            key={skinNumber}
-                            onClick={() => handleSkinSelect(skinNumber)}
-                            style={{ backgroundColor: selectedSkin === skinNumber ? 'blue' : 'grey' }}
-                          >
-                            Skin {skinNumber}
-                          </button>
-                        ))}
-                      </div>
+
+                        <div className='avatar'>
+                          <div className={`skin--img  ${skin === 'tree.png' ? 'selected' : ''}`}>
+                            <img
+                              src="http://localhost:3000/public/skins/tree.png"
+                              alt="Avatar tree"
+                              className="tree-avatar"
+                              onClick={() => setSelectedSkin('tree.png')}
+                            />
+                          </div>
+                          <p style={{ fontWeight: skin === 'tree.png' ? 'bold' : 'normal' }}>Default</p>
+                        </div>
+
+                        <div className='avatar'>
+                          <div className={`skin--img ${skin === 'tree-1.png' ? 'selected' : ''}`}>
+                            <img
+                              src="http://localhost:3000/public/skins/tree-1.png"
+                              alt="Avatar tree"
+                              className="tree-1-avatar"
+                              onClick={() => setSelectedSkin('tree-1.png')}
+                            />
+                          </div>
+                          <p style={{ fontWeight: skin === 'tree-1.png' ? 'bold' : 'normal' }}>Skin 1</p>
+                        </div>
+
+                        <div className='avatar'>
+                          <div className={`skin--img ${skin === 'tree-2.png' ? 'selected' : ''}`}>
+                            <img
+                              src="http://localhost:3000/public/skins/tree-2.png"
+                              alt="Avatar tree"
+                              className="tree-2-avatar"
+                              onClick={() => setSelectedSkin('tree-2.png')}
+                            />
+                          </div>
+                          <p style={{ fontWeight: skin === 'tree-2.png' ? 'bold' : 'normal' }}>Skin 2</p>
+                        </div>
+
+                        <div className='avatar'>
+                          <div className={`skin--img ${skin === 'tree-3.png' ? 'selected' : ''}`}>
+                            <img
+                              src="http://localhost:3000/public/skins/tree-3.png"
+                              alt="Avatar tree"
+                              className="tree-3-avatar"
+                              onClick={() => setSelectedSkin('tree-3.png')}
+                            />
+                          </div>
+                          <p style={{ fontWeight: skin === 'tree-3.png' ? 'bold' : 'normal' }}>Skin 3</p>
+                        </div>
+
+                        <div className='avatar'>
+                          <div className={`skin--img ${skin === 'tree-5.png' ? 'selected' : ''}`}>
+                            <img
+                              src="http://localhost:3000/public/skins/tree-5.png"
+                              alt="Avatar tree"
+                              className="tree-4-avatar"
+                              onClick={() => setSelectedSkin('tree-5.png')}
+                            />
+                          </div>
+                          <p style={{ fontWeight: skin === 'tree-5.png' ? 'bold' : 'normal' }}>Shiny</p>
+                        </div>
+                      </div> 
                     </div>
 
-                    <div className="adminuser--btns">
-                        <button className="adminuser--savebtn" onClick={handleSave}>Save</button>
-                        <button className="adminuser--cancelbtn" onClick={handleCancel}>Cancel</button>
+
+                    <div className="adminuser--btn__right">
+                        <button className="adminuser-save--btn" onClick={handleSave}>Save</button>
+                        <button className="adminuser-cancel--btn" onClick={handleCancel}>Cancel</button>
                     </div>
+                  </div>
+
                 </div>
             </div>
 
@@ -306,21 +401,28 @@ const UserDetails = ({}) => {
             <div className="logs-section">
               <h3>Logs</h3>
 
-              <div className="log-filters">
-                <button className="userdetails--btn" onClick={() => handleFilterSelect('all')}>All</button>
-                <button className="userdetails--btn" onClick={() => handleFilterSelect('buy')}>Buy</button>
-                <button className="userdetails--btn" onClick={() => handleFilterSelect('wasPurchasedBy')}>Purchase</button>
-                <button className="userdetails--btn" onClick={() => handleFilterSelect('lock')}>Lock</button>
-              </div>
-              <div className="log-entries">
-                {filteredLogs.map((log, index) => (
-                  <div key={index} className="log-entry">
-                    <span>{formatDate(log.LogDate)} </span>
-                    <span>{pseudo}</span>
-                    <span>{log.LogMessage}</span>
+              <div className="log--el">
+                <div className="log--el--center">
+                  <div className="log-filters">
+                    <button className={`filter--btn ${selectedFilter === 'all' ? 'active' : ''}`} onClick={() => handleFilterSelect('all')}>All</button>
+                    <button className={`filter--btn ${selectedFilter === 'all' ? 'active' : ''}`} onClick={() => handleFilterSelect('buy')}>Buy</button>
+                    <button className={`filter--btn ${selectedFilter === 'all' ? 'active' : ''}`} onClick={() => handleFilterSelect('wasPurchasedBy')}>Purchase</button>
+                    <button className={`filter--btn ${selectedFilter === 'all' ? 'active' : ''}`} onClick={() => handleFilterSelect('lock')}>Lock</button>
                   </div>
-                ))}
+                  <div className="log-entries">
+                    {filteredLogs.map((log, index) => (
+                      <div key={index} className="log-entry">
+                        <span>{formatDate(log.LogDate)} </span>
+                        <div className="log-entry-2">
+                          <span className='bold'>{pseudo}</span>
+                          <span>{log.LogMessage}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
+
             </div>
       </div>
     </div>

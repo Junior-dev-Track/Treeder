@@ -153,6 +153,39 @@
 }
 
 
+//avatars user details
+
+.user-rat__big {
+    width: 128px;
+    object-fit: cover;
+    object-position: -49px -9px;
+}
+
+.user-cacaotes__big {
+    width: 96px;
+    object-fit: cover;
+    object-position: -15px -4px;
+}
+
+.user-cat__big {
+    width: 126px;
+    object-fit: cover;
+    object-position: 3px 3px;
+}
+
+.user-dog__big {
+    width: 160px;
+    object-fit: cover;
+    object-position: -5px 2px;
+}
+
+.user-rabbit__big {
+    width: 100px;
+    object-fit: cover;
+    object-position: 10px 3px;
+}
+
+
 //responsive
 
 @media (min-width: 768px) {
