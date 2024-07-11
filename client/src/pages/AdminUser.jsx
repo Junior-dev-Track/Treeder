@@ -143,8 +143,8 @@ const AdminUsers = () => {
             </button>*/}
 
             <button className='btn logout--btn' onClick={() => handleLogout(setIsAuthenticated, setModalIsOpen)}>
-            <img className='logout-icon' src={logoutIcon} alt="Logout" />
-            <span className='btn--text'>Logout</span>
+              <img className='logout-icon' src={logoutIcon} alt="Logout" />
+              <span className='btn--text'>Logout</span>
             </button>
         </div>
 

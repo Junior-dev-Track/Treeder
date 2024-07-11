@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'leaflet.markercluster';
+import '../style/components/_popup.scss';
 
 import heightIcon from '../assets/img/height.svg';
 import leafIcon from '../assets/img/nb-leafs.png';
@@ -64,36 +65,60 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
           return response.json();
         })
         .then(data => {
-          let popupContent = `<div class="popup-content"><h2>${tree.Name ? tree.Name : 'Groot'}</h2>`;
+          let popupContent = `<div class="popup-content">
+            <div class="popup-title">
+              <h2>${tree.Name ? tree.Name : 'Groot'}</h2>`;
 
-          popupContent += `<div class="popup-treespecies">${tree.Species}</div>
+          popupContent += `<div class="popup-treespecies">${tree.Species}</div></div>
             <div class="popup-infos"> 
-            <div>
-              <img src="${heightIcon}" alt="Height" style="width: 11px; height: 14px;" />${Math.floor(tree.TotHight)}m
+              <div>
+                <img class="height-icon" src="${heightIcon}" alt="Height" />${Math.floor(tree.TotHight)}m
+              </div>
+              <div>
+                <img class="diameter-icon" src="${diaIcon}" alt="Diameter" />${Math.floor(tree.DiaLeafs)}m
+              </div>
+              <div>
+                <img class="leafpopup-icon" src="${leafIcon}" alt="Leaves" />
+                <div class="bold">
+                  ${data.value} Leaves
+                </div>
+              </div>
             </div>
-            <div>
-              <img src="${diaIcon}" alt="Diameter" style="width: 14px; height: 16px;" />${Math.floor(tree.DiaLeafs)}m
-            </div>
-            <div>
-              <img src="${leafIcon}" alt="Leafs" style="width: 14px; height: 18px;" />${data.value} Leafs
-            </div></div>
-            <div><img src="${avatarUrl + data.skinPlayer}" alt="Skinplayer" style="width: 14px; height: 18px;" />${tree.Pseudo ? tree.Pseudo : ''}</div>
+
+            <div class="popup-flex">
             `;
 
           if (tree.Owner) {
+            popupContent += `
+              <div class="owner-popup">
+                <div class="avatar-popup">
+                  <img class="avatarpopup-icon" src="${avatarUrl + data.skinPlayer}" alt="Skinplayer" />
+                </div>
+                <div class="bold">${tree.Pseudo ? tree.Pseudo : ''}</div>
+              </div>
+          `;
+            
             if (tree.Owner === Number(idusers)){
               // Si l'utilisateur actuel est le propriétaire de l'arbre
-              popupContent += `<button class="popup-btn" onclick="lockTree(${tree.id})">Lock</button> </div>`;
+              popupContent += `<button class="popup-btn" onclick="lockTree(${tree.id})">
+                <img class="lockpopup-icon" src="${lockIcon}" alt="Lock icon" />
+                → <img class="leaf--btn-icon" src="${leafIcon}" alt="Leaves" /> 
+                ${data.lock} 
+              </button> </div>`;
               if (tree.isLocked) {
-                popupContent += `<img src="${lockIcon}" alt="Locked" style="width: 16px; height: 24px;" /> </div>`;
+                popupContent += `<img class="lockpopup-icon" src="${lockIcon}" alt="Locked" /> </div>`;
               }
             } else {
               // Si l'arbre a un autre propriétaire
-              popupContent += `<button class="popup-btn" onclick="buyTree(${tree.id})"><img src="${leafIcon}" alt="Leafs" style="width: 20px; height: 25px;" />${data.price} Leafs</button> </div>`;
+              popupContent += `<button class="popup-btn" onclick="buyTree(${tree.id})">
+                <img class="leaf--btn-icon" src="${leafIcon}" alt="Leaves" />${data.price}
+              </button> </div>`;
             }
           } else {
             // Si l'arbre n'a pas de propriétaire
-            popupContent += `<div class="popup-btn-class"><button class="popup-btn" onclick="buyTree(${tree.id})"><img src="${leafIcon}" alt="Leafs" style="width: 20px; height: 25px;" />${data.price} Leafs</button> </div> </div>`;
+            popupContent += `<div class="popup-btn-class"><button class="popup-btn" onclick="buyTree(${tree.id})">
+              <img class="leaf--btn-icon" src="${leafIcon}" alt="Leaves" />${data.price}
+            </button> </div> </div> </div>`;
             //TODO : Achat envoie ds le fetch -> le tree le owner l'achteur et le prix
           }
 
