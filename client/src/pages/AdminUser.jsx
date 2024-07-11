@@ -152,7 +152,7 @@ const AdminUsers = () => {
         <img src={arrowIcon} alt="arrow back" style={{width: '24px', height: '24px'}} />Back
       </button>
 
-      <h2 className="adminuser--title">Utilisateurs</h2>
+      <h2 className="adminuser--title">Users</h2>
       <table className="table">
         <thead>
           <tr>

@@ -40,6 +40,11 @@
   padding: 8px 20px;
   border-radius: 30px;
   cursor: pointer;
+
+  &:hover {
+    background-color: $red-color;
+    color: $background-light-color;
+  }
 }
 
 .adminuser-reset--btn {
@@ -74,6 +79,11 @@
   padding: 8px 20px;
   border-radius: 30px;
   cursor: pointer;
+
+  &:hover {
+    color: $brown-color;
+    border: 1px solid $brown-color;
+  }
 }
 
 
