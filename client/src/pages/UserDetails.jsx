@@ -4,6 +4,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import { handleLogout as logout } from './Logout.jsx';
 import logoutIcon from '../assets/img/logout.png';
 import arrowIcon from '../assets/img/arrow-back.svg';
+import * as events from "node:events";
 
 const UserDetails = ({}) => {
   const navigate = useNavigate();
@@ -11,8 +12,6 @@ const UserDetails = ({}) => {
   const queryParams = new URLSearchParams(location.search);
   const IdUser = queryParams.get('IdUser');
   const avatarUrl = 'http://localhost:3000/public/avatars/';
-
-  const [skin, setSelectedSkin] = useState(1);
 
   // Create states for user information
   const [pseudo, setPseudo] = useState('');
@@ -59,38 +58,54 @@ const UserDetails = ({}) => {
         setLogs(data[0].Logs);
         setFilteredLogs(data[0].Logs);
 
-        console.log(data);
-
       });
   }, [IdUser, token]);
 
   // Handle save button click
   const handleSave = () => {
-    fetch(`/user?IdUser=${IdUser}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        pseudo: pseudo,
-        // Add more fields as needed...
-      }),
-    })
-        .then(response => response.json());
-  };
+  // Construct the body with the updated user data
+  const updatedUserData = JSON.stringify({
+    Pseudo: pseudo,
+    Mail: email,
+    Leafs: leafs,
+    Locks: locks,
+    SkinTrees: skinTrees,
+    SkinPlayer: avatar,
+  });
+
+  fetch(`/user/${IdUser}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: updatedUserData,
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to update user data');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('User updated successfully:', data);
+    // Here you can update the local state or redirect the user
+      navigate(-1);
+  })
+  .catch(error => {
+    console.error('Error updating user:', error);
+  });
+};
 
   // Handle cancel button click
   const handleCancel = () => {
-    // Reset states to initial user values
+      navigate(-1);
   };
 
   const handleBack = () => {
     navigate(-1);
   };
 
-  /*const handleProfile = () => {
-    navigate('/', { state: { openProfilePopup: true } });
-  };*/
 
   const handleLogout = async () => {
     await logout(setIsAuthenticated, setModalIsOpen); 
@@ -131,22 +146,15 @@ const UserDetails = ({}) => {
   }
 };
 
-    const handleSkinSelect = (skinNumber) => {
-      setSelectedSkin(skinNumber);
-    };
 
     const handleFilterSelect = (filter) => {
         let filteredLogs = [];
         if (filter === 'all') {
-            console.log('all: ' + logs)
             filteredLogs = [...logs];
-            console.log(filteredLogs);
         }
         else {
             filteredLogs = logs.filter(log => log.LogCategory.includes(filter));
         }
-
-        console.log(filteredLogs);
         setFilteredLogs(filteredLogs);
         setSelectedFilter(filter);
     };
@@ -298,7 +306,7 @@ const UserDetails = ({}) => {
                         <button className="adminuser-reset--btn" onClick={handleResetPassword}>Reset Password</button>
                 </div>
 
-                <div class="separation-bar"></div>
+                <div className="separation-bar"></div>
 
                 <div className="profil--section-right">
                     <div className="adminuser--form__right">
@@ -325,64 +333,60 @@ const UserDetails = ({}) => {
 
                       <div className='skins--infos'>
 
-                        <div className='avatar'>
-                          <div className={`skin--img  ${skin === 'tree.png' ? 'selected' : ''}`}>
+                        <div className='avatar' onClick={() => setSkinTrees('tree-own.png')}>
+                          <div className={`skin--img  ${skinTrees === 'tree-own.png' ? 'selected' : ''}`}>
                             <img
                               src="http://localhost:3000/public/skins/tree.png"
                               alt="Avatar tree"
                               className="tree-avatar"
-                              onClick={() => setSelectedSkin('tree.png')}
                             />
+
                           </div>
-                          <p style={{ fontWeight: skin === 'tree.png' ? 'bold' : 'normal' }}>Default</p>
+                          <p style={{ fontWeight: skinTrees === 'tree-own.png' ? 'bold' : 'normal' }}>Default</p>
                         </div>
 
-                        <div className='avatar'>
-                          <div className={`skin--img ${skin === 'tree-1.png' ? 'selected' : ''}`}>
+                        <div className='avatar' onClick={() => setSkinTrees('tree-1-own.png')}>
+                          <div className={`skin--img ${skinTrees === 'tree-1-own.png' ? 'selected' : ''}`}>
                             <img
                               src="http://localhost:3000/public/skins/tree-1.png"
                               alt="Avatar tree"
                               className="tree-1-avatar"
-                              onClick={() => setSelectedSkin('tree-1.png')}
                             />
                           </div>
-                          <p style={{ fontWeight: skin === 'tree-1.png' ? 'bold' : 'normal' }}>Skin 1</p>
+                          <p style={{ fontWeight: skinTrees === 'tree-1-own.png' ? 'bold' : 'normal' }}>Skin 1</p>
                         </div>
 
-                        <div className='avatar'>
-                          <div className={`skin--img ${skin === 'tree-2.png' ? 'selected' : ''}`}>
+                        <div className='avatar' onClick={() => setSkinTrees('tree-2-own.png')}>
+                          <div className={`skin--img ${skinTrees === 'tree-2-own.png' ? 'selected' : ''}`}>
                             <img
                               src="http://localhost:3000/public/skins/tree-2.png"
                               alt="Avatar tree"
                               className="tree-2-avatar"
-                              onClick={() => setSelectedSkin('tree-2.png')}
                             />
                           </div>
-                          <p style={{ fontWeight: skin === 'tree-2.png' ? 'bold' : 'normal' }}>Skin 2</p>
+                          <p style={{ fontWeight: skinTrees === 'tree-2-own.png' ? 'bold' : 'normal' }}>Skin 2</p>
                         </div>
 
-                        <div className='avatar'>
-                          <div className={`skin--img ${skin === 'tree-3.png' ? 'selected' : ''}`}>
+                        <div className='avatar' onClick={() => setSkinTrees('tree-3-own.png')}>
+                          <div className={`skin--img ${skinTrees === 'tree-3-own.png' ? 'selected' : ''}`}>
                             <img
                               src="http://localhost:3000/public/skins/tree-3.png"
                               alt="Avatar tree"
                               className="tree-3-avatar"
-                              onClick={() => setSelectedSkin('tree-3.png')}
                             />
                           </div>
-                          <p style={{ fontWeight: skin === 'tree-3.png' ? 'bold' : 'normal' }}>Skin 3</p>
+                          <p style={{ fontWeight: skinTrees === 'tree-3-own.png' ? 'bold' : 'normal' }}>Skin 3</p>
                         </div>
 
-                        <div className='avatar'>
-                          <div className={`skin--img ${skin === 'tree-5.png' ? 'selected' : ''}`}>
+                        <div className='avatar' onClick={() => setSkinTrees('tree-5-own.png')}>
+                          <div className={`skin--img ${skinTrees === 'tree-5-own.png' ? 'selected' : ''}`}>
                             <img
                               src="http://localhost:3000/public/skins/tree-5.png"
                               alt="Avatar tree"
                               className="tree-4-avatar"
-                              onClick={() => setSelectedSkin('tree-5.png')}
                             />
                           </div>
-                          <p style={{ fontWeight: skin === 'tree-5.png' ? 'bold' : 'normal' }}>Shiny</p>
+                          <p style={{ fontWeight: skinTrees === 'tree-5-own.png' ? 'bold' : 'normal' }}>Shiny</p>
                         </div>
                       </div> 
                     </div>
@@ -405,9 +409,9 @@ const UserDetails = ({}) => {
                 <div className="log--el--center">
                   <div className="log-filters">
                     <button className={`filter--btn ${selectedFilter === 'all' ? 'active' : ''}`} onClick={() => handleFilterSelect('all')}>All</button>
-                    <button className={`filter--btn ${selectedFilter === 'all' ? 'active' : ''}`} onClick={() => handleFilterSelect('buy')}>Buy</button>
-                    <button className={`filter--btn ${selectedFilter === 'all' ? 'active' : ''}`} onClick={() => handleFilterSelect('wasPurchasedBy')}>Purchase</button>
-                    <button className={`filter--btn ${selectedFilter === 'all' ? 'active' : ''}`} onClick={() => handleFilterSelect('lock')}>Lock</button>
+                    <button className={`filter--btn ${selectedFilter === 'buy' ? 'active' : ''}`} onClick={() => handleFilterSelect('buy')}>Buy</button>
+                    <button className={`filter--btn ${selectedFilter === 'wasPurchasedBy' ? 'active' : ''}`} onClick={() => handleFilterSelect('wasPurchasedBy')}>Purchase</button>
+                    <button className={`filter--btn ${selectedFilter === 'lock' ? 'active' : ''}`} onClick={() => handleFilterSelect('lock')}>Lock</button>
                   </div>
                   <div className="log-entries">
                     {filteredLogs.map((log, index) => (
