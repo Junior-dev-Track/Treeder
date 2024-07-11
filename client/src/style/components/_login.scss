@@ -1,5 +1,10 @@
 @import './_variables.scss';
 
+.error-message {
+  color: $red-color;
+  font-size: 12px;
+  text-align: center;
+}
 
 form {
   display: flex;
