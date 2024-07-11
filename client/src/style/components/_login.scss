@@ -134,6 +134,7 @@ input:focus {
   .secondary--btn__small {
     color: $secondary-color;
     text-decoration: underline;
+    cursor: pointer;
   }
 
   .forget--btn {

@@ -87,7 +87,7 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
 
   const audioRef = useRef(null); // Step 1: Create a reference to the audio element
 
-  const [currentSongIndex, setCurrentSongIndex] = useState(2);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
 
   const nextSong = () => {
     setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
@@ -165,7 +165,7 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
         </div>
 
         <div>
-          <audio controls ref={audioRef}>
+          <audio controls autoPlay ref={audioRef}>
             <source src={`http://localhost:3000${songs[currentSongIndex]}`} type="audio/mpeg"/>
             Your browser does not support the audio element.
           </audio>
