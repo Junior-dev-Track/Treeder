@@ -9,6 +9,10 @@ import viewIcon from '../assets/img/view.svg';
 import editIcon from '../assets/img/edit.svg';
 
 const avatarUrl = 'http://localhost:3000/public/avatars/'
+const token = localStorage.getItem('token');
+if (!token) {
+  console.log('Token not found');
+}
 
 const AdminUsers = () => {
   const navigate = useNavigate();
@@ -59,30 +63,37 @@ const AdminUsers = () => {
     setEditedValues({ ...editedValues, [event.target.name]: event.target.value });
   };
 
-  const handleSaveEdit = (userId) => {
-    // Save the edited values here
-    fetch(`/user/${userId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(editedValues),
+const handleSaveEdit = (userId) => {
+  fetch(`/user/${userId}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(editedValues),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+    .then((updatedUser) => {
+      // Update the local state with the new data
+      setUsers(users.map((user) => {
+        if (user.IdUsers === userId) {
+          // Spread the existing user info and overwrite with updatedUser info
+          // Ensure updatedUser contains all the fields you want to update
+          return { ...user, ...updatedUser };
         }
-        return response.json();
-      })
-      .then((data) => {
-        // Update the local state with the new data
-        setUsers(users.map((user) => (user.IdUsers === userId ? data : user)));
-        setEditingUser(null);
-      })
-      .catch((error) => {
-        console.error('There has been a problem with your fetch operation:', error);
-      });
-  };
+        return user;
+      }));
+      setEditingUser(null);
+    })
+    .catch((error) => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
+};
 
 
   const handleResetPassword = (userId) => {
