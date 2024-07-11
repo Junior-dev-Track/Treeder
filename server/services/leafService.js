@@ -28,8 +28,25 @@ async function calculateAndPersistLeaves() {
     }
 }
 
+async function calculateLeafsDecay() {
+    const users = await userDB.getAllUser();
+
+    for (const user of users) {
+        let totalLeaves = user.Leafs;
+        totalLeaves = Math.round(totalLeaves / 2);
+
+        await userDB.updateUserLeavesBalance(user.IdUsers, totalLeaves);
+    }
+}
+
 // Schedule the task to run every 15 minutes
 cron.schedule('*/15 * * * *', async () => {
     console.log('Calculating and persisting leaves for all users');
     await calculateAndPersistLeaves();
+});
+
+// Schedule the task to run every hour
+cron.schedule('0 * * * *', async () => {
+    console.log('Calculating leaf decay for all users');
+    await calculateLeafsDecay();
 });
