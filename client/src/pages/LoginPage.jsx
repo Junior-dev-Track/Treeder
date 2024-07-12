@@ -8,6 +8,7 @@ const LoginPage = ({ openModal, closeModal }) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const loginData = {
     Pseudo: username,
@@ -17,35 +18,43 @@ const LoginPage = ({ openModal, closeModal }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch('/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify( loginData ),
-    });
+    try {
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(loginData),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data.Token) {
-      //récupérer data.Token et le mettre dans le local storage
-      localStorage.setItem('token', data.Token);
-
-      //récupérer data.User et le mettre dans cookies (idUser, pseudo, leafs, nbtrees, skintrees, skinplayer, admin)
-      document.cookie = `idUser=${data.IdUsers}`;
-      document.cookie = `pseudo=${data.Pseudo}`;
-      document.cookie = `mail=${data.Mail}`;
-      document.cookie = `leafs=${data.Leafs}`;
-      document.cookie = `locks=${data.Locks}`;
-      document.cookie = `skintrees=${data.SkinTrees}`;
-      document.cookie = `skinplayer=${data.SkinPlayer}`;
-      document.cookie = `admin=${data.Admin}`;
-
-      //rediriger vers la page d'accueil
-      window.location.href = '/';
-
-    } else {
+      // Debugging: Log the response
       console.log(data);
-      //ajout pour utilisateur "pseudo or password incorrect"
-      alert('Pseudo or password incorrect');
+
+      if (response.ok && data.Token) {
+        // Handle successful login
+        localStorage.setItem('token', data.Token);
+        // ...rest of the success handling code
+        //récupérer data.User et le mettre dans cookies (idUser, pseudo, leafs, nbtrees, skintrees, skinplayer, admin)
+        document.cookie = `idUser=${data.IdUsers}`;
+        document.cookie = `pseudo=${data.Pseudo}`;
+        document.cookie = `mail=${data.Mail}`;
+        document.cookie = `leafs=${data.Leafs}`;
+        document.cookie = `locks=${data.Locks}`;
+        document.cookie = `skintrees=${data.SkinTrees}`;
+        document.cookie = `skinplayer=${data.SkinPlayer}`;
+        document.cookie = `admin=${data.Admin}`;
+
+        //rediriger vers la page d'accueil
+        window.location.href = '/';
+
+      } else {
+        // Handle login failure
+        // Adjust this based on your actual error response structure
+        setErrorMessage('Pseudo or password incorrect');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setErrorMessage('Pseudo or password incorrect');
     }
   };
 
@@ -74,6 +83,12 @@ const LoginPage = ({ openModal, closeModal }) => {
               <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
 
+            {errorMessage && (
+                <div className="error-message">
+                  {errorMessage}
+                </div>
+            )}
+
             {isMobile ? (
               <Link className="forget--btn" to="/forgot-password">Forgot Password?</Link>
             ) : (
@@ -99,7 +114,6 @@ const LoginPage = ({ openModal, closeModal }) => {
             </div>
             </>
           )}
-
         </form>
       </div>
     </div>

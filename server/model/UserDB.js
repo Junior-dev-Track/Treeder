@@ -100,6 +100,32 @@ class UserDB{
     async getSkins(dataTree) {
         return await this.dataBase.query(`SELECT SkinPlayer, SkinTrees FROM Users WHERE IdUsers = '${dataTree.Owner}'`);
     }
+
+    async update(param) {
+        // Initialize the base of the update query
+        let query = 'UPDATE Users SET ';
+        const queryParams = [];
+        let isFirstParam = true;
+
+        // Iterate over the param object to dynamically build the query
+        for (const [key, value] of Object.entries(param)) {
+            if (key !== 'IdUsers') { // Exclude IdUsers from the update fields
+                if (!isFirstParam) {
+                    query += ', ';
+                }
+                query += `${key} = ?`;
+                queryParams.push(value);
+                isFirstParam = false;
+            }
+        }
+
+        // Append the WHERE clause to target the correct record
+        query += ' WHERE IdUsers = ?';
+        queryParams.push(param.IdUsers);
+
+        // Execute the query with parameterized values to prevent SQL injection
+        return !!(await this.dataBase.query(query, queryParams));
+    }
 }
 
 module.exports = UserDB;

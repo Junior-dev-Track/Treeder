@@ -1,5 +1,10 @@
 @import './_variables.scss';
 
+.error-message {
+  color: $red-color;
+  font-size: 12px;
+  text-align: center;
+}
 
 form {
   display: flex;
@@ -134,6 +139,7 @@ input:focus {
   .secondary--btn__small {
     color: $secondary-color;
     text-decoration: underline;
+    cursor: pointer;
   }
 
   .forget--btn {
