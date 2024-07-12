@@ -122,6 +122,32 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
           `;
             
             if (tree.Owner === Number(idusers)){
+              //TODO : data pr l'achat : {
+              //     "Tree":{
+              //             "IdTrees": 16,
+              //             "Price": 200,
+              //             "Name" : "Fossinel",
+              //             "Owner": null
+              //             },
+              //     "User":{
+              //             "IdUsers": 4,
+              //             "Pseudo": "Admin",
+              //             "Leafs": 140568
+              //     }
+              // }
+              // data pr le lock : {
+              //     "Tree":{
+              //             "IdTrees": 184,
+              //             "LockPrice": 10000,
+              //             "Lock": 0
+              //             },
+              //     "User":{
+              //             "IdUsers": 1,
+              //             "Pseudo": "Kriidfel",
+              //             "Leafs": 147348
+              //     }
+              // }
+
               // Si l'utilisateur actuel est le propriétaire de l'arbre
               popupContent += `<button class="popup-btn" onclick="lockTree(${tree.id})">
                 <img class="lockpopup-icon" src="${lockIcon}" alt="Lock icon" />
