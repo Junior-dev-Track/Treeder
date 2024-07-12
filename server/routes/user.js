@@ -41,7 +41,7 @@ router.put('/:IdUser', authenticateToken, async (req, res) => {
         const updatedUser = await usersDB.update({ ...updates, IdUsers: userId });
 
         if (updatedUser) {
-            res.status(200).json({ message: 'User updated successfully', updatedUser });
+            res.status(200).json({ message: 'User updated successfully'});
         } else {
             res.status(404).json({ message: 'User not found' });
         }
