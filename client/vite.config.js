@@ -32,6 +32,8 @@ export default defineConfig({
       '/userLocks': 'http://localhost:3000',
       '/refresh': 'http://localhost:3000',
       '/treevalues': 'http://localhost:3000',
+      '/locktree': 'http://localhost:3000',
+      '/buytree': 'http://localhost:3000',
 
     },
   },
