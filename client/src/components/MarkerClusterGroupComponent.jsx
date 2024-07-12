@@ -10,10 +10,27 @@ import 'leaflet.markercluster';
 
 import MapContext from './MapContext.jsx';
 
+
 const MarkerClusterGroupComponent = ({ treeData }) => {
     const map = useContext(MapContext);
     const skinTreeUrl = 'http://localhost:3000/public/skins/';
     const defaultTreeIcon = 'http://localhost:3000/public/skins/tree-own.png';
+
+    const getIconSize = (skinName) => {
+      console.log(`Skin Name: ${skinName}`);
+      if (skinName.includes('tree-own.png')) {
+        return [25, 53];
+      } else if (skinName.includes('tree-1-own.png')) {
+        return [33, 58];
+      } else if (skinName.includes('tree-2-own.png')) {
+        return [36, 59];
+      } else if (skinName.includes('tree-3-own.png')) {
+        return [27, 59];
+      } else if (skinName.includes('tree-5-own.png')) {
+        return [73, 58];
+      }
+      return [25, 53];
+    };
 
     useEffect(() => {
       if (!treeData) {
@@ -29,7 +46,7 @@ const MarkerClusterGroupComponent = ({ treeData }) => {
         let iconUrl = tree.SkinTrees ? `${skinTreeUrl}${tree.SkinTrees}` : defaultTreeIcon;
         let customIcon = L.icon({
           iconUrl: iconUrl,
-          iconSize: [25, 53],
+          iconSize: getIconSize(tree.SkinTrees), //[25, 53] 
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           shadowSize: [41, 41]
