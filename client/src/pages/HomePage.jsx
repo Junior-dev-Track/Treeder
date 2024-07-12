@@ -87,7 +87,7 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
 
   const audioRef = useRef(null); // Step 1: Create a reference to the audio element
 
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const [currentSongIndex, setCurrentSongIndex] = useState(1);
 
   const nextSong = () => {
     setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
@@ -104,15 +104,12 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
-      const handleSongEnd = () => nextSong();
-      audio.addEventListener('ended', handleSongEnd);
-
-      // Cleanup function to remove the event listener
-      return () => {
-        audio.removeEventListener('ended', handleSongEnd);
-      };
+      audio.src = `http://localhost:3000${songs[currentSongIndex]}`
+      audio.load()
+      audio.play()
     }
-  }, [currentSongIndex, songs]); // Re-run the effect if currentSongIndex or songs array changes
+//
+  }, [currentSongIndex]); // Re-run the effect if currentSongIndex or songs array changes
 
 
   return (
@@ -162,15 +159,15 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
         <div className='footer'>
           <Logs logs={playerLogs}/>
           <SpotifyButton/>
-        </div>
-
-        <div>
-          <audio controls autoPlay ref={audioRef}>
-            <source src={`http://localhost:3000${songs[currentSongIndex]}`} type="audio/mpeg"/>
-            Your browser does not support the audio element.
-          </audio>
-          <button onClick={prevSong}>Previous</button>
-          <button onClick={nextSong}>Next</button>
+          <div>
+            <audio controls autoPlay ref={audioRef} onEnded={nextSong}>
+              <source src={`http://localhost:3000${songs[currentSongIndex]}`} type="audio/mpeg"/>
+              Your browser does not support the audio element.
+            </audio>
+            <button className="footer--previous" onClick={prevSong}>Previous</button>
+            <button className="footer--next" onClick={nextSong}>Next</button>
+            <span>song index : {currentSongIndex}</span>
+          </div>
         </div>
 
 
