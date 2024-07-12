@@ -7,6 +7,7 @@ import logoutIcon from '../assets/img/logout.png';
 import arrowIcon from '../assets/img/arrow-back.svg';
 import viewIcon from '../assets/img/view.svg';
 import editIcon from '../assets/img/edit.svg';
+import {fetchData} from "../network/fetch";
 
 const avatarUrl = 'http://localhost:3000/public/avatars/'
 const token = localStorage.getItem('token');
@@ -19,6 +20,8 @@ const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState ('')
 
 
   useEffect(() => {
@@ -63,38 +66,38 @@ const AdminUsers = () => {
     setEditedValues({ ...editedValues, [event.target.name]: event.target.value });
   };
 
-const handleSaveEdit = (userId) => {
-  fetch(`/user/${userId}`, {
-    method: 'PUT',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(editedValues),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
+const handleSaveEdit = async (userId) => {
+  try {
+    const response = await fetchData(`/user/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(editedValues),
     })
-    .then((updatedUser) => {
+
+    const updateUser = await response.json()
+    if (updateUser) {
       // Update the local state with the new data
       setUsers(users.map((user) => {
         if (user.IdUsers === userId) {
           // Spread the existing user info and overwrite with updatedUser info
           // Ensure updatedUser contains all the fields you want to update
-          return { ...user, ...updatedUser };
+          return {...user, ...updateUser};
         }
         return user;
-      }));
+      }))
+      setSuccessMessage("User was successfully edited")
       setEditingUser(null);
-    })
-    .catch((error) => {
-      console.error('There has been a problem with your fetch operation:', error);
-    });
-};
-
+    }
+  } catch (error)  {
+    console.log(error)
+    const response = await error.response.json()
+    const message = response.message
+    setErrorMessage(message)
+  }
+}
 
   const handleResetPassword = (userId) => {
     // Ajoutez ici le code pour réinitialiser le mot de passe de l'utilisateur
@@ -162,7 +165,16 @@ const handleSaveEdit = (userId) => {
       <button className="adminuser--back" onClick={handleBack}>
         <img src={arrowIcon} alt="arrow back" style={{width: '24px', height: '24px'}} />Back
       </button>
-
+          {errorMessage !== "" && (
+              <div className="error-message">
+                {errorMessage}
+              </div>
+          )}
+          {successMessage !== "" && (
+              <div className="success-message">
+                {successMessage}
+              </div>
+          )}
       <h2 className="adminuser--title">Users</h2>
       <table className="table">
         <thead>

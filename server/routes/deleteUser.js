@@ -12,7 +12,7 @@ router.get('/', authenticateToken, async (req, res) => {
 
     let users = await usersDB.deleteUser(dataUser);
 
-    res.status(200).send(users);
+    res.status(200).send({message:"This user is banned"});
 });
 
 module.exports = router;

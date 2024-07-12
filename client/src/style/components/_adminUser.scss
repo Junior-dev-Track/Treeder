@@ -1,6 +1,13 @@
 @import './_variables.scss';
 
 
+.success-message {
+    color: $green-color;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+
 .adminuser--page {
   background-color: $background-light-color;
   min-height: 100vh;

@@ -83,12 +83,6 @@
   overflow: hidden;
 } 
 
-.avatarpopup-icon {
-  width: 70px;
-  object-fit: cover;
-  object-position: -2px 2px;
-}
-
 .owner-popup {
   display: flex;
   align-items: center;
@@ -101,6 +95,39 @@
   justify-content: space-between;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+//avatars popup
+
+.rat-popup {
+  width: 66px;
+  object-fit: cover;
+  object-position: -30px -6px;
+}
+
+.cacaotes-popup {
+  width: 46px;
+  object-fit: cover;
+  object-position: -8px -2px;
+}
+
+.cat-popup {
+  width: 60px;
+  object-fit: cover;
+  object-position: 2px 0px;
+
+}
+
+.dog-popup {
+  width: 70px;
+  object-fit: cover;
+  object-position: -2px 2px;
+}
+
+.rabbit-popup {
+  width: 46px;
+  object-fit: cover;
+  object-position: 4px 1px;
 }
 
 

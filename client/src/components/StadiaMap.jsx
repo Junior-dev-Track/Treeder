@@ -24,6 +24,24 @@ const skinTreeUrl = 'http://localhost:3000/public/skins/';
 const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => {
   const map = useMap();
 
+  const getIconSize = (skinName) => {
+    if (skinName === null) {
+      return [25, 53];
+    }
+    if (skinName.includes('tree-own.png')) {
+      return [25, 53];
+    } else if (skinName.includes('tree-1-own.png')) {
+      return [33, 58];
+    } else if (skinName.includes('tree-2-own.png')) {
+      return [36, 59];
+    } else if (skinName.includes('tree-3-own.png')) {
+      return [27, 59];
+    } else if (skinName.includes('tree-5-own.png')) {
+      return [73, 58];
+    }
+    return [25, 53];
+  };
+
   useEffect(() => {
     if (!treeData) {
       return;
@@ -38,7 +56,7 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
       let iconUrl = tree.SkinTrees ? `${skinTreeUrl}${tree.SkinTrees}` : treeImage;
       let customIcon = L.icon({
         iconUrl: iconUrl,
-        iconSize: [25, 53],
+        iconSize: getIconSize(tree.SkinTrees),
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
         shadowSize: [41, 41]
@@ -65,6 +83,11 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
           return response.json();
         })
         .then(data => {
+
+          const avatarName = data.skinPlayer ? data.skinPlayer.split('/').pop().split('.')[0] : 'defaultAvatar'; // 'rat' pour 'rat.png'
+          const avatarClass = `${avatarName}-popup`; // 'rat-popup' pour 'rat.png'
+
+
           let popupContent = `<div class="popup-content">
             <div class="popup-title">
               <h2>${tree.Name ? tree.Name : 'Groot'}</h2>`;
@@ -92,7 +115,7 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
             popupContent += `
               <div class="owner-popup">
                 <div class="avatar-popup">
-                  <img class="avatarpopup-icon" src="${avatarUrl + data.skinPlayer}" alt="Skinplayer" />
+                  <img class="${avatarClass}" src="${avatarUrl + data.skinPlayer}" alt="Skinplayer" />
                 </div>
                 <div class="bold">${tree.Pseudo ? tree.Pseudo : ''}</div>
               </div>
@@ -134,6 +157,10 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
       map.removeLayer(markerClusterGroup);
     };
   }, [map, treeData, treeIcon, boughtTreeIcon]);
+
+
+
+
 
 })};
 
