@@ -51,6 +51,15 @@ class TreeDB{
     async getTreesByUserId(IdUsers) {
         return await this.dataBase.query(`SELECT * FROM Trees WHERE Owner = '${IdUsers}'`);
     }
+
+    async updateOwnerAndName(treeData) {
+        return !!(await this.dataBase.query(`UPDATE Trees SET Owner = '${treeData.Owner}', Name = '${treeData.Name}' WHERE IdTrees = '${treeData.IdTrees}'`));
+
+    }
+
+    async updateLock(tree) {
+        return !!(await this.dataBase.query(`UPDATE Trees SET Locks = '${tree.Lock}' WHERE IdTrees = '${tree.IdTrees}'`));
+    }
 }
 
 module.exports = TreeDB;

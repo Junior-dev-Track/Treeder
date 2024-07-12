@@ -34,6 +34,8 @@ const logoutRoutes = require('./routes/logout');
 const refreshTokenRoutes = require('./routes/refresh');
 const settingsRoutes = require('./routes/settings');
 const deleteUserRoutes = require('./routes/deleteUser');
+const buyTreeRoutes = require('./routes/buyTree');
+const lockTreeRoutes = require('./routes/lockTree');
 
 // Use the routes
 app.use('/', indexRoutes);
@@ -55,6 +57,8 @@ app.use('/refresh', refreshTokenRoutes)
 app.use('/music', express.static('public/music'));
 app.use('/settings', settingsRoutes)
 app.use('/deleteUser', deleteUserRoutes)
+app.use('/buytree', buyTreeRoutes);
+app.use('/locktree', lockTreeRoutes);
 app.use('/*', (req, res) => {
   res.status(404).send('404 Not found');
 });
