@@ -159,16 +159,15 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
         <div className='footer'>
           <Logs logs={playerLogs}/>
           <SpotifyButton/>
-        </div>
-
-        <div>
-          <audio controls autoPlay ref={audioRef} onEnded={nextSong}>
-            <source src={`http://localhost:3000${songs[currentSongIndex]}`} type="audio/mpeg"/>
-            Your browser does not support the audio element.
-          </audio>
-          <button onClick={prevSong}>Previous</button>
-          <button onClick={nextSong}>Next</button>
-          <span>song index : {currentSongIndex}</span>
+          <div>
+            <audio controls autoPlay ref={audioRef} onEnded={nextSong}>
+              <source src={`http://localhost:3000${songs[currentSongIndex]}`} type="audio/mpeg"/>
+              Your browser does not support the audio element.
+            </audio>
+            <button className="footer--previous" onClick={prevSong}>Previous</button>
+            <button className="footer--next" onClick={nextSong}>Next</button>
+            <span>song index : {currentSongIndex}</span>
+          </div>
         </div>
 
 

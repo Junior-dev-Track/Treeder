@@ -212,7 +212,7 @@ const RegisterPage = ({ openModal, closeModal }) => {
                     </div>
                 </label>
                 <label className="register--label">
-                  Username:
+                  Username
                   <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
                   {errorType === "username" && errorMessage !== "" && (
                       <div className="error-message">
@@ -221,11 +221,11 @@ const RegisterPage = ({ openModal, closeModal }) => {
                   )}
                 </label>
                 <label className="register--label">
-                  Email:
+                  Email
                   <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </label>
                 <label className="register--label">
-                  Password:
+                  Password
                   <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                   {errorType === "password" && errorMessage !== "" && (
                       <div className="error-message">
@@ -234,7 +234,7 @@ const RegisterPage = ({ openModal, closeModal }) => {
                   )}
                 </label>
                 <label className="register--label">
-                  Confirm Password:
+                  Confirm Password
                   <input type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                 </label>
               </div>
