@@ -42,6 +42,73 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
     return [25, 53];
   };
 
+
+  function buyTree(data) {
+    const payload = {
+      Tree: {
+        IdTrees: data.treeId,
+        Price: data.price,
+        Name: data.treeName,
+        Owner: data.owner
+      },
+      User: {
+        IdUsers: data.idusers,
+        Pseudo: data.pseudo,
+        Leafs: data.leafs
+      }
+    };
+  
+    fetch('/buytree', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Achat réussi:', data);
+    })
+    .catch(error => {
+      console.error('Erreur lors de l\'achat:', error);
+    });
+  }
+  
+
+  function lockTree(treeId) {
+    const payload = {
+      Tree: {
+        IdTrees: treeId,
+        LockPrice: lock,
+        Lock: 0
+      },
+      User: {
+        IdUsers: idusers,
+        Pseudo: pseudo,
+        Leafs: leafs
+      }
+    };
+  
+    fetch('/locktree', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Verrouillage réussi:', data);
+    })
+    .catch(error => {
+      console.error('Erreur lors du verrouillage:', error);
+    });
+  }
+
+  window.buyTree = buyTree;
+  window.lockTree = lockTree;
+
+
   useEffect(() => {
     if (!treeData) {
       return;
@@ -149,7 +216,7 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
               // }
 
               // Si l'utilisateur actuel est le propriétaire de l'arbre
-              popupContent += `<button class="popup-btn" onclick="lockTree(${tree.id})">
+              popupContent += `<button class="popup-btn" onclick="lockTree(${data})">
                 <img class="lockpopup-icon" src="${lockIcon}" alt="Lock icon" />
                 → <img class="leaf--btn-icon" src="${leafIcon}" alt="Leaves" /> 
                 ${data.lock} 
@@ -159,13 +226,13 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
               }
             } else {
               // Si l'arbre a un autre propriétaire
-              popupContent += `<button class="popup-btn" onclick="buyTree(${tree.id})">
+              popupContent += `<button class="popup-btn" onclick="buyTree(${data})">
                 <img class="leaf--btn-icon" src="${leafIcon}" alt="Leaves" />${data.price}
               </button> </div>`;
             }
           } else {
             // Si l'arbre n'a pas de propriétaire
-            popupContent += `<div class="popup-btn-class"><button class="popup-btn" onclick="buyTree(${tree.id})">
+            popupContent += `<div class="popup-btn-class"><button class="popup-btn" onclick="buyTree(${data})">
               <img class="leaf--btn-icon" src="${leafIcon}" alt="Leaves" />${data.price}
             </button> </div> </div> </div>`;
             //TODO : Achat envoie ds le fetch -> le tree le owner l'achteur et le prix
@@ -186,8 +253,63 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
 
 
 
+  function buyTree(treeId) {
+    // Exemple de payload pour l'achat
+    const payload = {
+      Tree: {
+        IdTrees: treeId,
+        // Autres données nécessaires pour l'achat
+      },
+      User: {
+        // Données de l'utilisateur
+      }
+    };
 
+    fetch('/buytree', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Achat réussi:', data);
+      // Traiter la réponse
+    })
+    .catch(error => {
+      console.error('Erreur lors de l\'achat:', error);
+    });
+  }
 
+  function lockTree(treeId) {
+    // Exemple de payload pour le verrouillage
+    const payload = {
+      Tree: {
+        IdTrees: treeId,
+        // Autres données nécessaires pour le verrouillage
+      },
+      User: {
+        // Données de l'utilisateur
+      }
+    };
+
+    fetch('/locktree', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Verrouillage réussi:', data);
+      // Traiter la réponse
+    })
+    .catch(error => {
+      console.error('Erreur lors du verrouillage:', error);
+    });
+  }
 })};
 
 
