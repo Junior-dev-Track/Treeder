@@ -17,6 +17,8 @@ import NbTrees from '../components/NbTrees.jsx';
 import NbLeafs from '../components/NbLeafs.jsx';
 import NbLocks from '../components/NbLocks.jsx';
 
+import musicIcon from '../assets/img/butterfly.png';
+
 
 
 const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
@@ -67,6 +69,12 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
     }
   }
 
+
+  const audioRef = useRef(null);
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSongIndex, setCurrentSongIndex] = useState(1);
+
   const songs = [
     '/public/music/1.mp3',
     '/public/music/2.mp3',
@@ -85,9 +93,17 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
     '/public/music/15.mp3',
   ];
 
-  const audioRef = useRef(null); // Step 1: Create a reference to the audio element
 
-  const [currentSongIndex, setCurrentSongIndex] = useState(1);
+  const togglePlayPause = () => {
+    const audio = audioRef.current;
+    if (audio.paused) {
+      audio.play();
+      setIsPlaying(true);
+    } else {
+      audio.pause();
+      setIsPlaying(false);
+    }
+  };
 
   const nextSong = () => {
     setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
@@ -101,7 +117,34 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
     setCurrentSongIndex(newIndex);
   };
 
+  const adjustVolume = (volume) => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  };
+
+
   useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.src = `http://localhost:3000${songs[currentSongIndex]}`;
+      audio.load();
+      if (isPlaying) {
+        audio.play();
+      }
+    }
+  }, [currentSongIndex, isPlaying]);
+
+
+  function handleMouseOver() {
+    document.querySelector('.volume-bar').style.display = 'block';
+  }
+  
+  function handleMouseOut() {
+    document.querySelector('.volume-bar').style.display = 'none';
+  }
+ 
+  /*useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
       audio.src = `http://localhost:3000${songs[currentSongIndex]}`
@@ -109,7 +152,7 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
       audio.play()
     }
 //
-  }, [currentSongIndex]); // Re-run the effect if currentSongIndex or songs array changes
+  }, [currentSongIndex]); // Re-run the effect if currentSongIndex or songs array changes*/
 
 
   return (
@@ -159,7 +202,37 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
         <div className='footer'>
           <Logs logs={playerLogs}/>
           <SpotifyButton/>
-          <div>
+
+          <div className="audio-player round--btn round--btn__big" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+            <div className="audio-controls">
+              <div className="controlers">
+                <input
+                  type="range"
+                  className="volume-bar"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  defaultValue="1"
+                  onChange={(e) => adjustVolume(e.target.value)}
+                />
+              </div>
+              
+              <div className='btn--el'>
+                <button className="control-btn prev-btn" onClick={prevSong}>←</button>
+                <button className="play-pause-btn" onClick={togglePlayPause}>
+                  <img src={musicIcon} alt="Play/Pause" className='music-icon' style={{ display: isPlaying ? 'none' : 'inline' }} />
+                  <img src={musicIcon} alt="Play/Pause" className='music-icon' style={{ display: isPlaying ? 'inline' : 'none' }} />
+                  {/*{isPlaying ? 'Pause' : 'Play'}*/}
+                </button>
+                <button className="control-btn next-btn" onClick={nextSong}>→</button>
+              </div>
+             
+              
+            </div>
+            <audio ref={audioRef} onEnded={nextSong} />
+          </div>
+            
+          {/*<div>
             <div>
               <audio className="audio-player" controls autoPlay ref={audioRef} onEnded={nextSong}>
                 <source src={`http://localhost:3000${songs[currentSongIndex]}`} type="audio/mpeg"/>
@@ -171,7 +244,7 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
             </div>
             <button className="footer--previous" onClick={prevSong}>Previous</button>
             <button className="footer--next" onClick={nextSong}>Next</button>
-          </div>
+          </div>*/}
         </div>
 
 

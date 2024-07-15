@@ -1,0 +1,84 @@
+//Audio
+
+.audio-controls .volume-bar,
+.audio-controls .control-btn {
+  display: none;
+}
+
+.audio-controls:hover .control-btn {
+  display: block; 
+}
+
+.audio-controls:hover .volume-bar {
+  display: flex;
+}
+
+.controlers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: row;
+}
+
+.audio-player {
+    position: fixed;
+    right: 30px;
+}
+
+.play-pause-btn {
+    position: relative;
+  }
+
+
+.controlers .volume-bar {
+    position: absolute;
+    -webkit-appearance: none;
+    appearance: none;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: block;
+    width: 100px;
+    height: 8px;
+    border-radius: 40px;
+    background: $primary-color;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
+}
+
+.controlers .volume-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    background: $primary-color;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
+}
+
+.control-btn {
+    background-color: $primary-color;
+    color: $secondary-color;
+    padding: 10px;
+    border-radius: 100%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
+}
+
+.btn--el {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: row;
+}
+
+
+
+//responsive
+
+@media (min-width: 768px) {
+    .audio-player {
+        right: 40px;
+    }
+}
