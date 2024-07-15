@@ -18,6 +18,9 @@ const SettingsGamer = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessagePassword, setErrorMessagePassword] = useState('');
+  const [successMessage, setSuccessMessage] = useState ('')
 
   const navigate = useNavigate();
 
@@ -47,6 +50,7 @@ const SettingsGamer = () => {
   const handleSave = () => {
     if (password !== confirmPassword) {
       alert('Password and confirm password do not match!');
+      setErrorMessagePassword("Password and confirm password do not match!")
       return;
     }
 
@@ -81,10 +85,12 @@ const SettingsGamer = () => {
     })
     .then((data) => {
       console.log(data);
-      setModalIsOpen(false);
-      navigate('/');
+      // setModalIsOpen(false);
+      setSuccessMessage("User was successfully updated")
+      // navigate('/');
     })
     .catch((error) => console.error(error));
+    setErrorMessage("Couldn't save changes")
   };
 
 
@@ -111,6 +117,16 @@ const SettingsGamer = () => {
 
             <div className="settings-infos-container">
               <div className="settings-container-avatar">
+                {errorMessage !== "" && (
+                    <div className="error-message">
+                      {errorMessage}
+                    </div>
+                )}
+                {successMessage !== "" && (
+                    <div className="success-message">
+                      {successMessage}
+                    </div>
+                )}
                 <h3 className='avatar--title__small'>Avatars</h3>
                 <div className="settings-avatar">
                       <div className='avatar'>
@@ -200,6 +216,11 @@ const SettingsGamer = () => {
                     <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
                   </label>
                 </div>
+                {errorMessagePassword !== "" && (
+                    <div className="error-message">
+                      {errorMessagePassword}
+                    </div>
+                )}
               </div>
             </div>
 
