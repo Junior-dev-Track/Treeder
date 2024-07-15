@@ -47,7 +47,7 @@
   }
 }
 
-.adminuser-reset--btn {
+.user-reset--btn {
   background-color: $background-light-color;
   color: $green-color;
   border: 1px solid $green-color;
@@ -55,6 +55,11 @@
   border-radius: 30px;
   cursor: pointer;
   margin-top: 15px;
+  
+  &:hover {
+    background-color: $green-color;
+    color: $background-light-color;
+}
 }
 
 .adminuser--btn__right {
@@ -63,13 +68,19 @@
   gap: 15px;
 }
 
-.adminuser-save--btn {
+.user-save--btn {
   background-color: $green-color;
   color: $background-light-color;
-  border: none;
+  border: 1px solid $green-color;
   padding: 8px 20px;
   border-radius: 30px;
   cursor: pointer;
+
+  &:hover {
+    background-color: $background-light-color;
+    color: $green-color;
+    border: 1px solid $green-color;
+  }
 }
 
 .adminuser-cancel--btn {

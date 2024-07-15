@@ -106,7 +106,7 @@
     background-color: $green-color;
     color: white;
     padding: 6px 15px;
-    border: none;
+    border: 1px solid $green-color;
     border-radius: 40px;
     cursor: pointer;
 
@@ -128,7 +128,6 @@
   background-color: $background-light-color;
   padding: 5px 4px;
   font-family: $font-family;
-
 }
 
 

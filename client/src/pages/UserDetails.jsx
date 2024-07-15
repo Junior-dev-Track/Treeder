@@ -320,7 +320,7 @@ const UserDetails = ({}) => {
                         <p>Password</p>
                       </div>
                     </div>
-                        <button className="adminuser-reset--btn" onClick={handleResetPassword}>Reset Password</button>
+                        <button className="user-reset--btn" onClick={handleResetPassword}>Reset Password</button>
                 </div>
 
                 <div className="separation-bar"></div>
@@ -410,7 +410,7 @@ const UserDetails = ({}) => {
 
 
                     <div className="adminuser--btn__right">
-                        <button className="adminuser-save--btn" onClick={handleSave}>Save</button>
+                        <button className="user-save--btn" onClick={handleSave}>Save</button>
                         <button className="adminuser-cancel--btn" onClick={handleCancel}>Cancel</button>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { handleLogout as logout } from './Logout.jsx';
@@ -22,6 +22,8 @@ const AdminUsers = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState ('')
+
+  const tableRef = useRef(null);
 
 
   useEffect(() => {
@@ -55,12 +57,14 @@ const AdminUsers = () => {
   const [editedValues, setEditedValues] = useState({});
   const [editingField, setEditingField] = useState(null);
 
-  //console.log(users);
+
   const handleEditUser = (userId) => {
     const user = users.find((user) => user.IdUsers === userId);
     setEditingUser(userId);
     setEditedValues({ Pseudo: user.Pseudo, Mail: user.Mail });
   };
+
+
 
   const handleInputChange = (event) => {
     setEditedValues({ ...editedValues, [event.target.name]: event.target.value });
@@ -90,6 +94,7 @@ const handleSaveEdit = async (userId) => {
       }))
       setSuccessMessage("User was successfully edited")
       setEditingUser(null);
+      setEditedValues({});
     }
   } catch (error)  {
     console.log(error)
@@ -110,6 +115,24 @@ const handleSaveEdit = async (userId) => {
   const handleBack = () => {
     navigate('/', { state: { openAdminProfile: true } });
   };
+
+
+  useEffect(() => {
+    // Fonction pour vérifier si le clic est en dehors du tableau
+    const handleClickOutside = (event) => {
+      if (tableRef.current && !tableRef.current.contains(event.target)) {
+        setEditingUser(null); // Désactiver le mode édition
+      }
+    };
+
+    // Ajouter l'écouteur d'événements
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Nettoyer l'écouteur d'événements
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
 
   /*const handleProfile = () => {
@@ -176,14 +199,14 @@ const handleSaveEdit = async (userId) => {
               </div>
           )}
       <h2 className="adminuser--title">Users</h2>
-      <table className="table">
+      <table className="table adminuser-table" ref={tableRef}>
         <thead>
           <tr>
             <th className="th">ID</th>
             <th className="th">Avatar</th>
             <th className="th">Pseudo</th>
             <th className="th">Email</th>
-            <th className="th">Password</th>
+            <th className="th password-column">Password</th>
             <th className="th">Actions</th>
           </tr>
         </thead>
@@ -196,7 +219,7 @@ const handleSaveEdit = async (userId) => {
                 <img className={getAvatarClass(avatarUrl + user.SkinPlayer)} src={avatarUrl + user.SkinPlayer} alt="Avatar" />
               </div>
             </td>
-            <td className="td" onClick={() => {
+            <td className="td editable-cell" onClick={() => {
               setEditingUser(user.IdUsers);
               setEditingField('Pseudo');
               setEditedValues({Pseudo: user.Pseudo, Mail: user.Mail});
@@ -217,7 +240,7 @@ const handleSaveEdit = async (userId) => {
                 user.Pseudo
               )}
             </td>
-            <td className="td" onClick={() => {
+            <td className="td editable-cell" onClick={() => {
               setEditingUser(user.IdUsers);
               setEditingField('Mail');
               setEditedValues({Pseudo: user.Pseudo, Mail: user.Mail});
@@ -238,12 +261,12 @@ const handleSaveEdit = async (userId) => {
                 user.Mail
               )}
             </td>
-            <td className="td">
+            <td className="td password-column">
               <button className="adminuser-reset--btn" onClick={() => handleResetPassword(user.IdUsers)}>Reset Password</button>
             </td>
             <td className="td">
               {editingUser === user.IdUsers ? (
-                <button className="adminuser-save--btn" onClick={() => handleSaveEdit(user.IdUsers)}>Save</button>
+                <button className="adminuser-save--btn" onClick={() => handleSaveEdit(user.IdUsers) }>Save</button>
               ) : (
                 <>
                   <div className="adminuser--btn">

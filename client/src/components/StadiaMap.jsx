@@ -251,65 +251,6 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
     };
   }, [map, treeData, treeIcon, boughtTreeIcon]);
 
-
-
-  function buyTree(treeId) {
-    // Exemple de payload pour l'achat
-    const payload = {
-      Tree: {
-        IdTrees: treeId,
-        // Autres données nécessaires pour l'achat
-      },
-      User: {
-        // Données de l'utilisateur
-      }
-    };
-
-    fetch('/buytree', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Achat réussi:', data);
-      // Traiter la réponse
-    })
-    .catch(error => {
-      console.error('Erreur lors de l\'achat:', error);
-    });
-  }
-
-  function lockTree(treeId) {
-    // Exemple de payload pour le verrouillage
-    const payload = {
-      Tree: {
-        IdTrees: treeId,
-        // Autres données nécessaires pour le verrouillage
-      },
-      User: {
-        // Données de l'utilisateur
-      }
-    };
-
-    fetch('/locktree', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Verrouillage réussi:', data);
-      // Traiter la réponse
-    })
-    .catch(error => {
-      console.error('Erreur lors du verrouillage:', error);
-    });
-  }
 })};
 
 
