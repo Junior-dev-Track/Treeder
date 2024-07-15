@@ -11,14 +11,14 @@ const nameGenerator = require ("fantasy-name-generator")
 
 router.post('/',authenticateToken , async (req, res) => {
 
-    const { Tree, User } = req.body;
 
-    // Splitting the data into two different variables
-    let tree = Tree;
-    let user = User;
+    const data =  req.body;
+    const user = data[0].User;
+    const tree = data[0].Tree;
+
     let logBuy = null;
 
-    if(user.Leafs > tree.Price){
+    if(user.Leafs > Number(tree.Price)){
 
 
         let usersDB = new UserDB(new DataBase())
@@ -44,7 +44,6 @@ router.post('/',authenticateToken , async (req, res) => {
             await logsDB.insertLog(logPurchase);
         }else if(tree.Name === null) {
             tree.Name = nameGenerator.nameByRace("fairy", { gender: "female" });
-            console.log(tree.Name)
         }
 
         // Update the user's leafs
@@ -53,16 +52,15 @@ router.post('/',authenticateToken , async (req, res) => {
 
         // Change the owner of the tree
         tree.Owner = user.IdUsers;
-        console.log(tree.Owner)
         await treeDb.updateOwnerAndName(tree);
 
         // Add the logs
         await logsDB.insertLog(logBuy);
 
-        res.status(200).send(logBuy);
+        res.status(400).send(logBuy);
     }
     else {
-        res.status(400).send({message : "Not enough leaves"});
+        res.status(200).send({message : "Not enough leaves"});
     }
 
 

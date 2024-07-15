@@ -58,7 +58,7 @@ class treesController {
         const playerTrees = treeInRadius.filter(t => t.Owner !== null).reduce((sum, t) => sum + this.treeValue(t), 0);
 
         //[value of the tree] × 10 + ([value of all the trees in 100m radius] × [amount of players in 100m radius]) - ([value of all player's trees in 100m radius] / [amount of players in 100m radius])
-        return value + (playerTrees * amountPlayers) - (playerTrees / amountPlayers);
+        return Math.floor(value + (playerTrees * amountPlayers) - (playerTrees / amountPlayers));
     }
 
 }

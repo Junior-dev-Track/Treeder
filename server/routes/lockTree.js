@@ -14,9 +14,8 @@ router.post('/',authenticateToken , async (req, res) => {
     // Splitting the data into two different variables
     let tree = Tree;
     let user = User;
-
     let logLock = null;
-    if(user.Leafs > tree.LockPrice){
+    if(user.Leafs > Number(tree.LockPrice)){
 
 
         let usersDB = new UserDB(new DataBase())
@@ -26,7 +25,6 @@ router.post('/',authenticateToken , async (req, res) => {
 
         // Update the user's leafs
         user.Leafs -= tree.LockPrice;
-        console.log(user.Leafs)
         await usersDB.updateUserLeavesBalance(user.IdUsers, user.Leafs);
 
         // Change the state of the tree

@@ -20,6 +20,8 @@ import lockIcon from '../assets/img/nb-locks.png';
 const avatarUrl = 'http://localhost:3000/public/avatars/';
 const skinTreeUrl = 'http://localhost:3000/public/skins/';
 
+const token = localStorage.getItem('token');
+
 
 const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => {
   const map = useMap();
@@ -43,24 +45,28 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
   };
 
 
-  function buyTree(data) {
-    const payload = {
+  function buyTree(data, treeData) {
+
+    const payload = [{
       Tree: {
-        IdTrees: data.treeId,
-        Price: data.price,
-        Name: data.treeName,
-        Owner: data.owner
+        IdTrees: treeData.IdTrees,
+        Price: data,
+        Name: treeData.Name,
+        Owner: treeData.Owner
+
       },
       User: {
-        IdUsers: data.idusers,
-        Pseudo: data.pseudo,
-        Leafs: data.leafs
+        IdUsers: Cookies.get('idUser'),
+        Pseudo: Cookies.get('pseudo'),
+        Leafs: Cookies.get('leafs')
       }
-    };
-  
+    }];
+
+
     fetch('/buytree', {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
@@ -75,23 +81,24 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
   }
   
 
-  function lockTree(treeId) {
+  function lockTree(data, treeData) {
     const payload = {
       Tree: {
-        IdTrees: treeId,
-        LockPrice: lock,
-        Lock: 0
+        IdTrees: treeData.IdTrees,
+        LockPrice: data,
+        Lock: treeData.Lock
       },
       User: {
-        IdUsers: idusers,
-        Pseudo: pseudo,
-        Leafs: leafs
+        IdUsers: Cookies.get('idUser'),
+        Pseudo: Cookies.get('pseudo'),
+        Leafs: Cookies.get('leafs')
       }
     };
   
     fetch('/locktree', {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
@@ -104,10 +111,6 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
       console.error('Erreur lors du verrouillage:', error);
     });
   }
-
-  window.buyTree = buyTree;
-  window.lockTree = lockTree;
-
 
   useEffect(() => {
     if (!treeData) {
@@ -189,56 +192,57 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
           `;
             
             if (tree.Owner === Number(idusers)){
-              //TODO : data pr l'achat : {
-              //     "Tree":{
-              //             "IdTrees": 16,
-              //             "Price": 200,
-              //             "Name" : "Fossinel",
-              //             "Owner": null
-              //             },
-              //     "User":{
-              //             "IdUsers": 4,
-              //             "Pseudo": "Admin",
-              //             "Leafs": 140568
-              //     }
-              // }
-              // data pr le lock : {
-              //     "Tree":{
-              //             "IdTrees": 184,
-              //             "LockPrice": 10000,
-              //             "Lock": 0
-              //             },
-              //     "User":{
-              //             "IdUsers": 1,
-              //             "Pseudo": "Kriidfel",
-              //             "Leafs": 147348
-              //     }
-              // }
 
               // Si l'utilisateur actuel est le propriétaire de l'arbre
-              popupContent += `<button class="popup-btn" onclick="lockTree(${data})">
+              popupContent += `<button class="popup-btn lock-tree-btn" data-tree-id="${tree.IdTrees}" data-lock="${data.lock}">
                 <img class="lockpopup-icon" src="${lockIcon}" alt="Lock icon" />
                 → <img class="leaf--btn-icon" src="${leafIcon}" alt="Leaves" /> 
                 ${data.lock} 
               </button> </div>`;
-              if (tree.isLocked) {
+              if (tree.Locks) {
                 popupContent += `<img class="lockpopup-icon" src="${lockIcon}" alt="Locked" /> </div>`;
               }
             } else {
               // Si l'arbre a un autre propriétaire
-              popupContent += `<button class="popup-btn" onclick="buyTree(${data})">
+              console.log(tree)
+              popupContent += `<button class="popup-btn buy-tree-btn" data-tree-id="${tree.IdTrees}" data-price="${data.price}">
                 <img class="leaf--btn-icon" src="${leafIcon}" alt="Leaves" />${data.price}
               </button> </div>`;
+
             }
           } else {
             // Si l'arbre n'a pas de propriétaire
-            popupContent += `<div class="popup-btn-class"><button class="popup-btn" onclick="buyTree(${data})">
-              <img class="leaf--btn-icon" src="${leafIcon}" alt="Leaves" />${data.price}
+            console.log("pas de proprio " + tree)
+
+            popupContent += `<button class="popup-btn buy-tree-btn" data-tree-id="${tree.IdTrees}" data-price="${data.price}">              
+            <img class="leaf--btn-icon" src="${leafIcon}" alt="Leaves" />${data.price}
             </button> </div> </div> </div>`;
             //TODO : Achat envoie ds le fetch -> le tree le owner l'achteur et le prix
           }
 
           marker.getPopup().setContent(popupContent);
+
+          document.querySelectorAll('.buy-tree-btn').forEach(button => {
+            button.addEventListener('click', function() {
+              const treeId = this.getAttribute('data-tree-id');
+              const price = this.getAttribute('data-price');
+              const tree = treeData.find(t => t.IdTrees.toString() === treeId);
+              if (tree) {
+                console.log("buy", tree);
+                buyTree(price, tree);
+              } else {
+                console.log("Tree not found");
+              }
+            });
+          });
+          document.querySelectorAll('.lock-tree-btn').forEach(button => {
+            button.addEventListener('click', function() {
+              const treeId = this.getAttribute('data-tree-id');
+              const price = this.getAttribute('data-lock');
+              const tree = treeData.find(t => t.IdTrees.toString() === treeId);
+              lockTree(price , tree);
+            });
+          });
         });
     });
 
