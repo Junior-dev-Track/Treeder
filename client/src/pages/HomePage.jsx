@@ -166,7 +166,6 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
             </audio>
             <button className="footer--previous" onClick={prevSong}>Previous</button>
             <button className="footer--next" onClick={nextSong}>Next</button>
-            <span>song index : {currentSongIndex}</span>
           </div>
         </div>
 

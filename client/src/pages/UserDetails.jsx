@@ -28,9 +28,13 @@ const UserDetails = ({}) => {
 
   const [filteredLogs, setFilteredLogs] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState ('')
 
 
-  const token = localStorage.getItem('token');
+
+
+    const token = localStorage.getItem('token');
   if (!token) {
     console.log('Token not found');
     return;
@@ -90,10 +94,12 @@ const UserDetails = ({}) => {
   .then(data => {
     console.log('User updated successfully:', data);
     // Here you can update the local state or redirect the user
-      navigate(-1);
+      //navigate(-1);
+      setSuccessMessage("User was successfully edited")
   })
   .catch(error => {
     console.error('Error updating user:', error);
+      setErrorMessage("User could not be edited")
   });
 };
 
@@ -208,6 +214,17 @@ const UserDetails = ({}) => {
             <button className="adminuser--back" onClick={handleBack}>
               <img src={arrowIcon} alt="arrow back" style={{width: '24px', height: '24px'}} />Back
             </button>
+
+            {errorMessage !== "" && (
+                <div className="error-message">
+                    {errorMessage}
+                </div>
+            )}
+            {successMessage !== "" && (
+                <div className="success-message">
+                    {successMessage}
+                </div>
+            )}
 
             <div className="adminuser--topsection">
                 <h1>Profil - {pseudo}</h1>
