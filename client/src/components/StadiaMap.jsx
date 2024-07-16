@@ -193,15 +193,22 @@ const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => 
             
             if (tree.Owner === Number(idusers)){
 
+              if (tree.Locks) {
+                popupContent += `
+                <div class="lock-icon-wrapper">
+                  <img class="lockpopup-icon" src="${lockIcon}" alt="Locked" />
+                </div>
+               `;
+              } else {
+              
               // Si l'utilisateur actuel est le propriétaire de l'arbre
               popupContent += `<button class="popup-btn lock-tree-btn" data-tree-id="${tree.IdTrees}" data-lock="${data.lock}">
                 <img class="lockpopup-icon" src="${lockIcon}" alt="Lock icon" />
                 → <img class="leaf--btn-icon" src="${leafIcon}" alt="Leaves" /> 
                 ${data.lock} 
               </button> </div>`;
-              if (tree.Locks) {
-                popupContent += `<img class="lockpopup-icon" src="${lockIcon}" alt="Locked" /> </div>`;
               }
+              popupContent += `</div>`;
             } else {
               // Si l'arbre a un autre propriétaire
               console.log(tree)

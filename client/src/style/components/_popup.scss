@@ -97,6 +97,25 @@
   flex-wrap: wrap;
 }
 
+
+//lock
+
+.lock-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+}
+
+
+
 //avatars popup
 
 .rat-popup {
