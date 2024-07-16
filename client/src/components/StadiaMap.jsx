@@ -22,7 +22,6 @@ const skinTreeUrl = 'http://localhost:3000/public/skins/';
 
 const token = localStorage.getItem('token');
 
-
 const MarkerClusterGroupComponent = ({ treeData, treeIcon, boughtTreeIcon }) => {
   const map = useMap();
 
