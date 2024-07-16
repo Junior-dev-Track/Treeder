@@ -1,16 +1,21 @@
 //Audio
 
+
 .audio-controls .volume-bar,
 .audio-controls .control-btn {
-  display: none;
+  display: none; 
 }
 
+.audio-controls:hover .volume-bar,
 .audio-controls:hover .control-btn {
   display: block; 
 }
 
-.audio-controls:hover .volume-bar {
-  display: flex;
+.audio-controls {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
 }
 
 .controlers {
@@ -24,6 +29,11 @@
 .audio-player {
     position: fixed;
     right: 30px;
+    transition: transform 0.3s ease;
+}
+
+.audio-player:hover {
+    transform: translateX(-40px); 
 }
 
 .play-pause-btn {
@@ -31,11 +41,11 @@
   }
 
 
-.controlers .volume-bar {
+.volume-bar {
     position: absolute;
     -webkit-appearance: none;
     appearance: none;
-    bottom: 100%;
+    bottom: 115%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -47,15 +57,21 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
 }
 
-.controlers .volume-bar::-webkit-slider-thumb {
+.volume-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 15px;
     height: 15px;
     border-radius: 100%;
-    background: $primary-color;
+    background: $yellow-color;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
 }
+
+input[type=range]:focus {
+    outline: none;
+    border: none;
+}
+
 
 .control-btn {
     background-color: $primary-color;
@@ -69,7 +85,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
     flex-direction: row;
 }
 
