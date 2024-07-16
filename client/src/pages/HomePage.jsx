@@ -72,7 +72,8 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
 
   const audioRef = useRef(null);
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.5);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [currentSongIndex, setCurrentSongIndex] = useState(1);
 
   const songs = [
@@ -92,18 +93,6 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
     '/public/music/14.mp3',
     '/public/music/15.mp3',
   ];
-
-
-  const togglePlayPause = () => {
-    const audio = audioRef.current;
-    if (audio.paused) {
-      audio.play();
-      setIsPlaying(true);
-    } else {
-      audio.pause();
-      setIsPlaying(false);
-    }
-  };
 
   const nextSong = () => {
     setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
@@ -133,7 +122,23 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
         audio.play();
       }
     }
+    adjustVolume(0.5);
+    togglePlayPause();
   }, [currentSongIndex, isPlaying]);
+
+  
+  const togglePlayPause = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      if (audio.paused) {
+        audio.play().catch((error) => console.error("Erreur de lecture automatique:", error));
+        setIsPlaying(true);
+      } else {
+        audio.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
 
 
   function handleMouseOver() {
@@ -203,14 +208,15 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
           <Logs logs={playerLogs}/>
           <SpotifyButton/>
 
-          <div className="audio-player round--btn round--btn__big" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-            <div className="audio-controls">
+          <div className="audio-player round--btn round--btn__big">
+            <div className="audio-controls" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
               <div className="controlers">
                 <input
                   type="range"
                   className="volume-bar"
                   min="0"
                   max="1"
+                  value={volume}
                   step="0.01"
                   defaultValue="1"
                   onChange={(e) => adjustVolume(e.target.value)}
