@@ -43,7 +43,7 @@ const NbLeafs = () => {
 
   useEffect(() => {
     fetchNbLeafs(); 
-    const intervalId = setInterval(fetchNbLeafs, 15 * 60 * 1000); 
+    const intervalId = setInterval(fetchNbLeafs, 1 * 60 * 1000);
 
     return () => clearInterval(intervalId);
   }, []);

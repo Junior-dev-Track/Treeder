@@ -28,43 +28,53 @@ const App = () => {
 
 
   useEffect(() => {
-    const fetchTrees = fetch(`/trees`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        setTrees(data);
-      });
+    const fetchData = () => {
+      const fetchTrees = fetch(`/trees`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          setTrees(data);
+        });
 
-
-    const fetchLogs = fetch('/logsPlayer')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        setLogs(data);
-      });
+      const fetchLogs = fetch('/logsPlayer')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          setLogs(data);
+        });
 
       const fetchScore = fetch('/score')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        setScore(data);
-      });
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          setScore(data);
+        });
 
-  Promise.all([fetchTrees, fetchLogs, fetchScore ])
-    .catch(error => console.log('There was a problem with the fetch operation: ' + error.message));
-}, []);
+      Promise.all([fetchTrees, fetchLogs, fetchScore])
+        .catch(error => console.log('There was a problem with the fetch operation: ' + error.message));
+    };
+
+    // Call fetchData immediately to load initial data
+    fetchData();
+
+    // Set up the interval to call fetchData every 1 minute
+    const intervalId = setInterval(fetchData, 60000);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
 
 
   const openModal = (content) => {

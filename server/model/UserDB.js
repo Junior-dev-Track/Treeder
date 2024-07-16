@@ -126,6 +126,10 @@ class UserDB{
         // Execute the query with parameterized values to prevent SQL injection
         return !!(await this.dataBase.query(query, queryParams));
     }
+
+    async updateUserSkin(userData) {
+        return !!(await this.dataBase.query(`UPDATE Users SET SkinTrees = '${userData.SkinTrees}' WHERE IdUsers = '${userData.IdUsers}'`));
+    }
 }
 
 module.exports = UserDB;

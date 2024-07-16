@@ -34,6 +34,7 @@ export default defineConfig({
       '/treevalues': 'http://localhost:3000',
       '/locktree': 'http://localhost:3000',
       '/buytree': 'http://localhost:3000',
+      '/setskin': 'http://localhost:3000',
 
     },
   },

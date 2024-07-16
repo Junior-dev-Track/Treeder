@@ -14,7 +14,7 @@ import * as refresh from "../utils/Refresh";
 
 const ProfilGamer = ({ isOpen, setIsOpen }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [skin, setSelectedSkin] = useState('tree.png');
+  const [skin, setSelectedSkin] = useState(Cookies.get('skintrees'));
   const [playerData, setPlayerData] = useState({});
 
   const avatarUrl = 'http://localhost:3000/public/avatars/' + Cookies.get('skinplayer');
@@ -78,6 +78,31 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
     }
 
 
+  function setSkin(skinName) {
+    setSelectedSkin(skinName);
+
+    fetch('/setskin', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({IdUsers: Cookies.get("idUser") , SkinTrees: skinName }),
+    })
+      .then((response) => {
+        if (response.status === 401) {
+          //if the token is expired call a function to send the refresh token and get a new acces token
+          console.log('Token expired');
+          refresh.tokenExpired();
+          return;
+        }
+        return response.json();
+      })
+        .then(() => {
+            Cookies.set('skintrees', skinName);
+        })
+    }
+
   return (
     <div>
       <ProfilModal isOpen={modalIsOpen} onRequestClose={() => {setModalIsOpen(false); setIsOpen(false);}}>
@@ -106,63 +131,63 @@ const ProfilGamer = ({ isOpen, setIsOpen }) => {
 
             <div className='skins--infos'>
             <div className='avatar'>
-              <div className={`skin--img  ${skin === 'tree.png' ? 'selected' : ''}`}>
+              <div className={`skin--img  ${skin === 'tree-own.png' ? 'selected' : ''}`}>
                 <img
                   src="http://localhost:3000/public/skins/tree.png"
                   alt="Avatar tree"
                   className="tree-avatar"
-                  onClick={() => setSelectedSkin('tree.png')}
+                  onClick={() => setSkin('tree-own.png')}
                 />
               </div>
-              <p style={{ fontWeight: skin === 'tree.png' ? 'bold' : 'normal' }}>Default</p>
+              <p style={{ fontWeight: skin === 'tree-own.png' ? 'bold' : 'normal' }}>Default</p>
             </div>
 
             <div className='avatar'>
-              <div className={`skin--img ${skin === 'tree-1.png' ? 'selected' : ''}`}>
+              <div className={`skin--img ${skin === 'tree-1-own.png' ? 'selected' : ''}`}>
                 <img
                   src="http://localhost:3000/public/skins/tree-1.png"
                   alt="Avatar tree"
                   className="tree-1-avatar"
-                  onClick={() => setSelectedSkin('tree-1.png')}
+                  onClick={() => setSkin('tree-1-own.png')}
                 />
               </div>
-              <p style={{ fontWeight: skin === 'tree-1.png' ? 'bold' : 'normal' }}>Skin 1</p>
+              <p style={{ fontWeight: skin === 'tree-1-own.png' ? 'bold' : 'normal' }}>Skin 1</p>
             </div>
 
             <div className='avatar'>
-              <div className={`skin--img ${skin === 'tree-2.png' ? 'selected' : ''}`}>
+              <div className={`skin--img ${skin === 'tree-2-own.png' ? 'selected' : ''}`}>
                 <img
                   src="http://localhost:3000/public/skins/tree-2.png"
                   alt="Avatar tree"
                   className="tree-2-avatar"
-                  onClick={() => setSelectedSkin('tree-2.png')}
+                  onClick={() => setSkin('tree-2-own.png')}
                 />
               </div>
               <p style={{ fontWeight: skin === 'tree-2.png' ? 'bold' : 'normal' }}>Skin 2</p>
             </div>
 
             <div className='avatar'>
-              <div className={`skin--img ${skin === 'tree-3.png' ? 'selected' : ''}`}>
+              <div className={`skin--img ${skin === 'tree-3-own.png' ? 'selected' : ''}`}>
                 <img
                   src="http://localhost:3000/public/skins/tree-3.png"
                   alt="Avatar tree"
                   className="tree-3-avatar"
-                  onClick={() => setSelectedSkin('tree-3.png')}
+                  onClick={() => setSkin('tree-3-own.png')}
                 />
               </div>
-              <p style={{ fontWeight: skin === 'tree-3.png' ? 'bold' : 'normal' }}>Skin 3</p>
+              <p style={{ fontWeight: skin === 'tree-3-own.png' ? 'bold' : 'normal' }}>Skin 3</p>
             </div>
 
             <div className='avatar'>
-              <div className={`skin--img ${skin === 'tree-5.png' ? 'selected' : ''}`}>
+              <div className={`skin--img ${skin === 'tree-5-own.png' ? 'selected' : ''}`}>
                 <img
                   src="http://localhost:3000/public/skins/tree-5.png"
                   alt="Avatar tree"
                   className="tree-4-avatar"
-                  onClick={() => setSelectedSkin('tree-5.png')}
+                  onClick={() => setSkin('tree-5-own.png')}
                 />
               </div>
-              <p style={{ fontWeight: skin === 'tree-5.png' ? 'bold' : 'normal' }}>Shiny</p>
+              <p style={{ fontWeight: skin === 'tree-5-own.png' ? 'bold' : 'normal' }}>Shiny</p>
             </div>
 
 
