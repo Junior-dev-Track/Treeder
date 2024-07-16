@@ -64,7 +64,7 @@ class UserDB{
 
 
     async getUserDatas(dataUser) {
-        console.log(dataUser)
+
     return await this.dataBase.query(`
         SELECT
             Users.IdUsers,
@@ -74,7 +74,7 @@ class UserDB{
             Users.SkinPlayer,
             Users.SkinTrees,
             Users.Admin,
-            COUNT(DISTINCT Trees.Owner) AS NbTrees
+            COUNT(Trees.Owner) AS NbTrees
         FROM Users
                  LEFT JOIN Trees ON Users.IdUsers = Trees.Owner
         WHERE Users.IdUsers = '${dataUser.IdUsers}'

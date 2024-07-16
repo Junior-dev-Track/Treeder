@@ -13,6 +13,7 @@ router.get('/',authenticateToken, async (req, res) => {
 
     let rawUsers = await usersDB.getUserDatas(userData);
     let logs = await logsDB.getLogForOneUser(userData);
+    console.log(rawUsers)
 
     let users = rawUsers.map(user => {
         return {

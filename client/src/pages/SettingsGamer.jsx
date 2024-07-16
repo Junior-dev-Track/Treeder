@@ -38,6 +38,7 @@ const SettingsGamer = () => {
 
     if (email) {
       setEmail(email);
+      console.log(email)
       Cookies.set('mail', email);
     }
 
@@ -85,12 +86,18 @@ const SettingsGamer = () => {
     })
     .then((data) => {
       console.log(data);
-      // setModalIsOpen(false);
+
+      Cookies.set('pseudo', pseudo);
+      Cookies.set('mail', email);
+      Cookies.set('skinplayer', avatar);
       setSuccessMessage("User was successfully updated")
       // navigate('/');
     })
-    .catch((error) => console.error(error));
-    setErrorMessage("Couldn't save changes")
+    .catch((error) => {
+      console.error(error)
+      setErrorMessage("Couldn't save changes")
+    });
+
   };
 
 
@@ -100,15 +107,15 @@ const SettingsGamer = () => {
         <img className='settings-icon' src={settingsIcon} alt="Settings" />
       </button>
 
-      <ProfilModal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} >
+      <ProfilModal isOpen={modalIsOpen} onRequestClose={() => {setModalIsOpen(false); setSuccessMessage('');}} >
         <div className="settings-page">
           <div className='settings-container'>
-            <button className='close-btn' onClick={() => setModalIsOpen(false)}>
+            <button className='close-btn' onClick={() => {setModalIsOpen(false); setSuccessMessage('');}}>
               <img className='close-icon' src={closeIcon} alt="Close" />
             </button>
 
             <div className="settings--header">
-              <button className="settings--btn-back" onClick={() => setModalIsOpen(false)}>
+              <button className="settings--btn-back" onClick={() => {setModalIsOpen(false); setSuccessMessage('');}}>
                 <img className='arrow-icon' src={arrowIcon} alt="arrow back"/>Back
               </button>
 
@@ -226,7 +233,7 @@ const SettingsGamer = () => {
 
             <div className="settings--btn">
               <button className="primary--btn settings-primary--btn" onClick={handleSave}>Save</button>
-              <button className="secondary--btn settings-secondary--btn" onClick={() => setModalIsOpen(false)}>Cancel</button>
+              <button className="secondary--btn settings-secondary--btn" onClick={() => {setModalIsOpen(false); setSuccessMessage('');}}>Cancel</button>
             </div>
           </div>
         </div>

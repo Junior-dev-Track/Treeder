@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
     }
 
     // verifier la force du mdp
-    let regex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+    let regex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,64}$");
     if (!dataUser.Password.trim().match(regex)) {
         return res.status(400).send({message:"Password must contain a lowercase and uppercase letter, a number and one of the following character : #?!@$%^&*-", type:"password" });
     }

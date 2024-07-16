@@ -26,13 +26,7 @@ const AdminUsers = () => {
   const tableRef = useRef(null);
 
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.log('Token not found');
-      return;
-    }
-
+  const getUsers = async () => {
     fetch('/alluser', {
       method: 'GET',
       headers: {
@@ -43,13 +37,25 @@ const AdminUsers = () => {
         Pseudo: Cookies.get('pseudo'),
       }
     })
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      setUsers(data);
-    })
-    .catch((error) => console.error(error));
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          setUsers(data);
+        })
+        .catch((error) => console.error(error));
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('Token not found');
+      return;
+    }
+
+    getUsers();
+
+
   }, []);
 
 
@@ -93,6 +99,7 @@ const handleSaveEdit = async (userId) => {
         return user;
       }))
       setSuccessMessage("User was successfully edited")
+      getUsers();
       setEditingUser(null);
       setEditedValues({});
     }
