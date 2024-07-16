@@ -114,17 +114,37 @@ const HomePage = ({ openModal, treeData, playerLogs, scoreData }) => {
 
 
   useEffect(() => {
-    const audio = audioRef.current;
-    if (audio) {
-      audio.src = `http://localhost:3000${songs[currentSongIndex]}`;
-      audio.load();
-      if (isPlaying) {
-        audio.play();
-      }
+  const audio = audioRef.current;
+  if (!audio) return;
+
+  const playAudio = async () => {
+    try {
+      await audio.play();
+      setIsPlaying(true);
+    } catch (error) {
+      console.error("Error playing audio:", error);
+      setIsPlaying(false);
     }
-    adjustVolume(0.5);
-    togglePlayPause();
-  }, [currentSongIndex, isPlaying]);
+  };
+
+  const pauseAudio = () => {
+    audio.pause();
+    setIsPlaying(false);
+  };
+
+  audio.src = `http://localhost:3000${songs[currentSongIndex]}`;
+  audio.load();
+
+  if (isPlaying) {
+    playAudio();
+  } else {
+    pauseAudio();
+  }
+
+  // Adjust volume
+  adjustVolume(volume);
+
+}, [currentSongIndex, isPlaying, volume]);
 
   
   const togglePlayPause = () => {
